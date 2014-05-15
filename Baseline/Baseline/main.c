@@ -23,14 +23,17 @@
 // Function declarations
 _declspec (dllexport) int32_t determine_baseline(uint16_t adValues[], 
 	const int32_t size, const int32_t threshold, double *baseline);
-bool inRange(const int32_t threshold, int16_t value);
+bool inRange(const int32_t threshold, double value);
 
 _declspec (dllexport) int32_t determine_baseline(uint16_t adValues[], 
 	const int32_t size, const int32_t threshold, double *baseline)
 {
 	// Declare variables
 	int32_t i;
-	int16_t difference_points;
+	double sum = 0;
+	double average;
+	double difference_average;
+	double difference_points;
 
 	// Make sure it is likely we have enough points to calculate the baseline
 	if (size < 50)
@@ -41,8 +44,21 @@ _declspec (dllexport) int32_t determine_baseline(uint16_t adValues[],
 	// previous element
 	for (i = 1; i < size; i++)
 	{
+		// Calculate the average
+		// Should go before threshold check, otherwise last element is not
+		// included in baseline
+		sum += adValues[i - 1];
+		average = sum / i;
+
+		// Determine difference between average and current point
+		difference_average = (double) adValues[i] - average;
+
+		// Use the threshold for deviation from the average
+		if (!inRange(threshold, difference_average))
+			break;
+		
 		// Determine difference between current and previous point
-		difference_points = (signed int) adValues[i] - adValues[i - 1];
+		difference_points = (double) adValues[i] - adValues[i - 1];
 
 		// Make sure separate points are within the double threshold
 		if (!inRange((threshold * 2), difference_points))
@@ -52,7 +68,7 @@ _declspec (dllexport) int32_t determine_baseline(uint16_t adValues[],
 	// We need at least fifty points to accurately determine baseline
 	if (i >= 50)
 	{
-		*baseline = 10.0;
+		*baseline = average;
 		return 0;
 	}
 	else
@@ -66,7 +82,7 @@ _declspec (dllexport) int32_t determine_baseline(uint16_t adValues[],
  */
 
 bool
-inRange(const int32_t threshold, int16_t value)
+inRange(const int32_t threshold, double value)
 {
 	if (threshold >= value && value >= (-threshold))
 		return true;
