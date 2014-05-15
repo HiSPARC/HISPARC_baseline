@@ -34,7 +34,7 @@ _declspec (dllexport) int32_t determine_baseline(uint16_t adValues[],
 
 	// Make sure it is likely we have enough points to calculate the baseline
 	if (size < 50)
-		return (5001);
+		return (-5001);
 	
 	// Go through all elements of the array
 	// Start with second element (1) because we need to compare it to a 
@@ -44,8 +44,8 @@ _declspec (dllexport) int32_t determine_baseline(uint16_t adValues[],
 		// Determine difference between current and previous point
 		difference_points = (signed int) adValues[i] - adValues[i - 1];
 
-		// Make sure points are within the threshold
-		if (!inRange(threshold, difference_points))
+		// Make sure separate points are within the double threshold
+		if (!inRange((threshold * 2), difference_points))
 			break;
 	};
 
@@ -56,7 +56,7 @@ _declspec (dllexport) int32_t determine_baseline(uint16_t adValues[],
 		return 0;
 	}
 	else
-		return (5002);
+		return (-5002);
 }
 
 /*
