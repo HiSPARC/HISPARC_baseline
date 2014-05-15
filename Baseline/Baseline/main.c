@@ -20,13 +20,13 @@
 #include "extcode.h"
 
 // Function declarations
-int32_t determine_baseline(uint16_t adValues[], const int32_t size,
-	const int32_t threshold, double *baseline);
+_declspec (dllexport) int32_t determine_baseline(uint16_t adValues[], 
+	const int32_t size, const int32_t threshold, double *baseline);
 
-int32_t determine_baseline(uint16_t adValues[], const int32_t size,
-	const int32_t threshold, double *baseline)
+_declspec (dllexport) int32_t determine_baseline(uint16_t adValues[], 
+	const int32_t size, const int32_t threshold, double *baseline)
 {
-
-	/* Insert code here */
-
+	// Make sure it is likely we have enough points to calculate the baseline
+	if (size < 50)
+		return (5001);
 }
