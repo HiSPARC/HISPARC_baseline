@@ -6,7 +6,7 @@
  *						array of value's up to the start of a significant
  *						spike.
  *
- *			 Version:	0.1
+ *			 Version:	0.9
  *			 Created:	14-05-2014 16:20:23
  *
  *			  Author:	Jorian van Oostenbrugge (jorianvo)
@@ -32,8 +32,8 @@ _declspec (dllexport) int32_t determine_baseline(uint16_t adValues[],
 	int32_t i;
 	double sum = 0;
 	double average;
-	double difference_average;
-	double difference_points;
+	double differenceFromAverage;
+	double differenceInPoints;
 
 	// Make sure it is likely we have enough points to calculate the baseline
 	if (size < 50)
@@ -51,17 +51,17 @@ _declspec (dllexport) int32_t determine_baseline(uint16_t adValues[],
 		average = sum / i;
 
 		// Determine difference between average and current point
-		difference_average = (double) adValues[i] - average;
+		differenceFromAverage = (double) adValues[i] - average;
 
-		// Use the threshold for deviation from the average
-		if (!inRange(threshold, difference_average))
+		// Deviaton from average should fall within threshold
+		if (!inRange(threshold, differenceFromAverage))
 			break;
 		
 		// Determine difference between current and previous point
-		difference_points = (double) adValues[i] - adValues[i - 1];
+		differenceInPoints = (double) adValues[i] - adValues[i - 1];
 
 		// Make sure separate points are within the double threshold
-		if (!inRange((threshold * 2), difference_points))
+		if (!inRange((threshold * 2), differenceInPoints))
 			break;
 	};
 
@@ -79,6 +79,7 @@ _declspec (dllexport) int32_t determine_baseline(uint16_t adValues[],
  * Check if a value lies within the absolute value of the supplied threshold
  * i.e. more than the negative value of the threshold and less than the
  * positive value of the threshold
+ *
  */
 
 bool

@@ -1,5 +1,5 @@
-﻿Build started 5/15/2014 4:26:27 PM.
-     1>Project "C:\Users\SuperUser\Documents\HiSparc\Filter\C\project\Baseline\Baseline\Baseline.vcxproj" on node 2 (Build target(s)).
+﻿Build started 5/16/2014 11:09:00 AM.
+     1>Project "C:\Users\SuperUser\Documents\HiSparc\Filter\C\project\Baseline\Baseline\Baseline.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
          C:\Program Files\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Ot /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D BASELINE_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt main.c
          main.c
@@ -10,8 +10,8 @@
          Generating code
          Finished generating code
          Baseline.vcxproj -> C:\Users\SuperUser\Documents\HiSparc\Filter\C\project\Baseline\Release\Baseline.dll
-     1>Done Building Project "C:\Users\SuperUser\Documents\HiSparc\Filter\C\project\Baseline\Baseline\Baseline.vcxproj" (Build target(s)).
+     1>Done Building Project "C:\Users\SuperUser\Documents\HiSparc\Filter\C\project\Baseline\Baseline\Baseline.vcxproj" (Rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.73
+Time Elapsed 00:00:00.50
