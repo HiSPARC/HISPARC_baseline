@@ -61,21 +61,17 @@ average(int begin, int end, int array[10], int size)
 int
 runningAverage(int start, int end, int array[], int size)
 {
-    if (average(start, end, array, size) >= average(start + WIDTH, end + WIDTH, array, size))
-    {
-        start += WIDTH;
-        end += WIDTH;
+    if (average(start, end, array, size) < average(start + WIDTH, end + WIDTH, array, size))
+        return start;
 
-        // DEBUGGING
-        printf("=======================\n");
-        printf("start = %i\n", start);
-        printf("end = %i\n", end);
-        printf("=======================\n");
-        
-        runningAverage(start, end, array, size);
-    }
+    start += WIDTH;
+    end += WIDTH;
 
     // DEBUGGING
+    printf("=======================\n");
     printf("start = %i\n", start);
-    return start;
+    printf("end = %i\n", end);
+    printf("=======================\n");
+        
+    return runningAverage(start, end, array, size);
 }
