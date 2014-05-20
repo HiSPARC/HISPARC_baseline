@@ -27,10 +27,10 @@ int runningAverage(int start, int end, int array[], int size);
 int
 main (void)
 {
-    int array[15] = {550,516,534,531,599,577,543,480,453,419,400,371,356,332,
-                       200};
+    int array[16] = {150,216,234,531,599,577,543,480,453,419,400,371,356,332,
+                       500, 240};
 
-    printf("The number is [%i]\n", runningAverage(0, WIDTH, array, 15));
+    printf("The number is [%i]\n", runningAverage(0, WIDTH, array, 16));
 }
 
 double
@@ -47,6 +47,13 @@ average(int begin, int end, int array[], int size)
 
     average = sum / WIDTH;
     
+    // DEBUGGING
+    printf("====================\n");
+    printf("begin = %i\n", begin);
+    printf("end = %i\n", end);
+    printf("average = %.4f\n", average);
+    printf("====================\n");
+
     return (average);
 }
 
