@@ -27,7 +27,7 @@ int runningAverage(int start, int end, int array[], int size);
 int
 main (void)
 {
-    int array[15] = {250,316,434,531,599,577,543,480,453,419,400,371,356,332,
+    int array[15] = {550,516,534,531,599,577,543,480,453,419,400,371,356,332,
                        200};
     int start;
 
@@ -67,7 +67,7 @@ runningAverage(int start, int end, int array[], int size)
 {
     if (average(start, end, array, size) < average(start + WIDTH, end + WIDTH, array, size))
         return (start);
-    else if ((end + WIDTH) == (size - 1))
+    else if ((end + WIDTH) == size)
     {
         // We reached end of array and we know this average is the lowest
         // so we return the starting point of the final sequence
