@@ -19,6 +19,7 @@
 #include <stdio.h>
 
 #define WIDTH 8
+#define SIZE 14
 
 // Declare functions
 double average(int begin, int end, int array[], int size);
@@ -27,10 +28,9 @@ int runningAverage(int start, int end, int array[], int size);
 int
 main (void)
 {
-    int array[16] = {150,216,234,531,599,577,543,480,453,419,400,371,356,332,
-                       500, 240};
+    int array[SIZE] = {150,216,234,531,599,577,543,480,453,419,400,371,356,332};
 
-    printf("The number is [%i]\n", runningAverage(0, WIDTH, array, 16));
+    printf("The number is [%i]\n", runningAverage(0, WIDTH, array, SIZE));
 }
 
 double
