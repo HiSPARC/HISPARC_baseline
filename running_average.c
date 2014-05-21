@@ -7,7 +7,7 @@
  *                  to determine the average even if we have to few points
  *                  before the spike
  *
- *        Version:  1.0
+ *        Version:  2.0
  *        Created:  16-05-2014 15:06:53
  *       Compiler:  gcc
  *
@@ -18,23 +18,62 @@
 
 #include <stdio.h>
 
-#define WIDTH 8
+#define WIDTH 4
 #define SIZE 14
 
 // Declare functions
-double average(int begin, int end, int array[], int size);
+double average(int begin, int end, int array[]);
 int runningAverage(int start, int end, int array[], int size);
+struct sequence calculateProperties(int begin, int end, int array[], int size);
+
+// Declare struct
+struct sequence
+{
+    double average;
+    double stdev;
+};
 
 int
 main (void)
 {
     int array[SIZE] = {150,216,234,531,599,577,543,480,453,419,400,371,356,332};
 
-    printf("The number is [%i]\n", runningAverage(0, WIDTH, array, SIZE));
+    // TESTING
+    struct sequence currentSequence;
+    currentSequence = calculateProperties(0, WIDTH, array, SIZE);
+
+    printf("Properties of array:\n");
+    printf("- average = %.4f\n", currentSequence.average);
+    printf("- standard deviation = %.4f\n", currentSequence.stdev);
 }
 
+
+/* 
+ * Calculate properties of array: average of elements from begin to end and
+ * the standard deviation and return a struct with these properties
+ */
+
+struct sequence
+calculateProperties(int begin, int end, int array[], int size)
+{
+    struct sequence properties;
+    
+    // Calculate average of array
+    properties.average = average(begin, end, array);
+
+    // DEBUGGING
+    properties.stdev = 42.0;
+
+    return properties;
+}
+
+
+/*
+ * Calcuate the average of the elements of array[] from begin to end
+ */
+
 double
-average(int begin, int end, int array[], int size)
+average(int begin, int end, int array[])
 {
     double sum = 0;
     double average;
@@ -47,16 +86,10 @@ average(int begin, int end, int array[], int size)
 
     average = sum / WIDTH;
     
-    // DEBUGGING
-    printf("====================\n");
-    printf("begin = %i\n", begin);
-    printf("end = %i\n", end);
-    printf("average = %.4f\n", average);
-    printf("====================\n");
-
     return (average);
 }
 
+// DO NOT NEED RIGHT NOW
 int
 runningAverage(int start, int end, int array[], int size)
 {
@@ -79,7 +112,7 @@ runningAverage(int start, int end, int array[], int size)
         // Array exactly size of sequence
         return start;
     }
-    else if (average(start, end, array, size) < average(nextStart, nextEnd, array, size))
+    else if (average(start, end, array) < average(nextStart, nextEnd, array))
     {
         // The current sequence has a lower average than the next so return
         return (start);
