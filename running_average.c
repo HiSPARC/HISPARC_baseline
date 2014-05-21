@@ -17,21 +17,24 @@
  */
 
 #include <stdio.h>
+#include <math.h>
 
-#define WIDTH 4
+#define WIDTH 14
 #define SIZE 14
 
 // Declare functions
 double average(int begin, int end, int array[]);
 int runningAverage(int start, int end, int array[], int size);
 struct sequence calculateProperties(int begin, int end, int array[], int size);
+double stdev(int begin, int end, int array[], const double average);
 
-// Declare struct
+// Declare struct to hold array properties
 struct sequence
 {
     double average;
     double stdev;
 };
+
 
 int
 main (void)
@@ -44,7 +47,7 @@ main (void)
 
     printf("Properties of array:\n");
     printf("- average = %.4f\n", currentSequence.average);
-    printf("- standard deviation = %.4f\n", currentSequence.stdev);
+    printf("- standard deviation = %.7f\n", currentSequence.stdev);
 }
 
 
@@ -61,8 +64,8 @@ calculateProperties(int begin, int end, int array[], int size)
     // Calculate average of array
     properties.average = average(begin, end, array);
 
-    // DEBUGGING
-    properties.stdev = 42.0;
+    // Calculate sample standard deviation of array
+    properties.stdev = stdev(begin, end, array, properties.average);
 
     return properties;
 }
@@ -88,6 +91,35 @@ average(int begin, int end, int array[])
     
     return (average);
 }
+
+
+/* 
+ * Calculate the standard deviation of the elements of array[] from 
+ * begin to end using average
+ */
+
+double
+stdev(int begin, int end, int array[], const double average)
+{
+    double total = 0;
+    double variance;
+    double stdev;
+
+    // Calculate the variance
+    for (int i = begin; i < end; i++)
+    {
+        // Calculate sum of squares
+        total += pow((array[i] - average), 2.0);
+    }
+    
+    // Average sum of squares
+    variance = total / WIDTH;
+
+    stdev = sqrt(variance);
+
+    return (stdev);
+}
+
 
 // DO NOT NEED RIGHT NOW
 int
