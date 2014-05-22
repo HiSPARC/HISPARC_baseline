@@ -20,8 +20,8 @@
 #include <math.h>
 #include <limits.h>
 
-#define WIDTH 8
-#define SIZE 40
+#define WIDTH 6
+#define SIZE 12
 #define LIMIT 3
 #define MAXAVERAGE 245
 
@@ -42,9 +42,8 @@ struct sequence
 int
 main (void)
 {
-    int array[SIZE] = {1, 2, 7, 15, 7, 2, 3, 1, 1, 11, 1, 1, 1, 1, 1, 1, 1, 1, 
-                       1, 1, 30, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                       1, 1, 1, 0};
+    int array[SIZE] = {200, 200, 200, 200, 209, 200, 253, 253, 253, 253, 253, 
+                       253};
                
     printf("Value = %i\n", runningAverage(0, WIDTH, array, SIZE));
 }
