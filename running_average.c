@@ -18,10 +18,12 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <limits.h>
 
 #define WIDTH 8
 #define SIZE 40
 #define LIMIT 3
+#define MAXAVERAGE 245
 
 // Declare functions
 double average(int begin, int end, int array[]);
@@ -41,8 +43,8 @@ int
 main (void)
 {
     int array[SIZE] = {1, 2, 7, 15, 7, 2, 3, 1, 1, 11, 1, 1, 1, 1, 1, 1, 1, 1, 
-                       1, 1, 30, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 2,
-                       1, 1, 1};
+                       1, 1, 30, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                       1, 1, 1, 0};
                
     printf("Value = %i\n", runningAverage(0, WIDTH, array, SIZE));
 }
@@ -144,29 +146,53 @@ runningAverage(int start, int end, int array[], int size)
     if (end == size)
     {
         // Array exactly size of sequence
-        return start;
+        // if it falls below limits return start else return error
+        if (currentSequence.average < MAXAVERAGE && 
+              currentSequence.stdev < LIMIT)
+            return start;
+        else
+            return (INT_MAX);
     }
     else if (currentSequence.stdev < LIMIT)
     {
-         if (currentSequence.stdev < nextSequence.stdev)
-         {
-             // A lower stdev i.e. a smoother line is more important than a low
-             // average so return
-             return (start);
-         }
-         else if (currentSequence.stdev == nextSequence.stdev)
-         {
-             if (currentSequence.average < nextSequence.average)
-             {
-                 return (start);
-             }
-         }
+        // stdev falls within limit so first check if theere is no overflow
+        if (currentSequence.average < MAXAVERAGE && 
+            nextSequence.average < MAXAVERAGE)
+        {
+            if (currentSequence.stdev < nextSequence.stdev)
+            {
+                // A lower stdev i.e. a smoother line is more important than a 
+                // low average so return
+                return (start);
+            }
+            else if (currentSequence.stdev == nextSequence.stdev)
+            {
+                // Because both stdevs are equal we want the lowest average
+                if (currentSequence.average < nextSequence.average)
+                    return (start);
+            }
+        }
+        else if (nextSequence.average > MAXAVERAGE && nextEnd == size)
+        {
+            // as it happens the very last sequence containing the end of the
+            // array has an overflow so if the current sequence is good return
+            // it else return error INT_MAX
+            if (currentSequence.average < MAXAVERAGE)
+                return (start);
+            else
+                return (INT_MAX);
+        }
     }
     else if (nextEnd == size)
     {
         // A whole number of sequences fits in the array and the last sequence 
-        // is the lowest so we return the starting point of the final sequence
-        return (nextStart);
+        // looks like the best baseline, so if it falls below all limits return
+        // the startvalue else return error
+        if (nextSequence.average < MAXAVERAGE &&
+              nextSequence.stdev < LIMIT)
+            return (nextStart);
+        else
+            return (INT_MAX);
     }
 
     start += WIDTH;
