@@ -20,8 +20,8 @@
 #include <math.h>
 #include <limits.h>
 
-#define WIDTH 6
-#define SIZE 12
+#define WIDTH 4
+#define SIZE 7
 #define LIMIT 3
 #define MAXAVERAGE 245
 
@@ -42,8 +42,7 @@ struct sequence
 int
 main (void)
 {
-    int array[SIZE] = {200, 200, 200, 200, 209, 200, 253, 253, 253, 253, 253, 
-                       253};
+    int array[SIZE] = {1, 2, 1, 1, 1, 10, 10};
                
     printf("Value = %i\n", runningAverage(0, WIDTH, array, SIZE));
 }
@@ -171,15 +170,20 @@ runningAverage(int start, int end, int array[], int size)
                     return (start);
             }
         }
-        else if (nextSequence.average > MAXAVERAGE && nextEnd == size)
+        else if (nextSequence.average > MAXAVERAGE)
         {
-            // as it happens the very last sequence containing the end of the
-            // array has an overflow so if the current sequence is good return
-            // it else return error INT_MAX
-            if (currentSequence.average < MAXAVERAGE)
-                return (start);
-            else
-                return (INT_MAX);
+            // encountered an overflow if this is the last sequence of the
+            // array return an error INT_MAX because all preceeding
+            // sequences also had problems else if it is not the end of the
+            // array go on because chances are great we comes across a better
+            // sequence
+            if (nextEnd == size)
+            {
+                if (currentSequence.average < MAXAVERAGE)
+                    return (start);
+                else
+                    return (INT_MAX);
+            }
         }
     }
     else if (nextEnd == size)
