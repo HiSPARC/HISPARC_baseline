@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#define WIDTH 14
+#define WIDTH 7
 #define SIZE 14
 
 // Declare functions
@@ -39,15 +39,9 @@ struct sequence
 int
 main (void)
 {
-    int array[SIZE] = {150,216,234,531,599,577,543,480,453,419,400,371,356,332};
-
-    // TESTING
-    struct sequence currentSequence;
-    currentSequence = calculateProperties(0, WIDTH, array, SIZE);
-
-    printf("Properties of array:\n");
-    printf("- average = %.4f\n", currentSequence.average);
-    printf("- standard deviation = %.7f\n", currentSequence.stdev);
+    int array[SIZE] = {2, 2, 3, 4, 3, 2, 2, -1, -1, -3, -6, -3, -1, -1};
+               
+    printf("Value = %i\n", runningAverage(0, WIDTH, array, SIZE));
 }
 
 
@@ -126,6 +120,7 @@ int
 runningAverage(int start, int end, int array[], int size)
 {
     int nextStart, nextEnd;
+    struct sequence currentSequence, nextSequence;
 
     // Do not exceed array
     if ((end + WIDTH) > size)
@@ -139,15 +134,27 @@ runningAverage(int start, int end, int array[], int size)
         nextEnd = end + WIDTH;
     }
 
+    // set sequences
+    currentSequence = calculateProperties(start, end, array, SIZE);
+    nextSequence = calculateProperties(nextStart, nextEnd, array, SIZE);
+
     if (end == size)
     {
         // Array exactly size of sequence
         return start;
     }
-    else if (average(start, end, array) < average(nextStart, nextEnd, array))
+    else if (currentSequence.stdev < nextSequence.stdev)
     {
-        // The current sequence has a lower average than the next so return
+        // A lower stdev i.e. a smoother line is more important than a low
+        // average so return
         return (start);
+    }
+    else if (currentSequence.stdev == nextSequence.stdev)
+    {
+        if (currentSequence.average < nextSequence.average)
+        {
+            return (start);
+        }
     }
     else if (nextEnd == size)
     {
