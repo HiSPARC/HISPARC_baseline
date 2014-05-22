@@ -19,8 +19,9 @@
 #include <stdio.h>
 #include <math.h>
 
-#define WIDTH 7
-#define SIZE 14
+#define WIDTH 8
+#define SIZE 40
+#define LIMIT 3
 
 // Declare functions
 double average(int begin, int end, int array[]);
@@ -39,7 +40,9 @@ struct sequence
 int
 main (void)
 {
-    int array[SIZE] = {2, 2, 3, 4, 3, 2, 2, -1, -1, -3, -6, -3, -1, -1};
+    int array[SIZE] = {1, 2, 7, 15, 7, 2, 3, 1, 1, 11, 1, 1, 1, 1, 1, 1, 1, 1, 
+                       1, 1, 30, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 2,
+                       1, 1, 1};
                
     printf("Value = %i\n", runningAverage(0, WIDTH, array, SIZE));
 }
@@ -143,18 +146,21 @@ runningAverage(int start, int end, int array[], int size)
         // Array exactly size of sequence
         return start;
     }
-    else if (currentSequence.stdev < nextSequence.stdev)
+    else if (currentSequence.stdev < LIMIT)
     {
-        // A lower stdev i.e. a smoother line is more important than a low
-        // average so return
-        return (start);
-    }
-    else if (currentSequence.stdev == nextSequence.stdev)
-    {
-        if (currentSequence.average < nextSequence.average)
-        {
-            return (start);
-        }
+         if (currentSequence.stdev < nextSequence.stdev)
+         {
+             // A lower stdev i.e. a smoother line is more important than a low
+             // average so return
+             return (start);
+         }
+         else if (currentSequence.stdev == nextSequence.stdev)
+         {
+             if (currentSequence.average < nextSequence.average)
+             {
+                 return (start);
+             }
+         }
     }
     else if (nextEnd == size)
     {
