@@ -22,7 +22,7 @@
 
 #define WIDTH 100
 #define SIZE 269
-#define LIMIT 3
+#define STDEVLIMIT 10
 #define MAXAVERAGE 245
 
 // Declare functions
@@ -137,14 +137,22 @@ stdev(int begin, int end, int array[], const double average)
 }
 
 
-// DO NOT NEED RIGHT NOW
+/*
+ * Determine the starting point for determining the baseline the start in
+ * combination with the end define the width of the "sequence" i.e. an array
+ * which starts at start and ends at end - 1. This function compares two
+ * such sequences and stop until it finds a sequence with a smoother baseline
+ * compared to the next sequence. If the exists no such sequence an error
+ * with value INT_MAX is returned
+ */
+
 int
 runningAverage(int start, int end, int array[], int size)
 {
     int nextStart, nextEnd;
     struct sequence currentSequence, nextSequence;
 
-    // Do not exceed array
+    // Do not exceed array else shift sequence back to fall exactly in array
     if ((end + WIDTH) > size)
     {
         nextStart = (start + WIDTH) - ((end + WIDTH) - size);
@@ -156,23 +164,24 @@ runningAverage(int start, int end, int array[], int size)
         nextEnd = end + WIDTH;
     }
 
-    // set sequences
+    // Set sequences
     currentSequence = calculateProperties(start, end, array, SIZE);
     nextSequence = calculateProperties(nextStart, nextEnd, array, SIZE);
 
+    // Base cases i.e. when to end the recursion
     if (end == size)
     {
         // Array exactly size of sequence
         // if it falls below limits return start else return error
         if (currentSequence.average < MAXAVERAGE && 
-              currentSequence.stdev < LIMIT)
+              currentSequence.stdev < STDEVLIMIT)
             return start;
         else
             return (INT_MAX);
     }
-    else if (currentSequence.stdev < LIMIT)
+    else if (currentSequence.stdev < STDEVLIMIT)
     {
-        // stdev falls within limit so first check if theere is no overflow
+        // Stdev falls within limit so first check if theere is no saturation
         if (currentSequence.average < MAXAVERAGE && 
             nextSequence.average < MAXAVERAGE)
         {
@@ -191,8 +200,8 @@ runningAverage(int start, int end, int array[], int size)
         }
         else if (nextSequence.average > MAXAVERAGE)
         {
-            // encountered an overflow if this is the last sequence of the
-            // array return an error INT_MAX because all preceeding
+            // Encountered saturation of the adc if this is the last sequence 
+            // of the array return an error INT_MAX because all preceeding
             // sequences also had problems else if it is not the end of the
             // array go on because chances are great we comes across a better
             // sequence
@@ -211,7 +220,7 @@ runningAverage(int start, int end, int array[], int size)
         // looks like the best baseline, so if it falls below all limits return
         // the startvalue else return error
         if (nextSequence.average < MAXAVERAGE &&
-              nextSequence.stdev < LIMIT)
+              nextSequence.stdev < STDEVLIMIT)
             return (nextStart);
         else
             return (INT_MAX);
