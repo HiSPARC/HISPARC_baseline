@@ -22,6 +22,8 @@
 #ifndef _SEQUENCE_H
 #define _SEQUENCE_H
 
+#define WIDTH 100
+
 // Declare struct to hold array properties
 struct sequence
 {
@@ -31,19 +33,21 @@ struct sequence
 
 /*
  * Calculate properties of array: average of elements from begin to end and
- * the standard deviation and return a struct with these properties
+ * the standard deviation and return a struct with these properties.
  */
-struct sequence calculateProperties(int begin, int end, int array[], int size);
+struct sequence calculateProperties(int begin, int end, int array[], const int size);
 
 /*
- * Calcuate the average of the elements of array[] from begin to end
+ * Calcuate the average of the elements of array[] from begin to end. If begin
+ * or end fall out of bounds return DBL_MAX
  */
-double average(int begin, int end, int array[]);
+double average(int begin, int end, int array[], const int size);
 
 /*
  * Calculate the standard deviation of the elements of array[] from
- * begin to end using average
+ * begin to end using average. If begin or end falls out of bounds 
+ * return DBL_MAX
  */
-double stdev(int begin, int end, int array[], const double average);
+double stdev(int begin, int end, int array[], const double average, const int size);
 
 #endif
