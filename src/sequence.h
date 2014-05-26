@@ -38,8 +38,8 @@ struct sequence
 struct sequence calculateProperties(int begin, int end, int array[], const int size);
 
 /*
- * Calcuate the average of the elements of array[] from begin to end. If begin
- * or end fall out of bounds return DBL_MAX
+ * Calcuate the average of the elements of array[] from begin to end (not including end).
+ * If begin or end fall out of bounds return DBL_MAX
  */
 double average(int begin, int end, int array[], const int size);
 

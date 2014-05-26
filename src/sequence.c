@@ -21,27 +21,29 @@
 #include <math.h>
 #include <float.h>
 
+#include "sequence.h"
+
 /*
  * Calculate properties of array: average of elements from begin to end and
  * the standard deviation and return a struct with these properties
  */
 struct sequence
-calculateProperties(int begin, int end, int array[], int size)
+calculateProperties(int begin, int end, int array[], const int size)
 {
     struct sequence properties;
     
     // Calculate average of array
-    properties.average = average(begin, end, array);
+    properties.average = average(begin, end, array, size);
     
     // Calculate sample standard deviation of array
-    properties.stdev = stdev(begin, end, array, properties.average);
+    properties.stdev = stdev(begin, end, array, properties.average, size);
     
     return properties;
 }
 
 /*
- * Calcuate the average of the elements of array[] from begin to end. If begin
- * or end fall out of bounds return DBL_MAX
+ * Calcuate the average of the elements of array[] from begin to end (not including end). 
+ * If begin or end fall out of bounds return DBL_MAX
  */
 double
 average(int begin, int end, int array[], const int size)
@@ -50,7 +52,7 @@ average(int begin, int end, int array[], const int size)
     double average;
     
     // Do not exceed array
-    if (begin < 0 || end >= size)
+    if (begin < 0 || end > size)
     {
         return DBL_MAX;
     }
