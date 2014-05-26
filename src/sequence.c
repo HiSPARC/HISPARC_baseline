@@ -54,6 +54,8 @@ average(int begin, int end, int array[], const int size)
     {
         return DBL_MAX;
     }
+    else if (begin == end)
+        return DBL_MAX;
     
     // Calculate the average
     for (int i = begin; i < end; i++)
@@ -83,6 +85,8 @@ stdev(int begin, int end, int array[], const double average, const int size)
     {
         return DBL_MAX;
     }
+    else if (begin == end)
+        return DBL_MAX;
     
     // Calculate the variance
     for (int i = begin; i < end; i++)
