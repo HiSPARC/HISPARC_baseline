@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <limits.h>
+#include "sequence.h"
 
 #define WIDTH 100
 #define SIZE 1934
@@ -26,18 +27,7 @@
 #define MAXAVERAGE 245
 
 // Declare functions
-double average(int begin, int end, int array[]);
 int runningAverage(int start, int end, int array[], int size);
-struct sequence calculateProperties(int begin, int end, int array[], int size);
-double stdev(int begin, int end, int array[], const double average);
-
-// Declare struct to hold array properties
-struct sequence
-{
-    double average;
-    double stdev;
-};
-
 
 int
 main (void)
@@ -184,77 +174,6 @@ main (void)
                
     printf("Value = %i\n", runningAverage(0, WIDTH, array, SIZE));
 }
-
-
-/* 
- * Calculate properties of array: average of elements from begin to end and
- * the standard deviation and return a struct with these properties
- */
-
-struct sequence
-calculateProperties(int begin, int end, int array[], int size)
-{
-    struct sequence properties;
-    
-    // Calculate average of array
-    properties.average = average(begin, end, array);
-
-    // Calculate sample standard deviation of array
-    properties.stdev = stdev(begin, end, array, properties.average);
-
-    return properties;
-}
-
-
-/*
- * Calcuate the average of the elements of array[] from begin to end
- */
-
-double
-average(int begin, int end, int array[])
-{
-    double sum = 0;
-    double average;
-    
-    // Calculate the average
-    for (int i = begin; i < end; i++)
-    {
-        sum += array[i];
-    }
-
-    average = sum / WIDTH;
-    
-    return (average);
-}
-
-
-/* 
- * Calculate the standard deviation of the elements of array[] from 
- * begin to end using average
- */
-
-double
-stdev(int begin, int end, int array[], const double average)
-{
-    double total = 0;
-    double variance;
-    double stdev;
-
-    // Calculate the variance
-    for (int i = begin; i < end; i++)
-    {
-        // Calculate sum of squares
-        total += pow((array[i] - average), 2.0);
-    }
-    
-    // Average sum of squares
-    variance = total / WIDTH;
-
-    stdev = sqrt(variance);
-
-    return (stdev);
-}
-
 
 /*
  * Determine the starting point for determining the baseline the start in
