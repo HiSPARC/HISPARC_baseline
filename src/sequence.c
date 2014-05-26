@@ -83,7 +83,7 @@ stdev(int begin, int end, int array[], const double average, const int size)
     double stdev;
     
     // Do not exceed array
-    if (begin < 0 || end >= size)
+    if (begin < 0 || end > size)
     {
         return DBL_MAX;
     }
