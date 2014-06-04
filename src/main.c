@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <limits.h>
+#include <stdbool.h>
 #include "sequence.h"
 
 #define WIDTH 100
@@ -27,6 +28,7 @@
 #define MAXAVERAGE 245
 
 // Declare functions
+bool inRange(const int threshold, double value);
 int compareSequences(int start, int end, int array[], int size);
 
 int
@@ -176,6 +178,20 @@ main (void)
 }
 
 /*
+ * Check if a value lies within the absolute value of the supplied threshold
+ * i.e. more than the negative value of the threshold and less than the
+ * positive value of the threshold
+ */
+bool
+inRange(const int threshold, double value)
+{
+	if (threshold >= value && value >= (-threshold))
+		return true;
+	else
+		return false;
+}
+
+/*
  * Determine the starting point for determining the baseline the start in
  * combination with the end define the width of the "sequence" i.e. an array
  * which starts at start and ends at end - 1. This function compares two
@@ -183,7 +199,6 @@ main (void)
  * compared to the next sequence. If the exists no such sequence an error
  * with value INT_MAX is returned
  */
-
 int
 compareSequences(int start, int end, int array[], int size)
 {
