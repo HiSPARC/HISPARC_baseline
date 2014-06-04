@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <float.h>
+#include <limits.h>
 
 #include "sequence.h"
 
@@ -114,26 +115,35 @@ stdev(int begin, int end, int array[], const double average, const int size)
  * with value INT_MAX is returned
  */
 int
-compareSequences(int start, int end, int array[], int size)
+compareSequences(int start, int end, int array[], const int size, const int width)
 {
     int nextStart, nextEnd;
     struct sequence currentSequence, nextSequence;
     
-    // Do not exceed array else shift sequence back to fall exactly in array
-    if ((end + WIDTH) > size)
+    // Do not exceed array else if possible shift sequence back to fall exactly
+    // in array
+    if (start < 0 || end > size)
+        return (INT_MAX);
+    else if ((end + width) > size)
     {
-        nextStart = (start + WIDTH) - ((end + WIDTH) - size);
+        nextStart = (start + width) - ((end + width) - size);
         nextEnd = size;
     }
     else
     {
-        nextStart = start + WIDTH;
-        nextEnd = end + WIDTH;
+        nextStart = start + width;
+        nextEnd = end + width;
     }
     
     // Set sequences
-    currentSequence = calculateProperties(start, end, array, SIZE);
-    nextSequence = calculateProperties(nextStart, nextEnd, array, SIZE);
+    currentSequence = calculateProperties(start, end, array, size);
+    nextSequence = calculateProperties(nextStart, nextEnd, array, size);
+    
+    printf("----------------------\n");
+    printf("- start = %i\n- end = %i\n- average = %f\n- stdev = %f\n", start, end, currentSequence.average, currentSequence.stdev);
+    printf("======================\n");
+    printf("- Nstart = %i\n- Nend = %i\n- Naverage = %f\n- Nstdev = %f\n", nextStart, nextEnd, nextSequence.average, nextSequence.stdev);
+    printf("----------------------\n");
     
     // Base cases i.e. when to end the recursion
     if (end == size)
@@ -156,6 +166,7 @@ compareSequences(int start, int end, int array[], int size)
             {
                 // A lower stdev i.e. a smoother line is more important than a
                 // low average so return
+                printf("bye...%i\n", start);
                 return (start);
             }
             else if (currentSequence.stdev == nextSequence.stdev)
@@ -163,6 +174,12 @@ compareSequences(int start, int end, int array[], int size)
                 // Because both stdevs are equal we want the lowest average
                 if (currentSequence.average < nextSequence.average)
                     return (start);
+            }
+            else if (nextEnd == size)
+            {
+                // nextSequence has lower stdev and is the last sequence so return
+                printf("Returned!...%i\n", nextStart);
+                return (nextStart);
             }
         }
         else if (nextSequence.average > MAXAVERAGE)
@@ -185,7 +202,7 @@ compareSequences(int start, int end, int array[], int size)
     {
         // A whole number of sequences fits in the array and the last sequence
         // looks like the best baseline, so if it falls below all limits return
-        // the startvalue else return error
+        // the start value else return error
         if (nextSequence.average < MAXAVERAGE &&
             nextSequence.stdev < STDEVLIMIT)
             return (nextStart);
@@ -193,8 +210,8 @@ compareSequences(int start, int end, int array[], int size)
             return (INT_MAX);
     }
     
-    start += WIDTH;
-    end += WIDTH;
+    start += width;
+    end += width;
     
-    return (compareSequences(start, end, array, size));
+    return (compareSequences(start, end, array, size, width));
 }
