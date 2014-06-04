@@ -139,12 +139,6 @@ compareSequences(int start, int end, int array[], const int size, const int widt
     currentSequence = calculateProperties(start, end, array, size);
     nextSequence = calculateProperties(nextStart, nextEnd, array, size);
     
-    printf("----------------------\n");
-    printf("- start = %i\n- end = %i\n- average = %f\n- stdev = %f\n", start, end, currentSequence.average, currentSequence.stdev);
-    printf("======================\n");
-    printf("- Nstart = %i\n- Nend = %i\n- Naverage = %f\n- Nstdev = %f\n", nextStart, nextEnd, nextSequence.average, nextSequence.stdev);
-    printf("----------------------\n");
-    
     // Base cases i.e. when to end the recursion
     if (end == size)
     {
@@ -166,7 +160,6 @@ compareSequences(int start, int end, int array[], const int size, const int widt
             {
                 // A lower stdev i.e. a smoother line is more important than a
                 // low average so return
-                printf("bye...%i\n", start);
                 return (start);
             }
             else if (currentSequence.stdev == nextSequence.stdev)
@@ -178,7 +171,6 @@ compareSequences(int start, int end, int array[], const int size, const int widt
             else if (nextEnd == size)
             {
                 // nextSequence has lower stdev and is the last sequence so return
-                printf("Returned!...%i\n", nextStart);
                 return (nextStart);
             }
         }
