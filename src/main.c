@@ -27,7 +27,7 @@
 #define MAXAVERAGE 245
 
 // Declare functions
-int runningAverage(int start, int end, int array[], int size);
+int compareSequences(int start, int end, int array[], int size);
 
 int
 main (void)
@@ -172,7 +172,7 @@ main (void)
         198,202,197,204,198,201,199,201,199,200,197,203,196,202,
         197,200,198,198,198,199};
                
-    printf("Value = %i\n", runningAverage(0, WIDTH, array, SIZE));
+    printf("Value = %i\n", compareSequences(0, WIDTH, array, SIZE));
 }
 
 /*
@@ -185,7 +185,7 @@ main (void)
  */
 
 int
-runningAverage(int start, int end, int array[], int size)
+compareSequences(int start, int end, int array[], int size)
 {
     int nextStart, nextEnd;
     struct sequence currentSequence, nextSequence;
@@ -267,5 +267,5 @@ runningAverage(int start, int end, int array[], int size)
     start += WIDTH;
     end += WIDTH;
 
-    return (runningAverage(start, end, array, size));
+    return (compareSequences(start, end, array, size));
 }
