@@ -22,7 +22,8 @@
 #ifndef _SEQUENCE_H
 #define _SEQUENCE_H
 
-#define WIDTH 100
+#define STDEVLIMIT 3
+#define MAXAVERAGE 245
 
 // Declare struct to hold array properties
 struct sequence
@@ -58,6 +59,6 @@ double stdev(int begin, int end, int array[], const double average, const int si
  * compared to the next sequence. If the exists no such sequence an error
  * with value INT_MAX is returned
  */
-int compareSequences(int start, int end, int array[], int size);
+int compareSequences(int start, int end, int array[], const int size, const int width);
 
 #endif
