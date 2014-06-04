@@ -42,7 +42,7 @@ static char * testWrongEnd()
     return 0;
 }
 
-// Test shifting
+// Test shifting of sequence to fit array
 static char * testShift()
 {
     mu_assert("error, the shifting isn't working a it should", shift == 110);
@@ -88,13 +88,10 @@ main(void)
     // Compare two sequences until the end of the array is reached
     compare = compareSequences(0, 100, array, 300, 100);
     
-    printf("\n|-----------------------NEXT----------------------|\n\n");
-    
     // Set the end on purpose much to high
     wrongEnd = compareSequences(0, 400, array, 300, 400);
     
-    printf("\n|-----------------------NEXT----------------------|\n\n");
-    
+    // Set width to such a number that we need to shift the end
     shift = compareSequences(0, 110, array, 300, 110);
     
     // Run tests
