@@ -3,7 +3,9 @@
  *
  *       Filename:  test-average.c
  *
- *    Description:  Just testing minunit framework
+ *    Description:  A testing module to test the the outcome of the average 
+ *                  function defined in '../../src/sequence.c' agianst known
+ *                  value's
  *
  *        Version:  1.0
  *        Created:  21-05-2014 14:34:29
