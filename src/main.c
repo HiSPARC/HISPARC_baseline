@@ -225,7 +225,8 @@ calculateBaseline(int start, int end, int array[], int size, const int threshold
         return (-5001);
     
     // Itereate over each element in the array
-    // Start with second element (i = 1) because we need to compare it to a previous element
+    // Start with second element (start + 1) because we need to compare it to a previous element
+    // We want exactly 'end - start' elements so end at end + 1
     for (i = (start + 1); i < (end + 1); i++)
     {
         // Calculate the average up to i.e. not including the current element
@@ -251,8 +252,6 @@ calculateBaseline(int start, int end, int array[], int size, const int threshold
 			break;
     }
     
-    printf("stop = %i\n", end);
-    
     // IF we have enough points to calculate the baseline set pointer to
     // baseline value and quit
     if ((i - start) >= 50)
@@ -261,9 +260,7 @@ calculateBaseline(int start, int end, int array[], int size, const int threshold
         return 0;
     }
     else
-    {
         return (-2);
-    }
 }
 
 /*
