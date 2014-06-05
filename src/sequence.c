@@ -109,10 +109,13 @@ stdev(int begin, int end, int array[], const double average, const int size)
 /*
  * Determine the starting point for determining the baseline. The start in
  * combination with the end define the width of the "sequence" i.e. an array
- * which starts at start and ends at end - 1. This function compares two
+ * which starts at start and ends at end - 1. The width is also an argument itself
+ * to avoid calculating it eacht time. This function compares two
  * such sequences and stop until it finds a sequence with a smoother baseline
  * compared to the next sequence. If there exists no such sequence an error
- * with value INT_MAX is returned
+ * with value INT_MAX is returned. For normal usage the width should be equal
+ * to the end when the function is first called. If they are not equal, we could either
+ * miss elements or get an overlap of sequences.
  */
 int
 compareSequences(int start, int end, int array[], const int size, const int width)
