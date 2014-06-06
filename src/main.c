@@ -26,6 +26,9 @@
 #define STDEVLIMIT 3
 #define MAXAVERAGE 245
 
+// Hold the average
+double gAverage;
+
 // Declare functions
 bool inRange(const int threshold, double value);
 int calculateBaseline(int start, int end, int array[], int size, const int threshold);
@@ -176,7 +179,8 @@ main (void)
         198,201,199,201,199,200,197,203,196,202,197,200,198,198,
         198,199};
     
-    printf("Return = %i\n", findBaseline(0, 100, nextArray, 1952, 10, 100));
+    findBaseline(0, 100, nextArray, 1952, 10, 100);
+    printf("Found average = %f\n", gAverage);
 }
 
 int
@@ -268,6 +272,7 @@ calculateBaseline(int start, int end, int array[], int size, const int threshold
     // failed
     if ((i - start) >= 50)
     {
+        gAverage = average;
         return (-1);
     }
     else
