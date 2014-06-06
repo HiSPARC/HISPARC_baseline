@@ -123,6 +123,8 @@ compareSequences(int start, int end, int array[], const int size, const int widt
     // in array
     if (start < 0 || end > size)
         return (INT_MAX);
+    else if (start == end)
+        return (INT_MAX);
     else if ((end + width) > size)
     {
         nextStart = (start + width) - ((end + width) - size);
@@ -138,33 +140,37 @@ compareSequences(int start, int end, int array[], const int size, const int widt
     currentSequence = calculateProperties(start, end, array, size);
     nextSequence = calculateProperties(nextStart, nextEnd, array, size);
     
+    // Get average and stdev
+    double cuAverage = currentSequence.average;
+    double neAverage = nextSequence.average;
+    double cuStdev = currentSequence.stdev;
+    double neStdev = nextSequence.stdev;
+    
     // Base cases i.e. when to end the recursion
     if (end == size)
     {
         // Array exactly size of sequence
         // if it falls below limits return start else return error
-        if (currentSequence.average < MAXAVERAGE &&
-            currentSequence.stdev < STDEVLIMIT)
+        if (cuAverage < MAXAVERAGE && cuStdev < STDEVLIMIT)
             return start;
         else
             return (INT_MAX);
     }
-    else if (currentSequence.stdev < STDEVLIMIT)
+    else if (cuStdev < STDEVLIMIT)
     {
         // Stdev falls within limit so first check if theere is no saturation
-        if (currentSequence.average < MAXAVERAGE &&
-            nextSequence.average < MAXAVERAGE)
+        if (cuAverage < MAXAVERAGE && neAverage < MAXAVERAGE)
         {
-            if (currentSequence.stdev < nextSequence.stdev)
+            if (cuStdev < neStdev)
             {
                 // A lower stdev i.e. a smoother line is more important than a
                 // low average so return
                 return (start);
             }
-            else if (currentSequence.stdev == nextSequence.stdev)
+            else if (cuStdev == neStdev)
             {
                 // Because both stdevs are equal we want the lowest average
-                if (currentSequence.average < nextSequence.average)
+                if (cuAverage < neAverage)
                     return (start);
             }
             else if (nextEnd == size)
@@ -173,7 +179,7 @@ compareSequences(int start, int end, int array[], const int size, const int widt
                 return (nextStart);
             }
         }
-        else if (nextSequence.average > MAXAVERAGE)
+        else if (neAverage > MAXAVERAGE)
         {
             // Encountered saturation of the adc if this is the last sequence
             // of the array return an error INT_MAX because all preceeding
@@ -182,7 +188,7 @@ compareSequences(int start, int end, int array[], const int size, const int widt
             // sequence
             if (nextEnd == size)
             {
-                if (currentSequence.average < MAXAVERAGE)
+                if (cuAverage < MAXAVERAGE)
                     return (start);
                 else
                     return (INT_MAX);
@@ -194,8 +200,7 @@ compareSequences(int start, int end, int array[], const int size, const int widt
         // A whole number of sequences fits in the array and the last sequence
         // looks like the best baseline, so if it falls below all limits return
         // the start value else return error
-        if (nextSequence.average < MAXAVERAGE &&
-            nextSequence.stdev < STDEVLIMIT)
+        if (neAverage < MAXAVERAGE && neStdev < STDEVLIMIT)
             return (nextStart);
         else
             return (INT_MAX);
