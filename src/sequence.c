@@ -54,9 +54,7 @@ average(int begin, int end, int array[], const int size)
     
     // Do not exceed array
     if (begin < 0 || end > size)
-    {
         return DBL_MAX;
-    }
     else if (begin == end)
         return DBL_MAX;
     
@@ -85,9 +83,7 @@ stdev(int begin, int end, int array[], const double average, const int size)
     
     // Do not exceed array
     if (begin < 0 || end > size)
-    {
         return DBL_MAX;
-    }
     else if (begin == end)
         return DBL_MAX;
     
