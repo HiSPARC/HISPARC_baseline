@@ -189,8 +189,6 @@ findBaseline(int start, int end, int array[], const int size, const int threshol
     // Try to calculate the baseline starting from start
     int startOfError = calculateBaseline(start, end, array, size, threshold);
     
-    printf("start of error = %i\n", startOfError);
-    
     // Found baseline so quit else everything below -1 signifies error so return error
     if (startOfError == -1)
         return 0;
@@ -237,21 +235,16 @@ calculateBaseline(int start, int end, int array[], int size, const int threshold
     else if ((end - start) < 50)
         return (-5003);
     
-    printf("--------START----------\n");
-    printf("start array = %i\n", array[start]);
-    
     // Itereate over each element in the array
     // Start with second element (start + 1) because we need to compare it to a previous element
     // We want exactly 'end - start' elements so end at end + 1
     for (i = (start + 1); i < (end + 1); i++)
     {
-        printf("[%i] = %i\n", i, array[i]);
         // Calculate the average up to i.e. not including the current element
 		// Should go before threshold check, otherwise last element is not
 		// included in baseline
         sum += array[i - 1];
         average = sum / (i - start);
-        printf("average = %f\n", average);
         
         // Determine difference between average and current point
         // Should go before difference between current point and previous point
@@ -270,18 +263,11 @@ calculateBaseline(int start, int end, int array[], int size, const int threshold
 			break;
     }
     
-    printf("array end = %i\n", array[i-1]);
-    printf("--------END--------\n");
-    
     // IF we have enough points to calculate the baseline set pointer to
     // baseline value and return (-1) else return element were calculating
     // failed
     if ((i - start) >= 50)
     {
-        printf("=============\n");
-        printf("start = %i\nend = %i\n", start, end);
-        printf("average = %.7f\n", average);
-        printf("=============\n");
         return (-1);
     }
     else
