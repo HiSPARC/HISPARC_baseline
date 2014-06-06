@@ -176,7 +176,7 @@ main (void)
         198,201,199,201,199,200,197,203,196,202,197,200,198,198,
         198,199};
     
-    printf("Return = %i\n", findBaseline(0, 100, nextArray, 1952, 10, -100));
+    printf("Return = %i\n", findBaseline(0, 100, nextArray, 1952, 10, 100));
 }
 
 int
