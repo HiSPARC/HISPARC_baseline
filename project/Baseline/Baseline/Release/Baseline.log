@@ -1,17 +1,17 @@
-﻿Build started 5/16/2014 11:09:00 AM.
-     1>Project "C:\Users\SuperUser\Documents\HiSparc\Filter\C\project\Baseline\Baseline\Baseline.vcxproj" on node 2 (Rebuild target(s)).
+﻿Build started 6/6/2014 5:10:32 PM.
+     1>Project "C:\Users\SuperUser\Documents\HiSparc\HISPARC_baseline\project\Baseline\Baseline\Baseline.vcxproj" on node 2 (Rebuild target(s)).
+     1>C:\Program Files\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppClean.targets(76,5): warning : Access to the path 'c:\users\superuser\documents\hisparc\hisparc_baseline\project\baseline\release\baseline.dll' is denied.
      1>ClCompile:
          C:\Program Files\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Ot /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D BASELINE_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt main.c
          main.c
+     1>main.c(57): warning C4013: 'compareSequences' undefined; assuming extern returning int
        Link:
-         C:\Program Files\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\SuperUser\Documents\HiSparc\Filter\C\project\Baseline\Release\Baseline.dll" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\SuperUser\Documents\HiSparc\Filter\C\project\Baseline\Release\Baseline.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\SuperUser\Documents\HiSparc\Filter\C\project\Baseline\Release\Baseline.lib" /MACHINE:X86 /SAFESEH /DLL Release\main.obj
+         C:\Program Files\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\SuperUser\Documents\HiSparc\HISPARC_baseline\project\Baseline\Release\Baseline.dll" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\SuperUser\Documents\HiSparc\HISPARC_baseline\project\Baseline\Release\Baseline.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\SuperUser\Documents\HiSparc\HISPARC_baseline\project\Baseline\Release\Baseline.lib" /MACHINE:X86 /SAFESEH /DLL Release\main.obj
          "..\..\..\..\..\..\..\..\..\Program Files\National Instruments\LabVIEW 2013\cintools\labview.lib"
-            Creating library C:\Users\SuperUser\Documents\HiSparc\Filter\C\project\Baseline\Release\Baseline.lib and object C:\Users\SuperUser\Documents\HiSparc\Filter\C\project\Baseline\Release\Baseline.exp
-         Generating code
-         Finished generating code
-         Baseline.vcxproj -> C:\Users\SuperUser\Documents\HiSparc\Filter\C\project\Baseline\Release\Baseline.dll
-     1>Done Building Project "C:\Users\SuperUser\Documents\HiSparc\Filter\C\project\Baseline\Baseline\Baseline.vcxproj" (Rebuild target(s)).
+     1>LINK : fatal error LNK1104: cannot open file 'C:\Users\SuperUser\Documents\HiSparc\HISPARC_baseline\project\Baseline\Release\Baseline.dll'
+     1>C:\Program Files\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets(607,5): error MSB6006: "link.exe" exited with code 1104.
+     1>Done Building Project "C:\Users\SuperUser\Documents\HiSparc\HISPARC_baseline\project\Baseline\Baseline\Baseline.vcxproj" (Rebuild target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:00.50
+Time Elapsed 00:00:01.25
