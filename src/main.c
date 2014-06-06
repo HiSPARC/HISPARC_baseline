@@ -176,7 +176,7 @@ main (void)
         198,201,199,201,199,200,197,203,196,202,197,200,198,198,
         198,199};
     
-    printf("Return = %i\n", findBaseline(0, 100, nextArray, 1952, 10, 100));
+    printf("Return = %i\n", findBaseline(0, 100, nextArray, 1952, 10, -100));
 }
 
 int
@@ -232,7 +232,7 @@ calculateBaseline(int start, int end, int array[], int size, const int threshold
     // Make sure it is likely we have more than enough points to calculate the baseline
     if (start < 0 || end > size)
         return (-5001);
-    else if (start == begin)
+    else if (start == end)
         return (-5002);
     else if ((end - start) < 50)
         return (-5003);
