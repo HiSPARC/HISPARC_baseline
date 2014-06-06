@@ -8,7 +8,7 @@
  *                  starting point for determining the baseline
  *
  *        Version:  1.0
- *        Created:  23-05-2014 15:25:59
+ *        Created:  06-06-2014 17:24:09
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -18,6 +18,7 @@
  *
  * ============================================================================
  */
+#include "extcode.h"
 
 #ifndef _SEQUENCE_H
 #define _SEQUENCE_H
@@ -36,20 +37,23 @@ struct sequence
  * Calculate properties of array: average of elements from begin to end and
  * the standard deviation and return a struct with these properties.
  */
-struct sequence calculateProperties(int begin, int end, int array[], const int size);
+struct sequence calculateProperties(int32_t begin, int32_t end, 
+										uint16_t array[], const int32_t size);
 
 /*
  * Calcuate the average of the elements of array[] from begin to end (not including end).
  * If begin or end fall out of bounds return DBL_MAX
  */
-double average(int begin, int end, int array[], const int size);
+double average(int32_t begin, int32_t end, uint16_t array[], 
+				const int32_t size);
 
 /*
  * Calculate the standard deviation of the elements of array[] from
  * begin to end using average. If begin or end falls out of bounds 
  * return DBL_MAX
  */
-double stdev(int begin, int end, int array[], const double average, const int size);
+double stdev(int32_t begin, int32_t end, uint16_t array[], 
+				const double average, const int32_t size);
 
 /*
  * Determine the starting point for determining the baseline the start in
@@ -59,6 +63,7 @@ double stdev(int begin, int end, int array[], const double average, const int si
  * compared to the next sequence. If the exists no such sequence an error
  * with value INT_MAX is returned
  */
-int compareSequences(int start, int end, int array[], const int size, const int width);
+int32_t compareSequences(int32_t start, int32_t end, uint16_t array[], 
+							const int32_t size, const int32_t width);
 
 #endif

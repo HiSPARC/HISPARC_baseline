@@ -22,6 +22,7 @@
 #include <stdbool.h>
 
 #include "extcode.h"
+#include "sequence.h"
 
 // Function declarations
 _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end, 
