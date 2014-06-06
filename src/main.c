@@ -181,11 +181,19 @@ int
 findBaseline(int start, int end, int array[], const int size, const int threshold, const int width)
 {
     // Try to calculate the baseline starting from start
-    if (calculateBaseline(start, end, array, size, threshold) == 0)
-        return 0;
+    int startOfError = calculateBaseline(start, end, array, size, threshold);
     
-    // No baseline yet, so find next starting position
-    int newStart = compareSequences(start, end, array, size, width);
+    printf("start of error = %i\n", startOfError);
+    
+    // Found baseline so quit else everything below -1 signifies error so return error
+    if (startOfError == -1)
+        return 0;
+    else if (startOfError < -1)
+        return startOfError;
+    
+    // No baseline yet, so find next starting position start from failing
+    // point of calculateBaseline
+    int newStart = compareSequences(startOfError, (startOfError + width), array, size, width);
     
     // No next starting point...
     if (newStart == INT_MAX)
@@ -200,8 +208,10 @@ findBaseline(int start, int end, int array[], const int size, const int threshol
 /*
  * This function tries to determine the baseline from a given array.
  * If we do not have sufficient points before we reach the spike, the
- * function returns -1 else if we do find enough points, we return a
- * pointer to the value of the calculated baseline and return 0
+ * function returns the element were if failed else if we do find 
+ * enough points, we set a pointer to the value of the calculated 
+ * baseline and return -1 because that can never be an element of an
+ * array
  */
 int
 calculateBaseline(int start, int end, int array[], int size, const int threshold)
@@ -213,16 +223,11 @@ calculateBaseline(int start, int end, int array[], int size, const int threshold
     double differenceFromAverage;
     double differenceInPoints;
     
-    printf("===========\n");
-    printf("start = %i\n", start);
-    printf("end = %i\n", end);
-    printf("===========\n");
-    
     // Make sure it is likely we have more than enough points to calculate the baseline
     if (start < 0 || end > size)
-        return (-1);
-    else if ((end - start) < 50)
         return (-5001);
+    else if ((end - start) < 50)
+        return (-5002);
     
     // Itereate over each element in the array
     // Start with second element (start + 1) because we need to compare it to a previous element
@@ -253,14 +258,18 @@ calculateBaseline(int start, int end, int array[], int size, const int threshold
     }
     
     // IF we have enough points to calculate the baseline set pointer to
-    // baseline value and quit
+    // baseline value and return (-1) else return element were calculating
+    // failed
     if ((i - start) >= 50)
     {
+        printf("=============\n");
+        printf("start = %i\nend = %i\n", start, end);
         printf("average = %.7f\n", average);
-        return 0;
+        printf("=============\n");
+        return (-1);
     }
     else
-        return (-2);
+        return (i);
 }
 
 /*
