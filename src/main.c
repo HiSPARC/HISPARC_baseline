@@ -31,7 +31,7 @@ double gAverage;
 
 // Declare functions
 bool inRange(const int threshold, double value);
-int calculateBaseline(int start, int end, int array[], int size, const int threshold);
+int calculateBaseline(int start, int array[], int size, const int threshold);
 int findBaseline(int start, int end, int array[], const int size, const int threshold, const int width);
 
 int
@@ -191,7 +191,7 @@ findBaseline(int start, int end, int array[], const int size, const int threshol
         return (-5000);
     
     // Try to calculate the baseline starting from start
-    int startOfError = calculateBaseline(start, end, array, size, threshold);
+    int startOfError = calculateBaseline(start, array, size, threshold);
     
     // Found baseline so quit else everything below -1 signifies error so return error
     if (startOfError == -1)
@@ -199,7 +199,7 @@ findBaseline(int start, int end, int array[], const int size, const int threshol
     else if (startOfError < -1)
         return startOfError;
     
-    // No baseline yet, so find next starting position start from failing
+    // No baseline yet, so find next starting position, start from failing
     // point of calculateBaseline
     int newStart = compareSequences(startOfError, (startOfError + width), array, size, width);
     
@@ -222,7 +222,7 @@ findBaseline(int start, int end, int array[], const int size, const int threshol
  * array
  */
 int
-calculateBaseline(int start, int end, int array[], int size, const int threshold)
+calculateBaseline(int start, int array[], int size, const int threshold)
 {
     // Declare variables
     int i;
@@ -232,17 +232,15 @@ calculateBaseline(int start, int end, int array[], int size, const int threshold
     double differenceInPoints;
     
     // Make sure it is likely we have more than enough points to calculate the baseline
-    if (start < 0 || end > size)
+    if (start < 0)
         return (-5001);
-    else if (start == end)
+    else if (size < 50)
         return (-5002);
-    else if ((end - start) < 50)
-        return (-5003);
     
     // Itereate over each element in the array
     // Start with second element (start + 1) because we need to compare it to a previous element
-    // We want exactly 'end - start' elements so end at end + 1
-    for (i = (start + 1); i < (end + 1); i++)
+    // We want as much elements as possible so we set size of array as maximum
+    for (i = (start + 1); i < size; i++)
     {
         // Calculate the average up to i.e. not including the current element
 		// Should go before threshold check, otherwise last element is not
