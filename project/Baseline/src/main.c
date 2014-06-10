@@ -97,9 +97,11 @@ calculateBaseline(int32_t start, uint16_t array[], const int32_t size,
 
 	// Itereate over each element in the array
 	// Start with second element (start + 1) because we need to compare it to a
-	// previous element. We want exactly 'end - start' elements so end at 
-	// end + 1
-	for (i = (start + 1); i < size; i++)
+	// previous element. We want as much elements as possible so we set size of
+	// array as maximum. We use the size + 1 to account for the fact that we
+	// take the average up to and including i - 1, so at the end we end up
+	// exactly at the last element of the array
+	for (i = (start + 1); i < (size + 1); i++)
 	{
 		// Calculate the average up to i.e. not including the current element
 		// Should go before threshold check, otherwise last element is not
