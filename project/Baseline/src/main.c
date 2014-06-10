@@ -89,7 +89,8 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	double differenceFromAverage;
 	double differenceInPoints;
 
-	// Make sure it is likely we have more than enough points to calculate the baseline
+	// Make sure it is likely we have more than enough points to calculate the 
+	// baseline
 	if (start < 0 || end > size)
 		return (-5001);
 	else if (start == end)
@@ -98,8 +99,9 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 		return (-5003);
 
 	// Itereate over each element in the array
-	// Start with second element (start + 1) because we need to compare it to a previous element
-	// We want exactly 'end - start' elements so end at end + 1
+	// Start with second element (start + 1) because we need to compare it to a
+	// previous element. We want exactly 'end - start' elements so end at 
+	// end + 1
 	for (i = (start + 1); i < (end + 1); i++)
 	{
 		// Calculate the average up to i.e. not including the current element

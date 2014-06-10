@@ -15,15 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\..\..\..\..\..\..\..\Program Files\National Instruments\LabVIEW 2013\cintools\labview.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.c">
+    <ClCompile Include="src\main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sequence.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sequence.h">
+    <ClInclude Include="src\headers\sequence.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

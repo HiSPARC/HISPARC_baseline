@@ -41,8 +41,8 @@ struct sequence calculateProperties(int32_t begin, int32_t end,
 										uint16_t array[], const int32_t size);
 
 /*
- * Calcuate the average of the elements of array[] from begin to end (not including end).
- * If begin or end fall out of bounds return DBL_MAX
+ * Calcuate the average of the elements of array[] from begin to end 
+ * (not including end). If begin or end fall out of bounds return DBL_MAX
  */
 double average(int32_t begin, int32_t end, uint16_t array[], 
 				const int32_t size);
