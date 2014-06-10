@@ -28,7 +28,7 @@
 _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end, 
 	uint16_t array[], const int32_t size, const int32_t threshold, 
 	const int32_t width, double *baseline);
-int32_t calculateBaseline(int32_t start, int32_t end, uint16_t array[],
+int32_t calculateBaseline(int32_t start, uint16_t array[],
 	const int32_t size, const int32_t threshold, double *baseline);
 bool inRange(const int32_t threshold, double value);
 
@@ -43,7 +43,7 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 
 	// Try to calculate the baseline starting from start. If it fails return
 	// element of error i.e. starting point of error
-	int32_t startOfError = calculateBaseline(start, end, array, size, 
+	int32_t startOfError = calculateBaseline(start, array, size, 
 											 threshold, baseline);
 
 	// If we find a baseline exit cleanly, else everything below -1 signifies 
@@ -53,7 +53,7 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 	else if (startOfError < -1)
 		return startOfError;
 
-	// No baseline yet, so find next starting position startting from
+	// No baseline yet, so find next starting position, startting from
 	// startOfError
 	int32_t newStart = compareSequences(startOfError, (startOfError + width), 
 										array, size, width);
@@ -78,9 +78,8 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 * array
 */
 int32_t
-calculateBaseline(int32_t start, int32_t end, uint16_t array[], 
-				   const int32_t size, const int32_t threshold, 
-				   double *baseline)
+calculateBaseline(int32_t start, uint16_t array[], const int32_t size, 
+					const int32_t threshold, double *baseline)
 {
 	// Declare variables
 	int32_t i;
@@ -91,18 +90,16 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 
 	// Make sure it is likely we have more than enough points to calculate the 
 	// baseline
-	if (start < 0 || end > size)
+	if (start < 0)
 		return (-5001);
-	else if (start == end)
+	else if (size < 50)
 		return (-5002);
-	else if ((end - start) < 50)
-		return (-5003);
 
 	// Itereate over each element in the array
 	// Start with second element (start + 1) because we need to compare it to a
 	// previous element. We want exactly 'end - start' elements so end at 
 	// end + 1
-	for (i = (start + 1); i < (end + 1); i++)
+	for (i = (start + 1); i < size; i++)
 	{
 		// Calculate the average up to i.e. not including the current element
 		// Should go before threshold check, otherwise last element is not
@@ -132,9 +129,8 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	// failed
 	if ((i - start) >= 50)
 	{
-		// set pointer to baseline
+		// set pointer to baseline and return
 		*baseline = average;
-
 		return (-1);
 	}
 	else
