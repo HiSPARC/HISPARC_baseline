@@ -27,15 +27,16 @@
 // Function declarations
 _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end, 
 	uint16_t array[], const int32_t size, const int32_t threshold, 
-	const int32_t width, double *baseline);
+	const int32_t width, double *pBaseline, double *pStdev);
 int32_t calculateBaseline(int32_t start, int32_t end, uint16_t array[],
-	const int32_t size, const int32_t threshold, double *baseline);
+	const int32_t size, const int32_t threshold, double *pBaseline,
+	double *pStdev);
 bool inRange(const int32_t threshold, double value);
 
 
 _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end, 
 	uint16_t array[], const int32_t size, const int32_t threshold, 
-	const int32_t width, double *baseline)
+	const int32_t width, double *pBaseline, double *pStdev)
 {
 	// Error checking
 	if (size < 0 || width < 0)
@@ -44,7 +45,7 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 	// Try to calculate the baseline starting from start. If it fails return
 	// element of error i.e. starting point of error
 	int32_t startOfError = calculateBaseline(start, end, array, size, 
-											 threshold, baseline);
+											 threshold, pBaseline, pStdev);
 
 	// If we find a baseline exit cleanly, else everything below -1 signifies 
 	// error so return generated error
@@ -66,7 +67,7 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 	int32_t newEnd = newStart + width;
 
 	return (findBaseline(newStart, newEnd, array, size, threshold, width,
-						 baseline));
+						 pBaseline, pStdev));
 }
 
 /*
@@ -80,7 +81,7 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 int32_t
 calculateBaseline(int32_t start, int32_t end, uint16_t array[], 
 					const int32_t size, const int32_t threshold,
-					double *baseline)
+					double *pBaseline, double *pStdev)
 {
 	// Declare variables
 	int32_t i;
@@ -136,7 +137,8 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	if ((i - start) >= 95)
 	{
 		// Return -1 means everthing went ok and we've found a baseline 
-		*baseline = average;
+		*pBaseline = average;
+		*pStdev = stdev(start, (i - 1), array, average, size);
 		return (-1);
 	}
 	else
