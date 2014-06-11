@@ -132,8 +132,8 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 
 	// If we have enough points to calculate the baseline set pointer to
 	// baseline value and return (-1) else return element were calculating
-	// failed. We want al least 95% of bins iterated bins to be used for
-	// the baseline 
+	// failed. We want al least 95% of bins iterated to be used for the 
+	// baseline 
 	if ((i - start) >= 95)
 	{
 		// Return -1 means everthing went ok and we've found a baseline 
