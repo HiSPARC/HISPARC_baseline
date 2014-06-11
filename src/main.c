@@ -410,10 +410,10 @@ calculateBaseline(int start, int end, int array[], int size, const int threshold
 			break;
     }
     
-    // IF we have enough points to calculate the baseline set pointer to
+    // If we have enough points to calculate the baseline set pointer to
     // baseline value and return (-1) else return element were calculating
-    // failed
-    if ((i - start) >= 50)
+    // failed. We want at least 95% of bins to be used for the baseline
+    if ((i - start) >= 95)
     {
         printf("end = %i\n", i);
         gAverage = average;
