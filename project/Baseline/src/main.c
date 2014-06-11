@@ -28,7 +28,7 @@
 _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end, 
 	uint16_t array[], const int32_t size, const int32_t threshold, 
 	const int32_t width, double *baseline);
-int32_t calculateBaseline(int32_t start, uint16_t array[],
+int32_t calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	const int32_t size, const int32_t threshold, double *baseline);
 bool inRange(const int32_t threshold, double value);
 
@@ -43,7 +43,7 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 
 	// Try to calculate the baseline starting from start. If it fails return
 	// element of error i.e. starting point of error
-	int32_t startOfError = calculateBaseline(start, array, size, 
+	int32_t startOfError = calculateBaseline(start, end, array, size, 
 											 threshold, baseline);
 
 	// If we find a baseline exit cleanly, else everything below -1 signifies 
@@ -78,8 +78,9 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 * array
 */
 int32_t
-calculateBaseline(int32_t start, uint16_t array[], const int32_t size, 
-					const int32_t threshold, double *baseline)
+calculateBaseline(int32_t start, int32_t end, uint16_t array[], 
+					const int32_t size, const int32_t threshold,
+					double *baseline)
 {
 	// Declare variables
 	int32_t i;
@@ -90,18 +91,20 @@ calculateBaseline(int32_t start, uint16_t array[], const int32_t size,
 
 	// Make sure it is likely we have more than enough points to calculate the 
 	// baseline
-	if (start < 0)
+	if (start < 0 || end > size)
 		return (-5001);
-	else if (size < 50)
-		return (-5002);
+	else if (start == end)
+		return (5002);
+	else if ((end - start) < 100)
+		return (-5003);
 
 	// Itereate over each element in the array
 	// Start with second element (start + 1) because we need to compare it to a
 	// previous element. We want as much elements as possible so we set size of
-	// array as maximum. We use the size + 1 to account for the fact that we
-	// take the average up to and including i - 1, so at the end we end up
-	// exactly at the last element of the array
-	for (i = (start + 1); i < (size + 1); i++)
+	// array as maximum. We do not need more than 'end - start' elements to
+	// accurately determine the baseline, the +1 accounts for the fact that we
+	// take the average until i - 1, which then translates to 'start' and 'end'
+	for (i = (start + 1); i < (end + 1); i++)
 	{
 		// Calculate the average up to i.e. not including the current element
 		// Should go before threshold check, otherwise last element is not
