@@ -27,7 +27,7 @@
 #define MAXAVERAGE 245
 
 // Hold the average
-double gAverage;
+double gAverage, gStdev;
 
 // Declare functions
 bool inRange(const int threshold, double value);
@@ -319,8 +319,10 @@ main (void)
         198,201,199,201,199,200,197,203,196,202,197,200,198,198,
         198,199};
     
-    findBaseline(0, 100, anArray, 1934, 10, 100);
-    printf("Found average = %.7f\n", gAverage);
+    int doesWork[100] = {200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,200,205,201,204,199,202};
+    
+    findBaseline(0, 100, doesWork, 100, 10, 100);
+    printf("Found average = %.7f\nFound stdev = %.7f\n", gAverage, gStdev);
 }
 
 int
@@ -415,8 +417,8 @@ calculateBaseline(int start, int end, int array[], int size, const int threshold
     // failed. We want at least 95% of bins to be used for the baseline
     if ((i - start) >= 95)
     {
-        printf("end = %i\n", i);
         gAverage = average;
+        gStdev = stdev(start, (i - 1), array, average, size);
         return (-1);
     }
     else
