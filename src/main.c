@@ -31,7 +31,7 @@ double gAverage;
 
 // Declare functions
 bool inRange(const int threshold, double value);
-int calculateBaseline(int start, int array[], int size, const int threshold);
+int calculateBaseline(int start, int end, int array[], int size, const int threshold);
 int findBaseline(int start, int end, int array[], const int size, const int threshold, const int width);
 
 int
@@ -331,7 +331,7 @@ findBaseline(int start, int end, int array[], const int size, const int threshol
         return (-5000);
     
     // Try to calculate the baseline starting from start
-    int startOfError = calculateBaseline(start, array, size, threshold);
+    int startOfError = calculateBaseline(start, end, array, size, threshold);
     
     // Found baseline so quit else everything below -1 signifies error so return error
     if (startOfError == -1)
@@ -363,7 +363,7 @@ findBaseline(int start, int end, int array[], const int size, const int threshol
  * array
  */
 int
-calculateBaseline(int start, int array[], int size, const int threshold)
+calculateBaseline(int start, int end, int array[], int size, const int threshold)
 {
     // Declare variables
     int i;
@@ -373,16 +373,19 @@ calculateBaseline(int start, int array[], int size, const int threshold)
     double differenceInPoints;
     
     // Make sure it is likely we have more than enough points to calculate the baseline
-    if (start < 0)
+    if (start < 0 || end > size)
         return (-5001);
-    else if (size < 50)
+    else if (start == end)
         return (-5002);
+    else if ((end - start) < 100)
+        return (-5003);
     
     // Itereate over each element in the array
     // Start with second element (start + 1) because we need to compare it to a previous element
-    // We want as much elements as possible so we set size of array as maximum We use the +1 to
-    // account for the fact that we take the average until i - 1, so we do end up at end of array
-    for (i = (start + 1); i < (size + 1); i++)
+    // We do not need more than 'end - start' elements to accurately calculate the baseline, the +1
+    // is needed to account for the fact that we take the average until i - 1, which then translates
+    // to the last element
+    for (i = (start + 1); i < (end + 1); i++)
     {
         // Calculate the average up to i.e. not including the current element
 		// Should go before threshold check, otherwise last element is not
