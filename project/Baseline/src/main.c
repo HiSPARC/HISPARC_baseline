@@ -134,7 +134,11 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	// failed
 	if ((i - start) >= 50)
 	{
+<<<<<<< HEAD
 		// Return -1 means everthing went ok and we've found a baseline 
+=======
+		// Return -1 means everthing went ok and we've found a baseline
+>>>>>>> b0bda79b8a995fb4b34969c21e5cb60caca2358e
 		*baseline = average;
 		return (-1);
 	}
