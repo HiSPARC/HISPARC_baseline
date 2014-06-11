@@ -1,4 +1,4 @@
-﻿Build started 6/11/2014 11:25:28 AM.
+﻿Build started 6/11/2014 11:30:22 AM.
      1>Project "C:\Users\SuperUser\Documents\HiSparc\HISPARC_baseline\project\Baseline\Baseline.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
          C:\Program Files\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\SuperUser\Documents\HiSparc\HISPARC_baseline\project\Baseline\src\headers /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D BASELINE_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt src\main.c src\sequence.c
@@ -14,4 +14,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.58
+Time Elapsed 00:00:00.91

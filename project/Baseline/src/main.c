@@ -134,7 +134,7 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	// failed
 	if ((i - start) >= 50)
 	{
-		// set pointer to baseline and return
+		// Return -1 means everthing went ok and we've found a baseline
 		*baseline = average;
 		return (-1);
 	}
