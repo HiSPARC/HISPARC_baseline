@@ -319,9 +319,9 @@ main (void)
         198,201,199,201,199,200,197,203,196,202,197,200,198,198,
         198,199};
     
-    int doesWork[100] = {200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,200,205,201,204,199,202};
+    int doesWork[100] = {200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,202,200,201,204,199,200,205,201,204,199,206};
     
-    findBaseline(0, 100, doesWork, 100, 10, 100);
+    findBaseline(0, 100, anArray, 1934, 10, 100);
     printf("Found average = %.7f\nFound stdev = %.7f\n", gAverage, gStdev);
 }
 
@@ -344,6 +344,7 @@ findBaseline(int start, int end, int array[], const int size, const int threshol
     // No baseline yet, so find next starting position, start from failing
     // point of calculateBaseline
     int newStart = compareSequences(startOfError, (startOfError + width), array, size, width);
+    printf("start of error = %i\n", startOfError);
     printf("start = %i\n", newStart);
     
     // No next starting point...
@@ -417,8 +418,9 @@ calculateBaseline(int start, int end, int array[], int size, const int threshold
     // failed. We want at least 95% of bins to be used for the baseline
     if ((i - start) >= 95)
     {
-        gAverage = average;
-        gStdev = stdev(start, (i - 1), array, average, size);
+        gAverage = (int) average;
+        double miliStdev = stdev(start, (i - 1), array, average, size);
+        gStdev = (int) (miliStdev * 1000)
         return (-1);
     }
     else
