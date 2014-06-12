@@ -99,7 +99,7 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	if (start < 0 || end > size)
 		return (-5001);
 	else if (start == end)
-		return (5002);
+		return (-5002);
 	else if ((end - start) < 100)
 		return (-5003);
 
