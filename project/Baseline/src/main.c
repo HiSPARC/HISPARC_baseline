@@ -61,7 +61,11 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 
 	// No next starting point...
 	if (newStart == INT_MAX)
+	{
+		*pBaseline = -999;
+		*pStdev = -999;
 		return -999;
+	}
 
 	// No problems so far, so update the end and try again
 	int32_t newEnd = newStart + width;
