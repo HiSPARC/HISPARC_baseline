@@ -183,3 +183,6 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+## ignore object files from compiling C code
+*.o
