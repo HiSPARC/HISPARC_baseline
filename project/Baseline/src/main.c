@@ -26,17 +26,17 @@
 
 // Function declarations
 _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end, 
-	uint16_t array[], const int32_t size, const int32_t threshold, 
-	const int32_t width, double *pBaseline, double *pStdev);
+	uint16_t array[], const int32_t size, const uint16_t threshold, 
+	const int32_t width, int16_t *pBaseline, int16_t *pStdev);
 int32_t calculateBaseline(int32_t start, int32_t end, uint16_t array[],
-	const int32_t size, const int32_t threshold, double *pBaseline,
-	double *pStdev);
+	const int32_t size, const uint16_t threshold, int16_t *pBaseline,
+	int16_t *pStdev);
 bool inRange(const int32_t threshold, double value);
 
 
 _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end, 
-	uint16_t array[], const int32_t size, const int32_t threshold, 
-	const int32_t width, double *pBaseline, double *pStdev)
+	uint16_t array[], const int32_t size, const uint16_t threshold, 
+	const int32_t width, int16_t *pBaseline, int16_t *pStdev)
 {
 	// Error checking
 	if (size < 0 || width < 0)
@@ -80,8 +80,8 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 */
 int32_t
 calculateBaseline(int32_t start, int32_t end, uint16_t array[], 
-					const int32_t size, const int32_t threshold,
-					double *pBaseline, double *pStdev)
+					const int32_t size, const uint16_t threshold,
+					int16_t *pBaseline, int16_t *pStdev)
 {
 	// Declare variables
 	int32_t i;
@@ -137,8 +137,13 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	if ((i - start) >= 95)
 	{
 		// Return -1 means everthing went ok and we've found a baseline 
-		*pBaseline = average;
-		*pStdev = stdev(start, (i - 1), array, average, size);
+		*pBaseline = (int16_t) average;
+
+		// In order to comply with the old baseline filter return
+		// stdev times 1000
+		double miliStdev = stdev(start, (i - 1), array, average, size);
+		*pStdev = (int16_t) (miliStdev * 1000);
+
 		return (-1);
 	}
 	else
@@ -151,7 +156,7 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 * positive value of the threshold
 */
 bool
-inRange(const int32_t threshold, double value)
+inRange(const uint16_t threshold, double value)
 {
 	if (threshold >= value && value >= (-threshold))
 		return true;
