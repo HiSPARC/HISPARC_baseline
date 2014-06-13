@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 
 from get_trace_and_baseline import get_traces_baseline
 
+# Save csv to file
 def save_txt(timestr, trace):
 	FILE = "data\\trace_" + timestr + ".csv"
 	np.savetxt(FILE, trace, delimiter=",", fmt="%i")
@@ -19,14 +20,22 @@ pStdev = c_int16()
 baseline_dll = CDLL("../../project/Baseline/Debug/Baseline.dll")
 findBaseline = baseline_dll.findBaseline
 
+# Initialise all counters
 count_bsl_err = 0
 count_stdev_err = 0
 counter = 0
 
+# Open log file
+fo = open("error_13-06-2014.log", "a")
+fo.write("#\n# This file contains the outcome of the comparison of the old and new implementation of the baseline filter\n#\n\n")
+fo.write("*-------------------------------------------------------------------------*\n")
+fo.write("| Number\tbaseline_old\tbaseline_new\tstdev_old\tstdev_new |\n")
+fo.write("*-------------------------------------------------------------------------*\n")
+
 # Iterate over all events. Default is station 501 at Science Park
 for x, (t, b, s) in enumerate(get_traces_baseline()):
 
-	if x == 5000:
+	if x == 5:
 		break
 		
 	for trace, bsl, stdev in zip(t, b, s):
@@ -45,10 +54,7 @@ for x, (t, b, s) in enumerate(get_traces_baseline()):
 		if pBaseline.value != bsl:
 			timestr = str(time.time())
 			save_txt(timestr, trace)
-			#plt.figure()
-			#plt.plot(trace)
-			#plt.ylim([100,900])
-			#plt.title(timestr)
+			fo.write(str(x) +"\t\t" + str(bsl) + "\t\t" + str(pBaseline.value) + "\t\t" + str(stdev) + "\t\t" + str(pStdev.value) + "\n")
 			print bsl
 			print pBaseline.value
 			count_bsl_err += 1
@@ -56,17 +62,14 @@ for x, (t, b, s) in enumerate(get_traces_baseline()):
 		if pStdev.value != stdev:
 			timestr = str(time.time())
 			save_txt(timestr, trace)
-			#plt.figure()
-			#plt.plot(trace)
-			#plt.ylim([100,900])
-			#plt.title(timestr)
+			fo.write(str(x) +"\t\t" + str(bsl) + "\t\t" + str(pBaseline.value) + "\t\t" + str(stdev) + "\t\t" + str(pStdev.value) + "\n")
 			print stdev
 			print pStdev.value
 			count_stdev_err += 1
 		
 		counter += 1
 		
-#plt.show()	
+fo.close()
 print ("Total traces = ", counter)
 print ("Total mismatches bsl = ", count_bsl_err)
 print ("Total mismatches stdev = ", count_stdev_err)
