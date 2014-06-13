@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include <stdbool.h>
+#include <math.h>
 
 #include "extcode.h"
 #include "sequence.h"
@@ -141,7 +142,7 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	if ((i - start) >= 95)
 	{
 		// Return -1 means everthing went ok and we've found a baseline 
-		*pBaseline = (int16_t) average;
+		*pBaseline = (int16_t) round(average);
 
 		// In order to comply with the old baseline filter return
 		// stdev times 1000
