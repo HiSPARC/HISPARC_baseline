@@ -184,5 +184,12 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 
-## ignore object files from compiling C code
+## Added by me 
+# ignore object files from compiling C code
 *.o
+
+# ignore compiled python code
+*.pyc
+
+# ignore python hd5
+*.h5
