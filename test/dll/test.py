@@ -1,9 +1,11 @@
+from __future__ import division
 from ctypes import *
 from sys import exit
 import time
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+
 
 from get_trace_and_baseline import get_traces_baseline
 
@@ -25,18 +27,19 @@ count_bsl_err = 0
 count_stdev_err = 0
 counter = 0
 
+# Get current date and time
+now = time.strftime("%H:%M:%S %d-%m-%Y")
+
 # Open log file
 fo = open("error_13-06-2014.log", "a")
-fo.write("#\n# This file contains the outcome of the comparison of the old and new implementation of the baseline filter\n#\n\n")
-fo.write("*-------------------------------------------------------------------------*\n")
-fo.write("| Number\tbaseline_old\tbaseline_new\tstdev_old\tstdev_new |\n")
-fo.write("*-------------------------------------------------------------------------*\n")
+fo.write("#\n# This file contains the outcome of the comparison of the old and new implementation of the baseline filter\n#\n")
+fo.write("# " + str(now) + "\n#\n\n")
+fo.write("*--------------------------------------------------------------------------------------------*\n")
+fo.write("| Number\tbaseline_old\tbaseline_new\tstdev_old\tstdev_new\ttimestamp    |\n")
+fo.write("*--------------------------------------------------------------------------------------------*\n")
 
 # Iterate over all events. Default is station 501 at Science Park
 for x, (t, b, s) in enumerate(get_traces_baseline()):
-
-	if x == 5:
-		break
 		
 	for trace, bsl, stdev in zip(t, b, s):
 		# Define array
@@ -54,24 +57,31 @@ for x, (t, b, s) in enumerate(get_traces_baseline()):
 		if pBaseline.value != bsl:
 			timestr = str(time.time())
 			save_txt(timestr, trace)
-			fo.write(str(x) +"\t\t" + str(bsl) + "\t\t" + str(pBaseline.value) + "\t\t" + str(stdev) + "\t\t" + str(pStdev.value) + "\n")
-			print bsl
-			print pBaseline.value
+			fo.write(str(x) +"\t\t" + str(bsl) + "\t\t" + str(pBaseline.value) + "\t\t" + str(stdev) + "\t\t" + str(pStdev.value) + "\t\t" + timestr + "\n")
 			count_bsl_err += 1
 		
 		if pStdev.value != stdev:
 			timestr = str(time.time())
 			save_txt(timestr, trace)
-			fo.write(str(x) +"\t\t" + str(bsl) + "\t\t" + str(pBaseline.value) + "\t\t" + str(stdev) + "\t\t" + str(pStdev.value) + "\n")
-			print stdev
-			print pStdev.value
+			fo.write(str(x) +"\t\t" + str(bsl) + "\t\t" + str(pBaseline.value) + "\t\t" + str(stdev) + "\t\t" + str(pStdev.value) + "\t\t" + timestr + "\n")
 			count_stdev_err += 1
 		
 		counter += 1
-		
+
+
+# Calculate percentages
+b_perc = (count_bsl_err / counter) * 100
+s_perc = (count_stdev_err / counter) * 100
+
+# Write stats and close file
+fo.write("\n\n*-----------------------------------------*\n")		
+fo.write("|		    stats		  |\n")
+fo.write("*-----------------------------------------*\n")
+fo.write("Total baseline errors: " + str(count_bsl_err) + "\n")
+fo.write("Total stdev errors: " + str(count_stdev_err) + "\n")
+fo.write("Total traces looked at: " + str(counter) + "\n")
+fo.write("Percentage of baseline errors: " + str(b_perc) + "\n")
+fo.write("Percentage of baseline errors: " + str(s_perc) + "%\n")
 fo.close()
-print ("Total traces = ", counter)
-print ("Total mismatches bsl = ", count_bsl_err)
-print ("Total mismatches stdev = ", count_stdev_err)
 
 exit()
