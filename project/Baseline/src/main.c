@@ -121,25 +121,37 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 		// Determine difference between average and current point
 		// Should go before difference between current point and previous point
 		// because this is more likely to fail first
-		differenceFromAverage = (double) array[i] - average;
+		differenceFromAverage = (double)array[i] - average;
 
 		// Deviaton from average should fall within threshold
 		if (!inRange(threshold, differenceFromAverage))
+		{
+			// Increment i with one so we can use -1 in the miliStdev
+			// call, becasue we need to decrement i if we reach the end
+			// of this for loop
+			i += 1;
 			break;
+		}
 
 		// Determine difference between current and previous point
-		differenceInPoints = (double) array[i] - array[i - 1];
+		differenceInPoints = (double)array[i] - array[i - 1];
 
 		// Make sure separate points are within the double threshold
 		if (!inRange((threshold * 2), differenceInPoints))
+		{
+			// Increment i with one so we can use -1 in the miliStdev
+			// call, becasue we need to decrement i if we reach the end
+			// of this for loop
+			i += 1;
 			break;
+		}
 	}
 
 	// If we have enough points to calculate the baseline set pointer to
 	// baseline value and return (-1) else return element were calculating
 	// failed. We want al least 95% of bins iterated to be used for the 
 	// baseline 
-	if ((i - start) >= 95)
+	if ((i - start) >= 96)
 	{
 		// Return -1 means everthing went ok and we've found a baseline 
 		*pBaseline = (int16_t) round(average);
@@ -147,7 +159,7 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 		// In order to comply with the old baseline filter return
 		// stdev times 1000
 		double miliStdev = stdev(start, (i - 1), array, average, size);
-		*pStdev = (int16_t) (miliStdev * 1000);
+		*pStdev = (int16_t) round(miliStdev * 1000);
 
 		return (-1);
 	}
