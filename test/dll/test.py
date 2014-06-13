@@ -75,12 +75,12 @@ s_perc = (count_stdev_err / counter) * 100
 
 # Write stats and close file
 fo.write("\n\n*-----------------------------------------*\n")		
-fo.write("|		    stats		  |\n")
+fo.write("|		    stats		  					  |\n")
 fo.write("*-----------------------------------------*\n")
 fo.write("Total baseline errors: " + str(count_bsl_err) + "\n")
 fo.write("Total stdev errors: " + str(count_stdev_err) + "\n")
 fo.write("Total traces looked at: " + str(counter) + "\n")
-fo.write("Percentage of baseline errors: " + str(b_perc) + "\n")
+fo.write("Percentage of baseline errors: " + str(b_perc) + "%\n")
 fo.write("Percentage of baseline errors: " + str(s_perc) + "%\n")
 fo.close()
 
