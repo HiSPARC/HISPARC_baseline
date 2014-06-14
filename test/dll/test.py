@@ -30,9 +30,9 @@ counter = 0
 now = time.strftime("%H:%M:%S %d-%m-%Y")
 
 # Open log file
-fo = open("error_31-05-2014.log", "a")
+fo = open("error_16-01-2014.log", "a")
 fo.write("#\n# This file contains the outcome of the comparison of the old and new implementation of the baseline filter\n#\n")
-fo.write("# " + str(now) + "\n# Station 501\n# 31_05_2014\n#\n\n")
+fo.write("# " + str(now) + "\n# Station 501\n# 16_01_2014\n#\n\n")
 fo.write("*--------------------------------------------------------------------------------------------*\n")
 fo.write("| Number\tbaseline_old\tbaseline_new\tstdev_old\tstdev_new\ttimestamp    |\n")
 fo.write("*--------------------------------------------------------------------------------------------*\n")
@@ -80,7 +80,7 @@ fo.write("Total baseline errors: " + str(count_bsl_err) + "\n")
 fo.write("Total stdev errors: " + str(count_stdev_err) + "\n")
 fo.write("Total traces looked at: " + str(counter) + "\n")
 fo.write("Percentage of baseline errors: " + str(b_perc) + "%\n")
-fo.write("Percentage of baseline errors: " + str(s_perc) + "%\n")
+fo.write("Percentage of stdev errors: " + str(s_perc) + "%\n")
 fo.close()
 
 exit()
