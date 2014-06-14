@@ -90389,4 +90389,4 @@ Total baseline errors: 3091
 Total stdev errors: 87280
 Total traces looked at: 221280
 Percentage of baseline errors: 1.39687274042%
-Percentage of baseline errors: 39.4432393348%
+Percentage of stdev errors: 39.4432393348%
