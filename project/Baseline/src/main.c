@@ -53,7 +53,11 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 	if (startOfError == -1)
 		return 0;
 	else if (startOfError < -1)
+	{
+		*pBaseline = -999;
+		*pStdev = -999;
 		return startOfError;
+	}
 
 	// No baseline yet, so find next starting position, startting from
 	// startOfError
