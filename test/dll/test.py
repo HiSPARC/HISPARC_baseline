@@ -30,7 +30,7 @@ counter = 0
 now = time.strftime("%H:%M:%S %d-%m-%Y")
 
 # Open log file
-fo = open("error_16-01-2014.log", "a")
+fo = open("error_10-06-2014.log", "a")
 fo.write("#\n# This file contains the outcome of the comparison of the old and new implementation of the baseline filter\n#\n")
 fo.write("# " + str(now) + "\n# Station 501\n# 16_01_2014\n#\n\n")
 fo.write("*--------------------------------------------------------------------------------------------*\n")
