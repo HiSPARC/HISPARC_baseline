@@ -5,12 +5,11 @@ import time
 import os
 import numpy as np
 
-
 from get_trace_and_baseline import get_traces_baseline
 
-# Save csv to file
-def save_txt(timestr, trace):
-	FILE = "data\\trace_" + timestr + ".csv"
+# Save csv to file, 
+def save_txt(folder='data\\', timestr, trace):
+	FILE = folder + "trace_" + timestr + ".csv"
 	np.savetxt(FILE, trace, delimiter=",", fmt="%i")
 	
 # Set types of the pointers to baseline and stdev
@@ -24,6 +23,8 @@ findBaseline = baseline_dll.findBaseline
 # Initialise all counters
 count_bsl_err = 0
 count_stdev_err = 0
+count_bsl_stdev_err = 0
+count_matches = 0
 counter = 0
 
 # Get current date and time
@@ -50,20 +51,31 @@ for x, (t, b, s) in enumerate(get_traces_baseline()):
 		
 		dll_return = findBaseline(0, len(trace), trace_array, len(trace), 15, 100, pBaseline, pStdev)
 		
+		# Give indication to user that there is a mismatch
 		if pBaseline.value != bsl or  pStdev.value != stdev:
 			print("-------------------", x ,"-----------------")
-			
-		if pBaseline.value != bsl:
+		
+		# Check for all possible mismatches and record them	
+		if pBaseline.value != bsl and pStdev.value == stdev:
 			timestr = str(time.time())
-			save_txt(timestr, trace)
+			save_txt("data\\bsl\\", timestr, trace)
 			fo.write(str(x) +"\t\t" + str(bsl) + "\t\t" + str(pBaseline.value) + "\t\t" + str(stdev) + "\t\t" + str(pStdev.value) + "\t\t" + timestr + "\n")
 			count_bsl_err += 1
-		
-		if pStdev.value != stdev:
+		elif pBaseline.value != bsl and pStdev.value != stdev:
 			timestr = str(time.time())
-			save_txt(timestr, trace)
+			save_txt("data\\bsl_stdev\\", timestr, trace)
+			fo.write(str(x) +"\t\t" + str(bsl) + "\t\t" + str(pBaseline.value) + "\t\t" + str(stdev) + "\t\t" + str(pStdev.value) + "\t\t" + timestr + "\n")
+			count_bsl_stdev_err += 1
+		elif pBaseline.value == bsl and pStdev.value != stdev:
+			timestr = str(time.time())
+			save_txt("data\\stdev\\", timestr, trace)
 			fo.write(str(x) +"\t\t" + str(bsl) + "\t\t" + str(pBaseline.value) + "\t\t" + str(stdev) + "\t\t" + str(pStdev.value) + "\t\t" + timestr + "\n")
 			count_stdev_err += 1
+		else
+			timestr = str(time.time())
+			save_txt("data\\match\\", timestr, trace)
+			fo.write(str(x) +"\t\t" + str(bsl) + "\t\t" + str(pBaseline.value) + "\t\t" + str(stdev) + "\t\t" + str(pStdev.value) + "\t\t" + timestr + "\n")
+			count_matches += 1
 		
 		counter += 1
 
@@ -71,16 +83,22 @@ for x, (t, b, s) in enumerate(get_traces_baseline()):
 # Calculate percentages
 b_perc = (count_bsl_err / counter) * 100
 s_perc = (count_stdev_err / counter) * 100
+b_s_perc = (count_bsl_stdev_err / counter) * 100
+m_perc = (count_matches / counter) * 100
 
 # Write stats and close file
 fo.write("\n\n*-----------------------------------------*\n")		
 fo.write("|		    stats		  					|\n")
 fo.write("*-----------------------------------------*\n")
-fo.write("Total baseline errors: " + str(count_bsl_err) + "\n")
-fo.write("Total stdev errors: " + str(count_stdev_err) + "\n")
+fo.write("Total baseline only errors: " + str(count_bsl_err) + "\n")
+fo.write("Total stdev only errors: " + str(count_stdev_err) + "\n")
+fo.write("Total baseline and stdev errors: " + str(count_bsl_stdev_err) + "\n")
+fo.write("Total matches: " + str(count_matches) + "\n")
 fo.write("Total traces looked at: " + str(counter) + "\n")
-fo.write("Percentage of baseline errors: " + str(b_perc) + "%\n")
-fo.write("Percentage of stdev errors: " + str(s_perc) + "%\n")
+fo.write("Percentage of baseline only errors: " + str(b_perc) + "%\n")
+fo.write("Percentage of stdev only errors: " + str(s_perc) + "%\n")
+fo.write("Percentage of baseline and stdev errors: " + str(b_s_perc) + "%\n")
+fo.write("Percentage of matches: " + str(m_perc) + "%\n")
 fo.close()
 
 exit()
