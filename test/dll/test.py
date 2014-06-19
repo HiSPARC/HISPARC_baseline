@@ -71,7 +71,7 @@ for x, (t, b, s) in enumerate(get_traces_baseline()):
 			save_txt("data\\stdev\\", timestr, trace)
 			fo.write(str(x) +"\t\t" + str(bsl) + "\t\t" + str(pBaseline.value) + "\t\t" + str(stdev) + "\t\t" + str(pStdev.value) + "\t\t" + timestr + "\n")
 			count_stdev_err += 1
-		else
+		else:
 			timestr = str(time.time())
 			save_txt("data\\match\\", timestr, trace)
 			fo.write(str(x) +"\t\t" + str(bsl) + "\t\t" + str(pBaseline.value) + "\t\t" + str(stdev) + "\t\t" + str(pStdev.value) + "\t\t" + timestr + "\n")
