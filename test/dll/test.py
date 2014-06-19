@@ -8,7 +8,7 @@ import numpy as np
 from get_trace_and_baseline import get_traces_baseline
 
 # Save csv to file, 
-def save_txt(folder='data\\', timestr, trace):
+def save_txt(timestr, trace, folder='data\\'):
 	FILE = folder + "trace_" + timestr + ".csv"
 	np.savetxt(FILE, trace, delimiter=",", fmt="%i")
 	
