@@ -32,7 +32,7 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 int32_t calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	const int32_t size, const uint16_t threshold, int16_t *pBaseline,
 	int16_t *pStdev);
-bool inRange(const int32_t threshold, double value);
+bool inRange(const uint16_t threshold, double value);
 
 
 _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end, 

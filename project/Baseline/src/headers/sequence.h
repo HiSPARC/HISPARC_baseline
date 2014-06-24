@@ -23,7 +23,7 @@
 #ifndef _SEQUENCE_H
 #define _SEQUENCE_H
 
-#define STDEVLIMIT 3
+#define STDEVLIMIT 4
 #define MAXAVERAGE 245
 
 // Declare struct to hold array properties
