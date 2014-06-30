@@ -59,12 +59,14 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 		return startOfError;
 	}
 
-	// No baseline yet, so find next starting position, startting from
-	// startOfError
+	// No baseline yet, so find next starting position, starting from
+	// startOfError, by comparing sequences and returning if we find one
+	// sequence and the next sequence is less smooth
 	int32_t newStart = compareSequences(startOfError, (startOfError + width), 
 										array, size, width);
 
 	// No next starting point...
+	// So return with error value
 	if (newStart == INT_MAX)
 	{
 		*pBaseline = -999;
@@ -81,8 +83,8 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 
 /*
 * This function tries to determine the baseline from a given array.
-* If we do not have sufficient points before we reach the spike, the
-* function returns the element were if failed else if we do find
+* If we do not have sufficient points before we reach the pulse, the
+* function returns the element where it failed else if we do find
 * enough points, we set a pointer to the value of the calculated
 * baseline and return -1 because that can never be an element of an
 * array
@@ -98,6 +100,8 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	double average;
 	double differenceFromAverage;
 	double differenceInPoints;
+	double minDifference;
+	double maxDifference;
 
 	// Make sure it is likely we have more than enough points to calculate the 
 	// baseline
@@ -108,6 +112,13 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	else if ((end - start) < 100)
 		return (-5003);
 
+	// Set minimum and maximum of the whole, iterated over, part of the trace 
+	// to account for the fact that we have a maximum deviation from the global
+	// min and max and the program is not fooled by a very gradual in- / 
+	// decreasimg trace
+	int min = array[start];
+	int max = array[start];
+
 	// Itereate over each element in the array
 	// Start with second element (start + 1) because we need to compare it to a
 	// previous element. We want as much elements as possible so we set size of
@@ -116,11 +127,34 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	// take the average until i - 1, which then translates to 'start' and 'end'
 	for (i = (start + 1); i < (end + 1); i++)
 	{
+		// update minimum
+		if (array[i] < min)
+			min = array[i];
+
+		// Update maximum
+		if (array[i] > max)
+			max = array[i];
+
 		// Calculate the average up to i.e. not including the current element
 		// Should go before threshold check, otherwise last element is not
 		// included in baseline
 		sum += array[i - 1];
 		average = sum / (i - start);
+
+		// Make sure min and max do not lay more than threshold away from the 
+		// average
+		minDifference = (double) average - min;
+		maxDifference = (double) max - average;
+
+		if (!inRange(threshold, minDifference)){
+			i += 1;
+			break;
+		}
+			
+		if (!inRange(threshold, maxDifference)){
+			i += 1;
+			break;
+		}
 
 		// Determine difference between average and current point
 		// Should go before difference between current point and previous point
@@ -154,7 +188,8 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	// If we have enough points to calculate the baseline set pointer to
 	// baseline value and return (-1) else return element were calculating
 	// failed. We want al least 95% of bins iterated to be used for the 
-	// baseline 
+	// baseline
+	// TODO: the 96 should be fixed to width?
 	if ((i - start) >= 96)
 	{
 		// Return -1 means everthing went ok and we've found a baseline 
