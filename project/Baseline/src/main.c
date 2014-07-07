@@ -44,7 +44,7 @@ _declspec (dllexport) int32_t findBaseline(int32_t startOfBaseline,
 {
 	// Error checking
 	if (size < 0 || widthOfSequence < 0)
-		return (-5000);
+		return (5000);
 
 	// Try to calculate the baseline starting from start. If it fails return
 	// element of error i.e. starting point of error
@@ -113,11 +113,11 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	// Make sure it is likely we have more than enough points to calculate the 
 	// baseline
 	if (start < 0 || end > size)
-		return (-5001);
+		return (5001);
 	else if (start == end)
-		return (-5002);
+		return (5002);
 	else if ((end - start) < minPointsInBaseline)
-		return (-5003);
+		return (5003);
 
 	// Set minimum and maximum of the whole, iterated over, part of the trace 
 	// to account for the fact that we have a maximum deviation from the global
@@ -207,7 +207,7 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 		// baseline
 		if (*pBaseline > 220) {
 			*pBaseline = -999;
-			return (-5004);
+			return (5004);
 		}
 
 		// In order to comply with the old baseline filter return
