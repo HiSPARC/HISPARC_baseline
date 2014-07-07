@@ -26,27 +26,32 @@
 #include "sequence.h"
 
 // Function declarations
-_declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end, 
-	uint16_t array[], const int32_t size, const uint16_t threshold, 
-	const int32_t width, int16_t *pBaseline, int16_t *pStdev);
+_declspec (dllexport) int32_t findBaseline(int32_t startOfBaseline,
+	int32_t endOfBaseline, uint16_t array[], const int32_t size,
+	const uint16_t threshold, const int32_t widthOfSequence,
+	int32_t minPointsInBaseline, int16_t *pBaseline, int16_t *pStdev);
 int32_t calculateBaseline(int32_t start, int32_t end, uint16_t array[],
-	const int32_t size, const uint16_t threshold, int16_t *pBaseline,
+	const int32_t size, const uint16_t threshold,
+	int32_t minPointsInBaseline, int16_t *pBaseline,
 	int16_t *pStdev);
 bool inRange(const uint16_t threshold, double value);
 
 
-_declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end, 
-	uint16_t array[], const int32_t size, const uint16_t threshold, 
-	const int32_t width, int16_t *pBaseline, int16_t *pStdev)
+_declspec (dllexport) int32_t findBaseline(int32_t startOfBaseline, 
+	int32_t endOfBaseline, uint16_t array[], const int32_t size, 
+	const uint16_t threshold, const int32_t widthOfSequence, 
+	int32_t minPointsInBaseline, int16_t *pBaseline, int16_t *pStdev)
 {
 	// Error checking
-	if (size < 0 || width < 0)
+	if (size < 0 || widthOfSequence < 0)
 		return (-5000);
 
 	// Try to calculate the baseline starting from start. If it fails return
 	// element of error i.e. starting point of error
-	int32_t startOfError = calculateBaseline(start, end, array, size, 
-											 threshold, pBaseline, pStdev);
+	int32_t startOfError = calculateBaseline(startOfBaseline, endOfBaseline, 
+											 array, size, threshold, 
+											 minPointsInBaseline, pBaseline, 
+											 pStdev);
 
 	// If we find a baseline exit cleanly, else everything below -1 signifies 
 	// error so return generated error
@@ -62,8 +67,9 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 	// No baseline yet, so find next starting position, starting from
 	// startOfError, by comparing sequences and returning if we find one
 	// sequence and the next sequence is less smooth
-	int32_t newStart = compareSequences(startOfError, (startOfError + width), 
-										array, size, width);
+	int32_t newStart = compareSequences(startOfError, (startOfError + 
+										widthOfSequence), array, size, 
+										widthOfSequence);
 
 	// No next starting point...
 	// So return with error value
@@ -75,10 +81,10 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 	}
 
 	// No problems so far, so update the end and try again
-	int32_t newEnd = newStart + width;
+	int32_t newEnd = newStart + widthOfSequence;
 
-	return (findBaseline(newStart, newEnd, array, size, threshold, width,
-						 pBaseline, pStdev));
+	return (findBaseline(newStart, newEnd, array, size, threshold, 
+			widthOfSequence, minPointsInBaseline, pBaseline, pStdev));
 }
 
 /*
@@ -92,7 +98,8 @@ _declspec (dllexport) int32_t findBaseline(int32_t start, int32_t end,
 int32_t
 calculateBaseline(int32_t start, int32_t end, uint16_t array[], 
 					const int32_t size, const uint16_t threshold,
-					int16_t *pBaseline, int16_t *pStdev)
+					int32_t minPointsInBaseline, int16_t *pBaseline, 
+					int16_t *pStdev)
 {
 	// Declare variables
 	int32_t i;
@@ -121,9 +128,8 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 
 	// Itereate over each element in the array
 	// Start with second element (start + 1) because we need to compare it to a
-	// previous element. We want as much elements as possible so we set size of
-	// array as maximum. We do not need more than 'end - start' elements to
-	// accurately determine the baseline, the +1 accounts for the fact that we
+	// previous element. We do not need more than 'end - start' elements to
+	// accurately determine the baseline, the + 1 accounts for the fact that we
 	// take the average until i - 1, which then translates to 'start' and 'end'
 	for (i = (start + 1); i < (end + 1); i++)
 	{
@@ -192,8 +198,7 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	// baseline value and return (-1) else return element were calculating
 	// failed. We want al least 95% of bins iterated to be used for the 
 	// baseline
-	// TODO: the 96 should be fixed to width?
-	if ((i - start) >= 50)
+	if ((i - start) >= minPointsInBaseline)
 	{
 		// Return -1 means everthing went ok and we've found a baseline 
 		*pBaseline = (int16_t) round(average);
