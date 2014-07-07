@@ -116,7 +116,7 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 		return (-5001);
 	else if (start == end)
 		return (-5002);
-	else if ((end - start) < 100)
+	else if ((end - start) < minPointsInBaseline)
 		return (-5003);
 
 	// Set minimum and maximum of the whole, iterated over, part of the trace 
