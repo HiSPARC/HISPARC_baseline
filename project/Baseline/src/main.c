@@ -4,7 +4,7 @@
  *			Filename:	main.c
  *		 Description:	This program calculates the average (baseline) of an
  *						array of value's up to the start of a significant
- *						spike.
+ *						pulse.
  *
  *			 Version:	1.0
  *			 Created:	06-06-2014 16:32:16
@@ -115,7 +115,7 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	// Set minimum and maximum of the whole, iterated over, part of the trace 
 	// to account for the fact that we have a maximum deviation from the global
 	// min and max and the program is not fooled by a very gradual in- / 
-	// decreasimg trace
+	// decreasimg trace.
 	int min = array[start];
 	int max = array[start];
 
@@ -142,7 +142,10 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 		average = sum / (i - start);
 
 		// Make sure min and max do not lay more than threshold away from the 
-		// average
+		// average. This could only be a minor issue if after a pulse or dip
+		// the average in- or decrease so that the difference between the min/
+		// max and the average becomes bigger than threshold. The script would
+		// then break.
 		minDifference = (double) average - min;
 		maxDifference = (double) max - average;
 
@@ -190,10 +193,17 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	// failed. We want al least 95% of bins iterated to be used for the 
 	// baseline
 	// TODO: the 96 should be fixed to width?
-	if ((i - start) >= 96)
+	if ((i - start) >= 50)
 	{
 		// Return -1 means everthing went ok and we've found a baseline 
 		*pBaseline = (int16_t) round(average);
+
+		// Make sure value of baseline not higher than around threshold + 
+		// baseline
+		if (*pBaseline > 220) {
+			*pBaseline = -999;
+			return (-5004);
+		}
 
 		// In order to comply with the old baseline filter return
 		// stdev times 1000
