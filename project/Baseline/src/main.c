@@ -31,8 +31,7 @@
 */
 struct errorCluster
 {
-	int32_t errorValue;
-	char *errorMessage;
+	int8_t errorBoolean;
 };
 
 // Function declarations
@@ -239,8 +238,7 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 			*pStdev = -999;
 
 			// Fill error struct
-			(*errorOut).errorValue = 5004;
-			(*errorOut).errorMessage = "Baseline to high";
+			(*errorOut).errorBoolean = 1;
 
 			return (5004);
 		}
