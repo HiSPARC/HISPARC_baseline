@@ -38,6 +38,8 @@ int32_t calculateBaseline(int8_t *errorBoolean, char *errorMessage,
 	int32_t minPointsInBaseline, int16_t *pBaseline,
 	int16_t *pStdev);
 bool inRange(const uint16_t threshold, double value);
+void setErrorCluster(int8_t *errorBoolean, char *errorMessage,
+	int16_t *pBaseline, int16_t *pStdev, const char *string);
 
 
 _declspec (dllexport) int32_t findBaseline(int8_t *errorBoolean,
@@ -49,8 +51,8 @@ _declspec (dllexport) int32_t findBaseline(int8_t *errorBoolean,
 	// Error checking
 	if (size < 0 || widthOfSequence < 0)
 	{
-		*pBaseline = -999;
-		*pStdev = -999;
+		setErrorCluster(errorBoolean, errorMessage, pBaseline, pStdev, 
+				   "Size of array and width should both be greater than zero");
 		return (5000);
 	}
 
@@ -68,11 +70,7 @@ _declspec (dllexport) int32_t findBaseline(int8_t *errorBoolean,
 	if (startOfError == -1)
 		return 0;
 	else if (startOfError < -1)
-	{
-		*pBaseline = -999;
-		*pStdev = -999;
 		return (abs(startOfError));
-	}
 
 	// No baseline yet, so find next starting position, starting from
 	// startOfError, by comparing sequences and returning if we find one
@@ -85,9 +83,9 @@ _declspec (dllexport) int32_t findBaseline(int8_t *errorBoolean,
 	// So return with error value
 	if (newStart == INT_MAX)
 	{
-		*pBaseline = -999;
-		*pStdev = -999;
-		return 5005;
+		setErrorCluster(errorBoolean, errorMessage, pBaseline, pStdev,
+						"No baseline found");
+		return (5005);
 	}
 
 	// No problems so far, so update the end and try again
@@ -126,21 +124,21 @@ calculateBaseline(int8_t *errorBoolean, char *errorMessage, int32_t start,
 	// baseline
 	if (start < 0 || end > size)
 	{
-		*pBaseline = -999;
-		*pStdev = -999;
-		return (5001);
+		setErrorCluster(errorBoolean, errorMessage, pBaseline, pStdev,
+						"Array out of bounds");
+		return (-5001);
 	}
 	else if (start == end)
 	{
-		*pBaseline = -999;
-		*pStdev = -999;
-		return (5002);
+		setErrorCluster(errorBoolean, errorMessage, pBaseline, pStdev,
+				  "Starting point matches end point, so nothing to calculate");
+		return (-5002);
 	}
 	else if ((end - start) < minPointsInBaseline)
 	{
-		*pBaseline = -999;
-		*pStdev = -999;
-		return (5003);
+		setErrorCluster(errorBoolean, errorMessage, pBaseline, pStdev,
+						"Array to small to calculate baseline");
+		return (-5003);
 	}
 
 	// Set minimum and maximum of the whole, iterated over, part of the trace 
@@ -230,9 +228,8 @@ calculateBaseline(int8_t *errorBoolean, char *errorMessage, int32_t start,
 		// Make sure value of baseline not higher than around threshold + 
 		// baseline
 		if (*pBaseline > 220) {
-			*errorBoolean = 1;
-			const char *errorString = "Baseline to high";
-			memcpy(errorMessage, errorString, strlen(errorString) + 1);
+			setErrorCluster(errorBoolean, errorMessage, pBaseline, pStdev,
+							"Baseline to high");
 			return (-5004);
 		}
 
@@ -259,4 +256,18 @@ inRange(const uint16_t threshold, double value)
 		return true;
 	else
 		return false;
+}
+
+/*
+ * Set the values for the error cluster, execpt for the errorValue, this is
+ * just the return value for the function
+ */
+void
+setErrorCluster(int8_t *errorBoolean, char *errorMessage, int16_t *pBaseline, 
+	int16_t *pStdev, const char *string)
+{
+	*pBaseline = -999;
+	*pStdev = -999;
+	*errorBoolean = 1;
+	memcpy(errorMessage, string, strlen(string) + 1);
 }
