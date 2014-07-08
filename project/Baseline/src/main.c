@@ -21,37 +21,30 @@
 #include <limits.h>
 #include <stdbool.h>
 #include <math.h>
+#include <string.h>
 
 #include "extcode.h"
 #include "sequence.h"
 
-/*
-* This struct contains all error values which are needed in LABVIEW to create
-* an error cluster
-*/
-struct errorCluster
-{
-	int8_t errorBoolean;
-};
-
 // Function declarations
-_declspec (dllexport) int32_t findBaseline(int32_t startOfBaseline,
-	int32_t endOfBaseline, uint16_t array[], const int32_t size,
-	const uint16_t threshold, const int32_t widthOfSequence,
-	int32_t minPointsInBaseline, int16_t *pBaseline, int16_t *pStdev,
-	struct errorCluster *errorOut);
-int32_t calculateBaseline(int32_t start, int32_t end, uint16_t array[],
+_declspec (dllexport) int32_t findBaseline(int8_t *errorBoolean, 
+	char *errorMessage, int32_t startOfBaseline, int32_t endOfBaseline, 
+	uint16_t array[], const int32_t size, const uint16_t threshold, 
+	const int32_t widthOfSequence, int32_t minPointsInBaseline, 
+	int16_t *pBaseline, int16_t *pStdev);
+int32_t calculateBaseline(int8_t *errorBoolean, char *errorMessage, 
+	int32_t start, int32_t end, uint16_t array[],
 	const int32_t size, const uint16_t threshold,
 	int32_t minPointsInBaseline, int16_t *pBaseline,
-	int16_t *pStdev, struct errorCluster *errorOut);
+	int16_t *pStdev);
 bool inRange(const uint16_t threshold, double value);
 
 
-_declspec (dllexport) int32_t findBaseline(int32_t startOfBaseline, 
-	int32_t endOfBaseline, uint16_t array[], const int32_t size, 
-	const uint16_t threshold, const int32_t widthOfSequence, 
-	int32_t minPointsInBaseline, int16_t *pBaseline, int16_t *pStdev,
-	struct errorCluster *errorOut)
+_declspec (dllexport) int32_t findBaseline(int8_t *errorBoolean,
+	char *errorMessage, int32_t startOfBaseline, int32_t endOfBaseline, 
+	uint16_t array[], const int32_t size, const uint16_t threshold, 
+	const int32_t widthOfSequence, int32_t minPointsInBaseline, 
+	int16_t *pBaseline, int16_t *pStdev)
 {
 	// Error checking
 	if (size < 0 || widthOfSequence < 0)
@@ -63,20 +56,22 @@ _declspec (dllexport) int32_t findBaseline(int32_t startOfBaseline,
 
 	// Try to calculate the baseline starting from start. If it fails return
 	// element of error i.e. starting point of error
-	int32_t startOfError = calculateBaseline(startOfBaseline, endOfBaseline, 
+	int32_t startOfError = calculateBaseline(errorBoolean, errorMessage, 
+											 startOfBaseline, endOfBaseline,
 											 array, size, threshold, 
 											 minPointsInBaseline, pBaseline, 
-											 pStdev, errorOut);
+											 pStdev);
 
 	// If we find a baseline exit cleanly, else everything below -1 signifies 
-	// error so return generated error
+	// error so return generated error. Because LABVIEW is not using the
+	// positive >=5000 error codes we take the absolute value when returning
 	if (startOfError == -1)
 		return 0;
 	else if (startOfError < -1)
 	{
 		*pBaseline = -999;
 		*pStdev = -999;
-		return startOfError;
+		return (abs(startOfError));
 	}
 
 	// No baseline yet, so find next starting position, starting from
@@ -98,9 +93,9 @@ _declspec (dllexport) int32_t findBaseline(int32_t startOfBaseline,
 	// No problems so far, so update the end and try again
 	int32_t newEnd = newStart + widthOfSequence;
 
-	return (findBaseline(newStart, newEnd, array, size, threshold, 
-			widthOfSequence, minPointsInBaseline, pBaseline, pStdev, 
-			errorOut));
+	return (findBaseline(errorBoolean, errorMessage, newStart, newEnd, array, 
+			size, threshold, widthOfSequence, minPointsInBaseline, pBaseline, 
+			pStdev));
 }
 
 /*
@@ -112,10 +107,11 @@ _declspec (dllexport) int32_t findBaseline(int32_t startOfBaseline,
  * array
  */
 int32_t
-calculateBaseline(int32_t start, int32_t end, uint16_t array[], 
+calculateBaseline(int8_t *errorBoolean, char *errorMessage, int32_t start, 
+					int32_t end, uint16_t array[],
 					const int32_t size, const uint16_t threshold,
 					int32_t minPointsInBaseline, int16_t *pBaseline, 
-					int16_t *pStdev, struct errorCluster *errorOut)
+					int16_t *pStdev)
 {
 	// Declare variables
 	int32_t i;
@@ -234,13 +230,10 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 		// Make sure value of baseline not higher than around threshold + 
 		// baseline
 		if (*pBaseline > 220) {
-			*pBaseline = -999;
-			*pStdev = -999;
-
-			// Fill error struct
-			(*errorOut).errorBoolean = 1;
-
-			return (5004);
+			*errorBoolean = 1;
+			const char *errorString = "Baseline to high";
+			memcpy(errorMessage, errorString, strlen(errorString) + 1);
+			return (-5004);
 		}
 
 		// In order to comply with the old baseline filter return
