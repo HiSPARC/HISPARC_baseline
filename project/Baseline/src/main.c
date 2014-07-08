@@ -25,22 +25,34 @@
 #include "extcode.h"
 #include "sequence.h"
 
+/*
+* This struct contains all error values which are needed in LABVIEW to create
+* an error cluster
+*/
+struct errorCluster
+{
+	int32_t errorValue;
+	char *errorMessage;
+};
+
 // Function declarations
 _declspec (dllexport) int32_t findBaseline(int32_t startOfBaseline,
 	int32_t endOfBaseline, uint16_t array[], const int32_t size,
 	const uint16_t threshold, const int32_t widthOfSequence,
-	int32_t minPointsInBaseline, int16_t *pBaseline, int16_t *pStdev);
+	int32_t minPointsInBaseline, int16_t *pBaseline, int16_t *pStdev,
+	struct errorCluster *errorOut);
 int32_t calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	const int32_t size, const uint16_t threshold,
 	int32_t minPointsInBaseline, int16_t *pBaseline,
-	int16_t *pStdev);
+	int16_t *pStdev, struct errorCluster *errorOut);
 bool inRange(const uint16_t threshold, double value);
 
 
 _declspec (dllexport) int32_t findBaseline(int32_t startOfBaseline, 
 	int32_t endOfBaseline, uint16_t array[], const int32_t size, 
 	const uint16_t threshold, const int32_t widthOfSequence, 
-	int32_t minPointsInBaseline, int16_t *pBaseline, int16_t *pStdev)
+	int32_t minPointsInBaseline, int16_t *pBaseline, int16_t *pStdev,
+	struct errorCluster *errorOut)
 {
 	// Error checking
 	if (size < 0 || widthOfSequence < 0)
@@ -55,7 +67,7 @@ _declspec (dllexport) int32_t findBaseline(int32_t startOfBaseline,
 	int32_t startOfError = calculateBaseline(startOfBaseline, endOfBaseline, 
 											 array, size, threshold, 
 											 minPointsInBaseline, pBaseline, 
-											 pStdev);
+											 pStdev, errorOut);
 
 	// If we find a baseline exit cleanly, else everything below -1 signifies 
 	// error so return generated error
@@ -88,22 +100,23 @@ _declspec (dllexport) int32_t findBaseline(int32_t startOfBaseline,
 	int32_t newEnd = newStart + widthOfSequence;
 
 	return (findBaseline(newStart, newEnd, array, size, threshold, 
-			widthOfSequence, minPointsInBaseline, pBaseline, pStdev));
+			widthOfSequence, minPointsInBaseline, pBaseline, pStdev, 
+			errorOut));
 }
 
 /*
-* This function tries to determine the baseline from a given array.
-* If we do not have sufficient points before we reach the pulse, the
-* function returns the element where it failed else if we do find
-* enough points, we set a pointer to the value of the calculated
-* baseline and return -1 because that can never be an element of an
-* array
-*/
+ * This function tries to determine the baseline from a given array.
+ * If we do not have sufficient points before we reach the pulse, the
+ * function returns the element where it failed else if we do find
+ * enough points, we set a pointer to the value of the calculated
+ * baseline and return -1 because that can never be an element of an
+ * array
+ */
 int32_t
 calculateBaseline(int32_t start, int32_t end, uint16_t array[], 
 					const int32_t size, const uint16_t threshold,
 					int32_t minPointsInBaseline, int16_t *pBaseline, 
-					int16_t *pStdev)
+					int16_t *pStdev, struct errorCluster *errorOut)
 {
 	// Declare variables
 	int32_t i;
@@ -224,6 +237,11 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 		if (*pBaseline > 220) {
 			*pBaseline = -999;
 			*pStdev = -999;
+
+			// Fill error struct
+			(*errorOut).errorValue = 5004;
+			(*errorOut).errorMessage = "Baseline to high";
+
 			return (5004);
 		}
 
@@ -239,10 +257,10 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 }
 
 /*
-* Check if a value lies within the absolute value of the supplied threshold
-* i.e. more than the negative value of the threshold and less than the
-* positive value of the threshold
-*/
+ * Check if a value lies within the absolute value of the supplied threshold
+ * i.e. more than the negative value of the threshold and less than the
+ * positive value of the threshold
+ */
 bool
 inRange(const uint16_t threshold, double value)
 {
