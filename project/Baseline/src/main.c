@@ -68,7 +68,12 @@ _declspec (dllexport) int32_t findBaseline(int8_t *errorBoolean,
 	// error so return generated error. Because LABVIEW is not using the
 	// positive >=5000 error codes we take the absolute value when returning
 	if (startOfError == -1)
+	{
+		*errorBoolean = 0;
+		const char *string = "No error";
+		memcpy(errorMessage, string, strlen(string) + 1);
 		return 0;
+	}
 	else if (startOfError < -1)
 		return (abs(startOfError));
 
