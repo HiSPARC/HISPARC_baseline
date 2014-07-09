@@ -2,7 +2,7 @@ import zlib
 import tables
 import numpy as np
 
-DATAPATH = '2014_4_5.h5'
+DATAPATH = '2014_6_3.h5'
 
 def get_traces_baseline(station_group='/hisparc/cluster_amsterdam/station_501'):
     with tables.open_file(DATAPATH, 'r') as data:
@@ -13,7 +13,8 @@ def get_traces_baseline(station_group='/hisparc/cluster_amsterdam/station_501'):
 			traces = get_traces_for_event(blobs, event)
 			baselines = [b for b in event['baseline'] if not b == -1]
 			std_devs = [s for s in event['std_dev'] if not s == -1]
-			yield traces, baselines, std_devs
+			timestamp = [event['ext_timestamp'] for i in range(4)]
+			yield traces, baselines, std_devs, timestamp
 
 def get_traces_for_event(blobs, event):
 	trace_ids = [trace_id for trace_id in event['traces'] if not trace_id == -1]
