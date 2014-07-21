@@ -221,11 +221,12 @@ calculateBaseline(int8_t *errorBoolean, char *errorMessage, int32_t start,
 		}
 	}
 
-	// If we have enough points to calculate the baseline set pointer to
-	// baseline value and return (-1) else return element were calculating
-	// failed. We want al least 95% of bins iterated to be used for the 
+	// We want al least 90% of bins iterated to be used for the 
 	// baseline
-	if ((i - start) >= minPointsInBaseline)
+	// If we have enough points to calculate the baseline set pointer to
+	// baseline value and return (-1) else return element where calculating
+	// failed.
+	if ((i - start) >= (minPointsInBaseline * 0.9))
 	{
 		// Return -1 means everthing went ok and we've found a baseline 
 		*pBaseline = (int16_t) round(average);
