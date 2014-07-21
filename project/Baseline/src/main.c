@@ -41,7 +41,6 @@ bool inRange(const uint16_t threshold, double value);
 void setErrorCluster(int8_t *errorBoolean, char *errorMessage,
 	int16_t *pBaseline, int16_t *pStdev, const char *string);
 
-
 _declspec (dllexport) int32_t findBaseline(int8_t *errorBoolean,
 	char *errorMessage, int32_t startOfBaseline, int32_t endOfBaseline, 
 	uint16_t array[], const int32_t size, const uint16_t threshold, 
@@ -223,10 +222,12 @@ calculateBaseline(int8_t *errorBoolean, char *errorMessage, int32_t start,
 
 	// We want al least 90% of bins iterated to be used for the 
 	// baseline
+	int32_t includingMargin = (int32_t) round(minPointsInBaseline * 0.9);
+
 	// If we have enough points to calculate the baseline set pointer to
 	// baseline value and return (-1) else return element where calculating
 	// failed.
-	if ((i - start) >= (minPointsInBaseline * 0.9))
+	if (((i - 1) - start) >= includingMargin)
 	{
 		// Return -1 means everthing went ok and we've found a baseline 
 		*pBaseline = (int16_t) round(average);
