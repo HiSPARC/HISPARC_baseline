@@ -25,54 +25,41 @@
 
 #include "extcode.h"
 #include "sequence.h"
+#include "main.h"
 
 // Function declarations
-_declspec (dllexport) int32_t findBaseline(int8_t *errorBoolean, 
-	char *errorMessage, int32_t startOfBaseline, int32_t endOfBaseline, 
-	uint16_t array[], const int32_t size, const uint16_t threshold, 
-	const int32_t widthOfSequence, int32_t minPointsInBaseline, 
-	int16_t *pBaseline, int16_t *pStdev);
-int32_t calculateBaseline(int8_t *errorBoolean, char *errorMessage, 
-	int32_t start, int32_t end, uint16_t array[],
+int32_t calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	const int32_t size, const uint16_t threshold,
-	int32_t minPointsInBaseline, int16_t *pBaseline,
-	int16_t *pStdev);
+	int32_t minPointsInBaseline, int16_t *Baseline,
+	int16_t *Stdev);
 bool inRange(const uint16_t threshold, double value);
-void setErrorCluster(int8_t *errorBoolean, char *errorMessage,
-	int16_t *pBaseline, int16_t *pStdev, const char *string);
+void setErrorValues(int16_t *Baseline, int16_t *Stdev);
 
-_declspec (dllexport) int32_t findBaseline(int8_t *errorBoolean,
-	char *errorMessage, int32_t startOfBaseline, int32_t endOfBaseline, 
+// The main (exported) function
+DECLDIR int32_t findBaseline(int32_t startInitBaseline, int32_t endInitBaseline, 
 	uint16_t array[], const int32_t size, const uint16_t threshold, 
 	const int32_t widthOfSequence, int32_t minPointsInBaseline, 
-	int16_t *pBaseline, int16_t *pStdev)
+	int16_t *Baseline, int16_t *Stdev)
 {
 	// Error checking
 	if (size < 0 || widthOfSequence < 0)
 	{
-		setErrorCluster(errorBoolean, errorMessage, pBaseline, pStdev, 
-				   "Size of array and width should both be greater than zero");
+		setErrorValues(Baseline, Stdev);
 		return (5000);
-	}
+	}	
 
 	// Try to calculate the baseline starting from start. If it fails return
 	// element of error i.e. starting point of error
-	int32_t startOfError = calculateBaseline(errorBoolean, errorMessage, 
-											 startOfBaseline, endOfBaseline,
-											 array, size, threshold, 
-											 minPointsInBaseline, pBaseline, 
-											 pStdev);
+	int32_t startOfError = calculateBaseline(startInitBaseline, 
+											 endInitBaseline, array, size, 
+											 threshold, minPointsInBaseline, 
+											 Baseline, Stdev);
 
 	// If we find a baseline exit cleanly, else everything below -1 signifies 
 	// error so return generated error. Because LABVIEW is not using the
 	// positive >=5000 error codes we take the absolute value when returning
 	if (startOfError == -1)
-	{
-		*errorBoolean = 0;
-		const char *string = "No error";
-		memcpy(errorMessage, string, strlen(string) + 1);
 		return 0;
-	}
 	else if (startOfError < -1)
 		return (abs(startOfError));
 
@@ -87,17 +74,16 @@ _declspec (dllexport) int32_t findBaseline(int8_t *errorBoolean,
 	// So return with error value
 	if (newStart == INT_MAX)
 	{
-		setErrorCluster(errorBoolean, errorMessage, pBaseline, pStdev,
-						"No baseline found");
+		setErrorValues(Baseline, Stdev);
 		return (5005);
 	}
 
 	// No problems so far, so update the end and try again
 	int32_t newEnd = newStart + widthOfSequence;
 
-	return (findBaseline(errorBoolean, errorMessage, newStart, newEnd, array, 
-			size, threshold, widthOfSequence, minPointsInBaseline, pBaseline, 
-			pStdev));
+	return (findBaseline(newStart, newEnd, array, 
+			size, threshold, widthOfSequence, minPointsInBaseline, Baseline, 
+			Stdev));
 }
 
 /*
@@ -109,11 +95,10 @@ _declspec (dllexport) int32_t findBaseline(int8_t *errorBoolean,
  * array
  */
 int32_t
-calculateBaseline(int8_t *errorBoolean, char *errorMessage, int32_t start, 
-					int32_t end, uint16_t array[],
+calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 					const int32_t size, const uint16_t threshold,
-					int32_t minPointsInBaseline, int16_t *pBaseline, 
-					int16_t *pStdev)
+					int32_t minPointsInBaseline, int16_t *Baseline, 
+					int16_t *Stdev)
 {
 	// Declare variables
 	int32_t i;
@@ -128,20 +113,17 @@ calculateBaseline(int8_t *errorBoolean, char *errorMessage, int32_t start,
 	// baseline
 	if (start < 0 || end > size)
 	{
-		setErrorCluster(errorBoolean, errorMessage, pBaseline, pStdev,
-						"Array out of bounds");
+		setErrorValues(Baseline, Stdev);
 		return (-5001);
 	}
 	else if (start == end)
 	{
-		setErrorCluster(errorBoolean, errorMessage, pBaseline, pStdev,
-				  "Starting point matches end point, so nothing to calculate");
+		setErrorValues(Baseline, Stdev);
 		return (-5002);
 	}
 	else if ((end - start) < minPointsInBaseline)
 	{
-		setErrorCluster(errorBoolean, errorMessage, pBaseline, pStdev,
-						"Array to small to calculate baseline");
+		setErrorValues(Baseline, Stdev);
 		return (-5003);
 	}
 
@@ -230,20 +212,20 @@ calculateBaseline(int8_t *errorBoolean, char *errorMessage, int32_t start,
 	if (((i - 1) - start) >= includingMargin)
 	{
 		// Return -1 means everthing went ok and we've found a baseline 
-		*pBaseline = (int16_t) round(average);
+		*Baseline = (int16_t) round(average);
 
 		// Make sure value of baseline not higher than around threshold + 
 		// baseline
-		if (*pBaseline > 220) {
-			setErrorCluster(errorBoolean, errorMessage, pBaseline, pStdev,
-							"Baseline to high");
+		if (*Baseline > 220)
+		{
+			setErrorValues(Baseline, Stdev);
 			return (-5004);
 		}
 
 		// In order to comply with the old baseline filter return
 		// stdev times 1000
 		double miliStdev = stdev(start, (i - 1), array, average, size);
-		*pStdev = (int16_t) round(miliStdev * 1000);
+		*Stdev = (int16_t) round(miliStdev * 1000);
 
 		return (-1);
 	}
@@ -266,15 +248,13 @@ inRange(const uint16_t threshold, double value)
 }
 
 /*
- * Set the values for the error cluster, execpt for the errorValue, this is
- * just the return value for the function
+ * This function is called on the occurrence of an error to set the
+ * baseline and standard deviation accordingly
  */
 void
-setErrorCluster(int8_t *errorBoolean, char *errorMessage, int16_t *pBaseline, 
-	int16_t *pStdev, const char *string)
+setErrorValues(int16_t *Baseline, int16_t *Stdev)
 {
-	*pBaseline = -999;
-	*pStdev = -999;
-	*errorBoolean = 1;
-	memcpy(errorMessage, string, strlen(string) + 1);
+	// The -999 indicates the occurrence of an error
+	*Baseline = -999;
+	*Stdev = -999;
 }
