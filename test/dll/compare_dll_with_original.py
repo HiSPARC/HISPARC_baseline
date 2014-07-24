@@ -9,7 +9,7 @@ import progressbar
 from get_trace_and_baseline import get_traces_baseline
 
 # Set date of HDF5 file
-DATE = "18-06-2014"
+DATE = "05-04-2014"
 
 # Set types of the pointers to baseline and stdev
 pBaseline = c_int16()
@@ -34,12 +34,12 @@ fo = open("error_" + DATE + ".log", "w")
 fo.write("#\n# This file contains the outcome of the comparison of the old and new implementation of the baseline filter\n#\n")
 fo.write("# " + str(now) + "\n# Station 501 at " + DATE + "\n#\n\n")
 
-fo.write("*---------------------------------------------------------------------------------------------------------------------------------------------------------------*\n")
-fo.write("| Number\tbaseline_old\tbaseline_new\tstdev_old\tstdev_new\ttimestamp\t\t\terrorValue\terrorBoolean\terrorMessage    |\n")
-fo.write("*---------------------------------------------------------------------------------------------------------------------------------------------------------------*\n")
+fo.write("*-----------------------------------------------------------------------------------------------------------------------------------*\n")
+fo.write("| Number\tbaseline_old\tbaseline_new\tstdev_old\tstdev_new\ttimestamp\t\t\terrorValue    |\n")
+fo.write("*-----------------------------------------------------------------------------------------------------------------------------------*\n")
 
 # Initiate progressbar
-pbar = progressbar.ProgressBar(maxval=58704.,
+pbar = progressbar.ProgressBar(maxval=62484.,
 							   widgets=[progressbar.Percentage(),
 										progressbar.Bar(),
 										progressbar.ETA()]).start()
@@ -53,17 +53,18 @@ for x, (t, b, s, ti) in pbar(enumerate(get_traces_baseline())):
 		trace_array = (c_uint16 * len(trace))(*trace)
 		
 		# Define function prototype as used in dll
-		findBaseline.argtypes = [c_int32, c_int32, c_uint16 * len(trace_array), c_int32, c_uint16, c_int32, c_int32, POINTER(c_int16), POINTER(c_int16)]
+		findBaseline.argtypes = [c_int32, c_int32, c_uint16 * len(trace_array), c_int32, c_uint16, c_int32, POINTER(c_int16), POINTER(c_int16)]
 		findBaseline.restype = c_int32
 		
 		# Run the DLL
-		dll_return = findBaseline(0, len(trace), trace_array, len(trace), 25, 100, 50, pBaseline, pStdev)
+		dll_return = findBaseline(0, len(trace), trace_array, len(trace), 25, 50, pBaseline, pStdev)
 		
 		# Check for all possible mismatches and record them	
 		if pBaseline.value != bsl and pStdev.value == stdev:
 			fo.write(str(x) +"\t\t" + str(bsl) + "\t\t" + str(pBaseline.value) + "\t\t" + str(stdev) + "\t\t" + str(pStdev.value) + "\t\t" + str(timestamp) + "\t\t" + str(dll_return) + "\t\t" + "\n")
 			count_bsl_err += 1
 		elif pBaseline.value != bsl and pStdev.value != stdev:
+			fo.write(str(x) +"\t\t" + str(bsl) + "\t\t" + str(pBaseline.value) + "\t\t" + str(stdev) + "\t\t" + str(pStdev.value) + "\t\t" + str(timestamp) + "\t\t" + str(dll_return) + "\t\t" + "\n")
 			fo.write(str(x) +"\t\t" + str(bsl) + "\t\t" + str(pBaseline.value) + "\t\t" + str(stdev) + "\t\t" + str(pStdev.value) + "\t\t" + str(timestamp) + "\t\t" + str(dll_return) + "\t\t" + "\n")
 			count_bsl_stdev_err += 1
 		elif pBaseline.value == bsl and pStdev.value != stdev:
