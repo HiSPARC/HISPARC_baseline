@@ -33,10 +33,9 @@
  * of width: widthOFSequence. In the end the baseline and standard deviation
  * are returned.
  */
-DECLDIR int32_t findBaseline(int32_t startInitBaseline, 
-	int32_t endInitBaseline, uint16_t array[], 
-	const int32_t size, const uint16_t threshold, 
-	const int32_t widthOfSequence, int32_t minPointsInBaseline, 
-	int16_t *Baseline, int16_t *Stdev);
+DECLDIR int32_t findBaseline(int32_t defaultStart, 
+	int32_t baselineLength, uint16_t data_12_bit[], 
+	const int32_t traceLength, const uint16_t baselineThreshold, 
+	int32_t minimalInBaseline, int16_t *Baseline, int16_t *Stdev);
 
 #endif

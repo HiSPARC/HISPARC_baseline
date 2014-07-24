@@ -6,7 +6,7 @@
  *						array of value's up to the start of a significant
  *						pulse.
  *
- *			 Version:	1.0
+ *			 Version:	1.15
  *			 Created:	06-06-2014 16:32:16
  *
  *			  Author:	Jorian van Oostenbrugge (jorianvo)
@@ -29,20 +29,19 @@
 
 // Function declarations
 int32_t calculateBaseline(int32_t start, int32_t end, uint16_t array[],
-	const int32_t size, const uint16_t threshold,
-	int32_t minPointsInBaseline, int16_t *Baseline,
-	int16_t *Stdev);
+	const int32_t size, const uint16_t threshold, int32_t minimalInBaseline, 
+	int16_t *Baseline, int16_t *Stdev);
 bool inRange(const uint16_t threshold, double value);
 void setErrorValues(int16_t *Baseline, int16_t *Stdev);
 
 // The main (exported) function
-DECLDIR int32_t findBaseline(int32_t startInitBaseline, int32_t endInitBaseline, 
-	uint16_t array[], const int32_t size, const uint16_t threshold, 
-	const int32_t widthOfSequence, int32_t minPointsInBaseline, 
+DECLDIR int32_t findBaseline(int32_t defaultStart, int32_t baselineLength, 
+	uint16_t data_12_bit[], const int32_t traceLength, 
+	const uint16_t baselineThreshold, int32_t minimalInBaseline, 
 	int16_t *Baseline, int16_t *Stdev)
 {
-	// Error checking
-	if (size < 0 || widthOfSequence < 0)
+	// No event data present
+	if (traceLength <= 0)
 	{
 		setErrorValues(Baseline, Stdev);
 		return (5000);
@@ -50,10 +49,11 @@ DECLDIR int32_t findBaseline(int32_t startInitBaseline, int32_t endInitBaseline,
 
 	// Try to calculate the baseline starting from start. If it fails return
 	// element of error i.e. starting point of error
-	int32_t startOfError = calculateBaseline(startInitBaseline, 
-											 endInitBaseline, array, size, 
-											 threshold, minPointsInBaseline, 
-											 Baseline, Stdev);
+	int32_t startOfError = calculateBaseline(defaultStart, 
+											 baselineLength, data_12_bit, 
+											 traceLength, baselineThreshold, 
+											 minimalInBaseline, Baseline, 
+											 Stdev);
 
 	// If we find a baseline exit cleanly, else everything below -1 signifies 
 	// error so return generated error. Because LABVIEW is not using the
@@ -67,8 +67,8 @@ DECLDIR int32_t findBaseline(int32_t startInitBaseline, int32_t endInitBaseline,
 	// startOfError, by comparing sequences and returning if we find one
 	// sequence and the next sequence is less smooth
 	int32_t newStart = compareSequences(startOfError, (startOfError + 
-										widthOfSequence), array, size, 
-										widthOfSequence);
+									SEQUENCEWIDTH), data_12_bit, traceLength,
+									SEQUENCEWIDTH);
 
 	// No next starting point...
 	// So return with error value
@@ -79,11 +79,10 @@ DECLDIR int32_t findBaseline(int32_t startInitBaseline, int32_t endInitBaseline,
 	}
 
 	// No problems so far, so update the end and try again
-	int32_t newEnd = newStart + widthOfSequence;
+	int32_t newEnd = newStart + minimalInBaseline;
 
-	return (findBaseline(newStart, newEnd, array, 
-			size, threshold, widthOfSequence, minPointsInBaseline, Baseline, 
-			Stdev));
+	return (findBaseline(newStart, newEnd, data_12_bit,
+		traceLength, baselineThreshold, minimalInBaseline, Baseline, Stdev));
 }
 
 /*
@@ -96,9 +95,8 @@ DECLDIR int32_t findBaseline(int32_t startInitBaseline, int32_t endInitBaseline,
  */
 int32_t
 calculateBaseline(int32_t start, int32_t end, uint16_t array[],
-					const int32_t size, const uint16_t threshold,
-					int32_t minPointsInBaseline, int16_t *Baseline, 
-					int16_t *Stdev)
+				  const int32_t size, const uint16_t threshold, 
+				  int32_t minimalInBaseline, int16_t *Baseline, int16_t *Stdev)
 {
 	// Declare variables
 	int32_t i;
@@ -113,16 +111,19 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 	// baseline
 	if (start < 0 || end > size)
 	{
+		// Array out of bounds
 		setErrorValues(Baseline, Stdev);
 		return (-5001);
 	}
 	else if (start == end)
 	{
+		// Nothing to calculate
 		setErrorValues(Baseline, Stdev);
 		return (-5002);
 	}
-	else if ((end - start) < minPointsInBaseline)
+	else if ((end - start) < minimalInBaseline)
 	{
+		// Not enough points
 		setErrorValues(Baseline, Stdev);
 		return (-5003);
 	}
@@ -202,14 +203,10 @@ calculateBaseline(int32_t start, int32_t end, uint16_t array[],
 		}
 	}
 
-	// We want al least 90% of bins iterated to be used for the 
-	// baseline
-	int32_t includingMargin = (int32_t) round(minPointsInBaseline * 0.9);
-
 	// If we have enough points to calculate the baseline set pointer to
 	// baseline value and return (-1) else return element where calculating
 	// failed.
-	if (((i - 1) - start) >= includingMargin)
+	if (((i - 1) - start) >= minimalInBaseline)
 	{
 		// Return -1 means everthing went ok and we've found a baseline 
 		*Baseline = (int16_t) round(average);

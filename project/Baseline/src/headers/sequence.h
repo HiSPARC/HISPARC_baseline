@@ -25,6 +25,7 @@
 
 #define STDEVLIMIT 4
 #define MAXAVERAGE 245
+#define SEQUENCEWIDTH 100
 
 // Declare struct to hold array properties
 struct sequence
@@ -59,7 +60,7 @@ double stdev(int32_t begin, int32_t end, uint16_t array[],
  * Determine the starting point for determining the baseline the start in
  * combination with the end define the width of the "sequence" i.e. an array
  * which starts at start and ends at end - 1. This function compares two
- * such sequences and stop until it finds a sequence with a smoother baseline
+ * such sequences and stops until it finds a sequence with a smoother baseline
  * compared to the next sequence. If the exists no such sequence an error
  * with value INT_MAX is returned
  */

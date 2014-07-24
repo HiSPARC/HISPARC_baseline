@@ -110,7 +110,7 @@ stdev(int32_t begin, int32_t end, uint16_t array[], const double average,
  * combination with the end define the width of the "sequence" i.e. an array
  * which starts at start and ends at end - 1. The width is also an argument 
  * itself to avoid calculating it eacht time. This function compares two
- * such sequences and stop until it finds a sequence with a smoother baseline
+ * such sequences and stops until it finds a sequence with a smoother baseline
  * compared to the next sequence. If there exists no such sequence an error
  * with value INT_MAX is returned. For normal usage the width should be equal
  * to the end when the function is first called. If they are not equal, we 
