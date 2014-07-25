@@ -5,11 +5,18 @@ import time
 import os
 import numpy as np
 import progressbar
+import matplotlib.pyplot as plt
 
 from get_trace_and_baseline import get_traces_baseline
 
 # Set date of HDF5 file
 DATE = "22-07-2014"
+
+# Set arrays for storing data
+array_length_bsl = []
+array_stdev = []
+array_counter = []
+array_bsl = []
 
 # Set types of the pointers to baseline and stdev
 pBaseline = c_int16()
@@ -38,7 +45,7 @@ pbar = progressbar.ProgressBar(maxval=4.,
                                         progressbar.ETA()]).start()
 
 # Use a variable trace length
-for base_length in pbar(range(30, 1005, 5)):
+for base_length in pbar(range(30, 2405, 5)):
 
     # Initialise all counters
     count_matches = 0
@@ -60,7 +67,6 @@ for base_length in pbar(range(30, 1005, 5)):
             findBaseline.argtypes = [c_int32, c_int32, c_uint16 * len(trace_array), c_int32, c_uint16, c_int32, POINTER(c_int16), POINTER(c_int16)]
             findBaseline.restype = c_int32
             
-            
             # Run the DLL
             dll_return = findBaseline(0, base_length, trace_array, len(trace), 25, base_length, pBaseline, pStdev)
             
@@ -75,10 +81,38 @@ for base_length in pbar(range(30, 1005, 5)):
     average_stdev = sum_stdev / count_matches
     average_bsl = sum_bsl / count_matches
     
-    # Write to log file
-    fo.write(str(base_length) + "\t\t\t\t" + str(average_stdev) + "\t\t" + str(count_matches) + "\t\t\t\t" + str(average_bsl) + "\n")
-            
-        
+    # Add new baseline length to array
+    array_length_bsl.append(base_length)
+    
+    # Add new stdev average to array
+    array_stdev.append(average_stdev)
+    
+    # Add new counter value to array
+    array_counter.append(count_matches)
+	
+	# Add new baseline value to array
+    array_bsl.append(average_bsl)
+
+# Plot the length of the baseline vs the average stdev
+ax1 = plt.subplot(3,1,1)
+ax1.plot(array_length_bsl, array_stdev, marker='o', linestyle='-', color='r')
+ax1.set_ylabel('average standard deviation (times 1000)')
+
+# Plot the length of the baseline vs the number of matches
+ax2 = plt.subplot(3,1,2, sharex=ax1)
+ax2.plot(array_length_bsl, array_counter, marker='o', linestyle='-', color='b', label='number of traces')
+ax2.set_ylabel('number of traces')
+
+# Plot the length of the baseline vs the number of matches
+ax3 = plt.subplot(3,1,3, sharex=ax2)
+ax3.plot(array_length_bsl, array_bsl, marker='o', linestyle='-', color='g', label='number of traces')
+ax3.set_ylabel('Value of baseline (ADC counts)')
+
+# Set x label and show plot
+plt.xlabel('length of baseline')
+plt.show()
+
+# Finish and close     
 pbar.finish()
 fo.close()
 
