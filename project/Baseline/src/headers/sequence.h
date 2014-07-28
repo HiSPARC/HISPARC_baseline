@@ -64,7 +64,8 @@ double stdev(int32_t begin, int32_t end, uint16_t array[],
  * compared to the next sequence. If the exists no such sequence an error
  * with value INT_MAX is returned
  */
-int32_t compareSequences(int32_t start, int32_t end, uint16_t array[], 
-							const int32_t size, const int32_t width);
+int32_t compareSequences(int32_t startFirstSequence, int32_t endFirstSequence, 
+						 uint16_t array[], const int32_t size, 
+						 const int32_t width);
 
 #endif

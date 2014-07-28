@@ -117,31 +117,33 @@ stdev(int32_t begin, int32_t end, uint16_t array[], const double average,
  * could either miss elements or get an overlap of sequences.
  */
 int32_t
-compareSequences(int32_t start, int32_t end, uint16_t array[], 
-					const int32_t size, const int32_t width)
+compareSequences(int32_t startFirstSequence, int32_t endFirstSequence, 
+				 uint16_t array[], const int32_t size, const int32_t width)
 {
     int32_t nextStart, nextEnd;
     struct sequence currentSequence, nextSequence;
     
     // Do not exceed array else if possible shift sequence back to fall exactly
     // in array
-    if (start < 0 || end > size)
+    if (startFirstSequence < 0 || endFirstSequence > size)
         return (INT_MAX);
-    else if (start == end)
+	else if (startFirstSequence == endFirstSequence)
         return (INT_MAX);
-    else if ((end + width) > size)
+    else if ((endFirstSequence + width) > size)
     {
-        nextStart = (start + width) - ((end + width) - size);
+        nextStart = (startFirstSequence + width) - ((endFirstSequence + width) 
+					 - size);
         nextEnd = size;
     }
     else
     {
-        nextStart = start + width;
-        nextEnd = end + width;
+        nextStart = startFirstSequence + width;
+        nextEnd = endFirstSequence + width;
     }
     
     // Set sequences
-    currentSequence = calculateProperties(start, end, array, size);
+    currentSequence = calculateProperties(startFirstSequence, endFirstSequence, 
+										  array, size);
     nextSequence = calculateProperties(nextStart, nextEnd, array, size);
     
     // Get average and stdev
@@ -151,12 +153,12 @@ compareSequences(int32_t start, int32_t end, uint16_t array[],
     double neStdev = nextSequence.stdev;
     
     // Base cases i.e. when to end the recursion
-    if (end == size)
+    if (endFirstSequence == size)
     {
         // Array exactly size of sequence
         // if it falls below limits return start else return error
         if (cuAverage < MAXAVERAGE && cuStdev < STDEVLIMIT)
-            return start;
+            return startFirstSequence;
         else
             return (INT_MAX);
     }
@@ -169,13 +171,13 @@ compareSequences(int32_t start, int32_t end, uint16_t array[],
             {
                 // A lower stdev i.e. a smoother line is more important than a
                 // low average so return
-                return (start);
+                return (startFirstSequence);
             }
             else if (cuStdev == neStdev)
             {
                 // Because both stdevs are equal we want the lowest average
                 if (cuAverage <= neAverage)
-                    return (start);
+                    return (startFirstSequence);
             }
             else if (nextEnd == size)
             {
@@ -194,7 +196,7 @@ compareSequences(int32_t start, int32_t end, uint16_t array[],
             if (nextEnd == size)
             {
                 if (cuAverage < MAXAVERAGE)
-                    return (start);
+                    return (startFirstSequence);
                 else
                     return (INT_MAX);
             }
@@ -211,8 +213,9 @@ compareSequences(int32_t start, int32_t end, uint16_t array[],
             return (INT_MAX);
     }
     
-    start += width;
-    end += width;
+    startFirstSequence += width;
+    endFirstSequence += width;
     
-    return (compareSequences(start, end, array, size, width));
+    return (compareSequences(startFirstSequence, endFirstSequence, array, 
+							 size, width));
 }

@@ -63,12 +63,19 @@ DECLDIR int32_t findBaseline(int32_t defaultStart, int32_t baselineLength,
 	else if (startOfError < -1)
 		return (abs(startOfError));
 
+	// Since startOfError will most likely return the start of an pulse, we
+	// first update the start for comparing sequences by width of sequence
+	// to jump over the error instead of calculating all properties which takes
+	// time
+	int32_t startComparing = startOfError + SEQUENCEWIDTH;
+	int32_t endFirstSequence = startComparing + SEQUENCEWIDTH;
+
 	// No baseline yet, so find next starting position, starting from
 	// startOfError, by comparing sequences and returning if we find one
 	// sequence and the next sequence is less smooth
-	int32_t newStart = compareSequences(startOfError, (startOfError + 
-									SEQUENCEWIDTH), data_12_bit, traceLength,
-									SEQUENCEWIDTH);
+	int32_t newStart = compareSequences(startComparing, endFirstSequence, 
+										data_12_bit, traceLength,
+										SEQUENCEWIDTH);
 	
 	// No next starting point...
 	// So return with error value
@@ -91,7 +98,8 @@ DECLDIR int32_t findBaseline(int32_t defaultStart, int32_t baselineLength,
  * function returns the element where it failed else if we do find
  * enough points, we set a pointer to the value of the calculated
  * baseline and return -1 because that can never be an element of an
- * array
+ * array. The start indicates the start of the baseline and the end denotes
+ * the last element included in the baseline - if there is no pulse ofcourse.
  */
 int32_t
 calculateBaseline(int32_t start, int32_t end, uint16_t array[],
