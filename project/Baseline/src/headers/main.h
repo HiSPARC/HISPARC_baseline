@@ -24,6 +24,19 @@
 #define _MAIN_H
 #define DECLDIR __declspec(dllexport)
 
+// Set the number of point to include before and after the left / right cutoff
+#define	EXTRAPOINTS 20
+
+// Declare struct to hold trace properties
+struct traceProperties
+{
+	int16_t numberOfPeaks;
+	int16_t leftCutOff;
+	int16_t rightCutOff;
+	int16_t pulseHeight;
+	int16_t pulseIntegral;
+};
+
 /*
  * Function to find the baseline, providing an array with a size. The initial
  * baseline is calculated from startInitBaseline to endInitBaseline, by using

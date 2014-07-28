@@ -27,7 +27,7 @@
 #define MAXAVERAGE 245
 #define SEQUENCEWIDTH 100
 
-// Declare struct to hold array properties
+// Declare struct to hold sequence properties
 struct sequence
 {
     double average;

@@ -263,3 +263,121 @@ setErrorValues(int16_t *Baseline, int16_t *Stdev)
 	*Baseline = -999;
 	*Stdev = -999;
 }
+
+/*
+ * This function calculates all trace variables
+ */
+int32_t
+traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold, 
+			   const int32_t traceLength, const uint16_t baselineThreshold, 
+			   const int16_t Baseline, struct traceProperties *properties)
+{
+	// In order to calculate the trace variables we need a baseline
+	// so if we have none set all derived properties to -999
+	if (Baseline == -999)
+	{
+		// No derived properties
+		properties->numberOfPeaks = -999;
+		properties->pulseHeight = -999;
+		properties->pulseIntegral = -999;
+
+		// Send the whole trace
+		properties->leftCutOff = 0;
+		properties->rightCutOff = traceLength;
+	}
+	else
+	{
+		// Declare variables
+		uint16_t currentElement;
+		properties->pulseHeight = 0;
+		properties->pulseIntegral = 0;
+
+		// Is the current point bigger than the set threshold?
+		bool overThreshold = false;
+
+		// Is the left cutoff unset?
+		bool leftUnset = true;
+
+		// Is the right cutoff unset?
+		bool rightUnset = true;
+
+		// We have a baseline so calculate all trace properties
+		for (int32_t i = 0; i < traceLength; i++)
+		{
+			// Current element relative to baseline
+			currentElement = data_12_bit[i] - Baseline;
+
+			// Get biggest value for the pulseheight
+			if (currentElement > properties->pulseHeight)
+				properties->pulseHeight = currentElement;
+
+			// Compare current element to threshold to determine integral
+			// and cutoffs
+			if (currentElement > baselineThreshold)
+			{
+				// Be ready for first point lower than threshold
+				overThreshold = true;
+
+				// Current point is part of pulseIntegral so add it
+				properties->pulseIntegral += currentElement;
+
+				// If it is the first point to cross threshold boundry
+				// it is also the left cutoff
+				if (leftUnset)
+				{
+					// Set left cutoff to current element but with 20 extra
+					// elements to be able to calculate the baseline after
+					// data reduction. Thus make sure we have room for those
+					// extra elements
+					if (i <= EXTRAPOINTS)
+						properties->leftCutOff = 0;
+					else
+						properties->leftCutOff = (i - EXTRAPOINTS);
+
+					// This is the left cutoff so never update this value again
+					leftUnset = false;
+				}
+			}
+			else
+			{
+				// This point is the first point after a pulse so potentially
+				// right cutoff
+				if (overThreshold)
+				{
+					// Set right cutoff to current element but with 20 extra
+					// elements to be able to calculate the baseline after
+					// data reduction. Thus make sure we have room for those
+					// extra elements
+					if ((i + EXTRAPOINTS) >= traceLength)
+						properties->rightCutOff = traceLength;
+					else
+						properties->rightCutOff = (i + EXTRAPOINTS);
+
+					// Return to false so at the next pulse we are triggered
+					// again but not before that pulse
+					overThreshold = false;
+
+					// Right cutoff is now set
+					rightUnset = false;
+				}
+
+			}
+
+			// Reached the last point but no pulse found so set the left
+			// cutoff point to the rightmost value i.e. trace length and 
+			// the right cutoff point to the leftmost value i.e. 0 (zero) 
+			// to make sure that these points are never chosen
+			if (i == (traceLength - 1))
+			{
+				if (leftUnset)
+					properties->leftCutOff = traceLength;
+
+				if (rightUnset)
+					properties->rightCutOff = 0;
+			}
+		}
+
+		// Every property is calculated so exit
+		return 0;
+	}
+}
