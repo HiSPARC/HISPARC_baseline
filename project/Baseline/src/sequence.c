@@ -174,7 +174,7 @@ compareSequences(int32_t start, int32_t end, uint16_t array[],
             else if (cuStdev == neStdev)
             {
                 // Because both stdevs are equal we want the lowest average
-                if (cuAverage < neAverage)
+                if (cuAverage <= neAverage)
                     return (start);
             }
             else if (nextEnd == size)

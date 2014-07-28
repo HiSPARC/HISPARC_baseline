@@ -54,7 +54,7 @@ DECLDIR int32_t findBaseline(int32_t defaultStart, int32_t baselineLength,
 											 traceLength, baselineThreshold, 
 											 minimalInBaseline, Baseline, 
 											 Stdev);
-
+	
 	// If we find a baseline exit cleanly, else everything below -1 signifies 
 	// error so return generated error. Because LABVIEW is not using the
 	// positive >=5000 error codes we take the absolute value when returning
@@ -69,7 +69,7 @@ DECLDIR int32_t findBaseline(int32_t defaultStart, int32_t baselineLength,
 	int32_t newStart = compareSequences(startOfError, (startOfError + 
 									SEQUENCEWIDTH), data_12_bit, traceLength,
 									SEQUENCEWIDTH);
-
+	
 	// No next starting point...
 	// So return with error value
 	if (newStart == INT_MAX)
