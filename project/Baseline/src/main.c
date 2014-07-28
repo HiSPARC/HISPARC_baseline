@@ -360,7 +360,6 @@ traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 					// Right cutoff is now set
 					rightUnset = false;
 				}
-
 			}
 
 			// Reached the last point but no pulse found so set the left
@@ -374,6 +373,11 @@ traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 
 				if (rightUnset)
 					properties->rightCutOff = 0;
+
+				// As the last point of the trace array sits within a pulse
+				// we send the whole trace for analysis
+				if (overThreshold)
+					properties->rightCutOff = i;
 			}
 		}
 
