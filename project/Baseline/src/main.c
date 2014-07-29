@@ -265,10 +265,12 @@ setErrorValues(int16_t *Baseline, int16_t *Stdev)
 }
 
 /*
- * This function calculates all trace variables
+ * This function calculates all trace properties. The trace variables consists
+ * of the number of peaks, the left cutoff, the right cutoff, the pulseHeight
+ * and the pulseIntegral. All properties are returned as a pointer to a struct
+ * because labiew is unable to handle structs as a return object
  */
-int32_t
-traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold, 
+DECLDIR int32_t traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold, 
 			   const int32_t traceLength, const uint16_t baselineThreshold, 
 			   const int16_t Baseline, struct traceProperties *properties)
 {
@@ -291,6 +293,8 @@ traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 		uint16_t currentElement;
 		properties->pulseHeight = 0;
 		properties->pulseIntegral = 0;
+		uint16_t localMinimum = data_12_bit[0];
+		uint16_t localMaximum;
 
 		// Is the current point bigger than the set threshold?
 		bool overThreshold = false;
@@ -301,6 +305,9 @@ traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 		// Is the right cutoff unset?
 		bool rightUnset = true;
 
+		// Is the slope rising?
+		bool rising = false;
+
 		// We have a baseline so calculate all trace properties
 		for (int32_t i = 0; i < traceLength; i++)
 		{
@@ -310,6 +317,52 @@ traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 			// Get biggest value for the pulseheight
 			if (currentElement > properties->pulseHeight)
 				properties->pulseHeight = currentElement;
+
+			// Determine total number of peaks, positive as well as negative
+			// Start by determining the local minimum i.e. a value as close to
+			// zero as possible
+			if (abs(currentElement) < abs(localMinimum))
+			{
+				// We still need to know if this value if either positive or
+				// negative
+				localMinimum = currentElement;
+			}
+			else if (abs(currentElement) - abs(localMinimum) > PeakThreshold)
+			{
+				// Slope is rising in positive or negative direction
+				rising = true;
+
+				// The local maximum is now this point, so we are able to
+				// find the top of a pulse
+				localMaximum = currentElement;
+			}
+
+			// Found the start of a pulse (start above threshold)
+			if (rising)
+			{
+				// Get top of pulse
+				if (abs(currentElement) > abs(localMaximum))
+					localMaximum = currentElement;
+				else
+				{
+					// Found biggest point, so now see if we again go below
+					// peak threshold (as measured from the top to make sure
+					// every single peak is counted and not just a single
+					// pulse)
+					if (abs(localMaximum) - abs(currentElement) >
+						PeakThreshold)
+					{
+						// That's a pulse!
+						properties->numberOfPeaks += 1;
+
+						// Reset start of pulse indicator
+						rising = false;
+
+						// Look again from here to a pulse
+						localMinimum = currentElement;
+					}
+				}
+			}
 
 			// Compare current element to threshold to determine integral
 			// and cutoffs
@@ -381,7 +434,7 @@ traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 			}
 		}
 
-		// Every property is calculated so exit
+		// Every property has a value so return
 		return 0;
 	}
 }

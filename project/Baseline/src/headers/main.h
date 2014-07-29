@@ -51,4 +51,11 @@ DECLDIR int32_t findBaseline(int32_t defaultStart,
 	const int32_t traceLength, const uint16_t baselineThreshold, 
 	int32_t minimalInBaseline, int16_t *Baseline, int16_t *Stdev);
 
+/*
+ * This function calculates all trace variables
+ */
+DECLDIR int32_t traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
+	const int32_t traceLength, const uint16_t baselineThreshold,
+	const int16_t Baseline, struct traceProperties *properties);
+
 #endif
