@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from get_trace_and_baseline import get_traces_baseline
 
 # Set date of HDF5 file
-DATE = "22-07-2014"
+DATE = "18-06-2014"
 
 # Set arrays for storing data
 array_length_bsl = []
@@ -45,7 +45,7 @@ pbar = progressbar.ProgressBar(maxval=4.,
                                         progressbar.ETA()]).start()
 
 # Use a variable trace length
-for base_length in pbar(range(30, 2405, 5)):
+for base_length in pbar(range(0, 2405, 5)):
 
     # Initialise all counters
     count_matches = 0
@@ -54,10 +54,7 @@ for base_length in pbar(range(30, 2405, 5)):
 
     # Iterate over all events. Default is station 501 at Science Park
     for x, (t, b, s, ti) in enumerate(get_traces_baseline()):
-    
-        if x > 400:
-            break
-        
+            
         # Loop over individual trace
         for trace, bsl, stdev, timestamp in zip(t, b, s, ti):
             # Define array
@@ -89,8 +86,8 @@ for base_length in pbar(range(30, 2405, 5)):
     
     # Add new counter value to array
     array_counter.append(count_matches)
-	
-	# Add new baseline value to array
+    
+    # Add new baseline value to array
     array_bsl.append(average_bsl)
 
 # Plot the length of the baseline vs the average stdev
