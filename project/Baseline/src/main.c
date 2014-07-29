@@ -431,10 +431,21 @@ DECLDIR int32_t traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 				// we send the whole trace for analysis
 				if (overThreshold)
 					properties->rightCutOff = i;
+
+				// If this point belongs to a starting peak count it
+				// (This point is not the starting point)
+				if (rising)
+					properties->numberOfPeaks += 1;
+				else if (abs(currentElement) - abs(localMinimum) >
+					PeakThreshold)
+				{
+					// Now at this point the peak start, so also count it
+					properties->numberOfPeaks += 1;
+				}
 			}
 		}
-
-		// Every property has a value so return
-		return 0;
 	}
+
+	// Every property has a value so return
+	return 0;
 }
