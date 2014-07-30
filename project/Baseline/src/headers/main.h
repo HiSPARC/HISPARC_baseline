@@ -34,7 +34,7 @@ struct traceProperties
 	int16_t leftCutOff;
 	int16_t rightCutOff;
 	int16_t pulseHeight;
-	int16_t pulseIntegral;
+	int32_t pulseIntegral;
 };
 
 /*
