@@ -9,7 +9,7 @@ import progressbar
 from get_trace_and_baseline import get_traces_baseline
 
 # Set date of HDF5 file
-DATE = "05-04-2014"
+DATE = "31-05-2014"
 
 # Define the structure
 class TVARIABLES(Structure):
@@ -39,9 +39,9 @@ fo = open("error_" + DATE + ".log", "w")
 fo.write("#\n# This file contains the outcome of the comparison of the old and new implementation of the baseline filter\n#\n")
 fo.write("# " + str(now) + "\n# Station 501 at " + DATE + "\n#\n\n")
 
-fo.write("*-------------------------------------------------------------------------------------------------------------------*\n")
+fo.write("*" + 160 * "-" + "*\n")
 fo.write("| Timestamp\t\tbaseline\tn_peaks\tn_peaks new\tpulseheights\tpulseheight new\tintegrals\tintegrals new\tleft cutoff \t right cutoff    |\n")
-fo.write("*-------------------------------------------------------------------------------------------------------------------*\n")
+fo.write("*" + 160 * "-" + "*\n")
 
 # Initiate progressbar
 pbar = progressbar.ProgressBar(maxval=62484.,
@@ -50,8 +50,8 @@ pbar = progressbar.ProgressBar(maxval=62484.,
                                         progressbar.ETA()])
 
 # Iterate over all events. Default is station 501 at Science Park
-for x, (t, b, p, h, i, ti) in pbar(enumerate(get_traces_baseline())):
-
+for x, (t, b, p, h, i, ti) in pbar(enumerate(get_traces_baseline())): 
+        
     # Loop over individual trace
     for trace, bsl, n_peaks, pulseheight, integral, timestamp in zip(t, b, p, h, i, ti):
         # Define array
@@ -65,21 +65,25 @@ for x, (t, b, p, h, i, ti) in pbar(enumerate(get_traces_baseline())):
         blah = TVARIABLES()  
 
         # Run the DLL
-        dll_return = trace_Variables(trace_array, 25, len(trace), 25, bsl, byref(blah))
+        dll_return = trace_Variables(trace_array, 52, len(trace), 25, bsl, byref(blah))
         
+        mismatch = False
         # Check for all possible mismatches and record them    
         if n_peaks != blah.numberOfPeaks:
-            fo.write(str(timestamp) +"\t" + str(bsl) + "\t\t" + str(n_peaks) + "\t" + str(blah.numberOfPeaks) + "\t\t" + str(pulseheight) + "\t\t" + str(blah.pulseHeight) + "\t\t" + str(integral) + "\t\t" + str(blah.pulseIntegral) + "\t\t" + str(blah.leftCutOff) + "\t\t" + str(blah.rightCutOff) + "\n")
             count_peaks += 1
-        elif pulseheight != blah.pulseHeight:
-            fo.write(str(timestamp) +"\t" + str(bsl) + "\t\t" + str(n_peaks) + "\t" + str(blah.numberOfPeaks) + "\t\t" + str(pulseheight) + "\t\t" + str(blah.pulseHeight) + "\t\t" + str(integral) + "\t\t" + str(blah.pulseIntegral) + "\t\t" + str(blah.leftCutOff) + "\t\t" + str(blah.rightCutOff) + "\n")
+            mismatch = True
+        if pulseheight != blah.pulseHeight:
             count_pulse += 1
-        elif integral != blah.pulseIntegral:
-            fo.write(str(timestamp) +"\t" + str(bsl) + "\t\t" + str(n_peaks) + "\t" + str(blah.numberOfPeaks) + "\t\t" + str(pulseheight) + "\t\t" + str(blah.pulseHeight) + "\t\t" + str(integral) + "\t\t" + str(blah.pulseIntegral) + "\t\t" + str(blah.leftCutOff) + "\t\t" + str(blah.rightCutOff) + "\n")
+            mismatch = True
+        if integral != blah.pulseIntegral:
             count_integral += 1
+            mismatch = True
+
+        if mismatch:
+            fo.write(str(timestamp) +"\t" + str(bsl) + "\t\t" + str(n_peaks) + "\t" + str(blah.numberOfPeaks) + "\t\t" + str(pulseheight) + "\t\t" + str(blah.pulseHeight) + "\t\t" + str(integral) + "\t\t" + str(blah.pulseIntegral) + "\t\t" + str(blah.leftCutOff) + "\t\t" + str(blah.rightCutOff) + "\n")
         else:
             count_matches += 1
-        
+            
         counter += 1
 
 # Calculate percentages

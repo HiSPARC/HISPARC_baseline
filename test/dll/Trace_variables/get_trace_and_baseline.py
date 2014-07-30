@@ -2,7 +2,7 @@ import zlib
 import tables
 import numpy as np
 
-DATAPATH = '../2014_4_5.h5'
+DATAPATH = '../2014_5_31.h5'
 
 def get_traces_baseline(station_group='/hisparc/cluster_amsterdam/station_501'):
     with tables.open_file(DATAPATH, 'r') as data:
