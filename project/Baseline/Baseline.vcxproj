@@ -85,10 +85,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\intern.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\sequence.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\headers\intern.h" />
     <ClInclude Include="src\headers\main.h" />
     <ClInclude Include="src\headers\sequence.h" />
   </ItemGroup>
