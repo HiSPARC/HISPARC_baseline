@@ -196,13 +196,15 @@ DECLDIR int32_t traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 
 			// Compare current element to threshold to determine integral
 			// and cutoffs
-			if (currentElement > baselineThreshold)
+			if (abs(currentElement) > baselineThreshold)
 			{
 				// Be ready for first point lower than threshold
 				overThreshold = true;
 
 				// Current point is part of pulseIntegral so add it
-				properties->pulseIntegral += currentElement;
+				// only add positive values to the pulseIntegral
+				if (currentElement > 0)
+					properties->pulseIntegral += currentElement;
 
 				// If it is the first point to cross threshold boundry
 				// it is also the left cutoff
@@ -260,7 +262,7 @@ DECLDIR int32_t traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 				// As the last point of the trace array sits within a pulse
 				// we send the whole trace for analysis
 				if (overThreshold)
-					properties->rightCutOff = i;
+					properties->rightCutOff = traceLength;
 
 				// If this point belongs to a starting peak count it
 				// (This point is not the starting point)
