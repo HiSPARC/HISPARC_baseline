@@ -25,7 +25,7 @@
 #define DECLDIR __declspec(dllexport)
 
 // Set the number of point to include before and after the left / right cutoff
-#define	EXTRAPOINTS 25
+#define	EXTRAPOINTS 5
 
 // Declare struct to hold trace properties
 struct traceProperties
