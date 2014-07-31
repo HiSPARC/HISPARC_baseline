@@ -163,23 +163,18 @@ DECLDIR int32_t traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 			{
 				// Slope is rising in positive or negative direction
 				rising = true;
-				printf("rising true for i = %i\n", i);
-				printf("value of element = %i\n", currentElement);
 
 				// The local maximum is now this point, so we are able to
 				// find the top of a pulse
 				localMaximum = currentElement;
-				printf("lacal max = %i\n", localMaximum);
 			}
 
 			// Found the start of a pulse (start above threshold)
 			if (rising)
 			{
 				// Get top of pulse
-				if (abs(currentElement) > abs(localMaximum)){
+				if (abs(currentElement) > abs(localMaximum))
 					localMaximum = currentElement;
-					printf("local maximum = %i\n", localMaximum);
-				}
 				else
 				{
 					// Found biggest point, so now see if we again go below
@@ -193,7 +188,7 @@ DECLDIR int32_t traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 
 						// Reset start of pulse indicator
 						rising = false;
-						printf("rising false for i = %i\n", i);
+
 						// Look again from here to a pulse
 						localMinimum = currentElement;
 					}
