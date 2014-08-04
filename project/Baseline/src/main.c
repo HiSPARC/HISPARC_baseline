@@ -124,7 +124,7 @@ DECLDIR int32_t traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 		int16_t currentElement;
 		properties->pulseHeight = 0;
 		properties->pulseIntegral = 0;
-		int16_t localMinimum = data_12_bit[0];
+		int16_t localMinimum = 0;
 		int16_t localMaximum;
 
 		// Is the current point bigger than the set threshold?
@@ -152,13 +152,14 @@ DECLDIR int32_t traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 			// Determine total number of positive peaks
 			// Start by determining the local minimum i.e. a value as close to
 			// zero as possible, but no less than zero
-			if (currentElement < abs(localMinimum))
-			{
-				// We still need to know if this value if either positive or
-				// negative
-				localMinimum = currentElement;
+			if (currentElement < localMinimum){
+				// Local minimum should be bigger than zero
+				if (currentElement <= 0)
+					localMinimum = 0;
+				else
+					localMinimum = currentElement;
 			}
-			else if (!rising && abs(currentElement - localMinimum) > 
+			else if (!rising && (currentElement - localMinimum) > 
 					 PeakThreshold)
 			{
 				// Slope is rising in positive or negative direction
@@ -173,7 +174,7 @@ DECLDIR int32_t traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 			if (rising)
 			{
 				// Get top of pulse
-				if (abs(currentElement) > abs(localMaximum))
+				if (currentElement > localMaximum)
 					localMaximum = currentElement;
 				else
 				{
@@ -181,7 +182,7 @@ DECLDIR int32_t traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 					// peak threshold (as measured from the top to make sure
 					// every single peak is counted and not just a single
 					// pulse)
-					if (abs(localMaximum - currentElement) > PeakThreshold)
+					if ((localMaximum - currentElement) > PeakThreshold)
 					{
 						// That's a pulse!
 						properties->numberOfPeaks += 1;
