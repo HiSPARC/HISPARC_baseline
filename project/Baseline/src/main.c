@@ -191,7 +191,11 @@ DECLDIR int32_t traceVariables(uint16_t data_12_bit[], int16_t PeakThreshold,
 						rising = false;
 
 						// Look again from here to a pulse
-						localMinimum = currentElement;
+						// local minimum still not allowed to be less than zero
+						if (currentElement <= 0)
+							localMinimum = 0;
+						else
+							localMinimum = currentElement;
 					}
 				}
 			}
