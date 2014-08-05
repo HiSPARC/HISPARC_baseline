@@ -22,14 +22,11 @@ This filter should try and determine the baseline for any given signal
 The implementation
 ------------------
 
-- [x] Use at least 90% of minPointsInBaseline, using a percentage is cleaner
-	  than using a static number (like 5).
-- [ ] Update the DLL to statically link to the msvc.....dll library to be
+- [x] Update the DLL to statically link to the msvc.....dll library to be
 	  independent of any MSVC packages (updated Release build but not tested it
 	  yet).
-- [ ] Add comments to the function (maybe just use gh-pages because the
-      documentation only works for VIs and not elements of VIs).
-- [ ] Documentation needs to wait before we know if the
-	  'library function wizard' works because maybe that allows for detailed
-	  documentation.
-- [ ] Create gh-pages documentation describing the VI
+- [x] Create subVI from `library function node` to include documentation from within LABVIEW
+- [x] Create Trace Variables vi which calculates all trace variables
+- [ ] Build python test module to store all texts in one place and allow for easy testing
+- [ ] Remove src folder from this repo because src and Dll have diverged to much
+- [ ] Create gh-pages documentation describing how the DLL works and how it is maintained
