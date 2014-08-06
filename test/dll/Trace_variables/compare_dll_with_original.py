@@ -5,11 +5,20 @@ import time
 import os
 import numpy as np
 import progressbar
+import json
 
 from get_trace_and_baseline import get_traces_baseline
 
+# Define base location to store all files
+BASE = "C:\\Users\\SuperUser\\Documents\\HiSparc\\HISPARC_baseline\\test\\dll\\data\\"
+
+# Save csv to file, folder should not start with slashes
+def save_txt(detail, trace):
+    FILE = os.path.join(BASE, str(detail) + ".csv")
+    np.savetxt(FILE, trace, delimiter=",", fmt="%i")
+    
 # Set date of HDF5 file
-DATE = "10-06-2014"
+DATE = "04-08-2014"
 
 # Define the structure
 class TVARIABLES(Structure):
@@ -21,15 +30,8 @@ class TVARIABLES(Structure):
                 
 
 # Make sure we can use the function from baseline.dll
-baseline_dll = CDLL("../../../project/Baseline/Release/Baseline.dll")
+baseline_dll = CDLL("../../../VI/dll/Baseline.dll")
 trace_Variables = baseline_dll.traceVariables
-
-# Initialise all counters
-count_peaks = 0
-count_pulse = 0
-count_integral = 0
-count_matches = 0
-counter = 0
 
 # Get current date and time
 now = time.strftime("%H:%M:%S %d-%m-%Y")
@@ -43,17 +45,30 @@ fo.write("*" + 160 * "-" + "*\n")
 fo.write("| Timestamp\t\tbaseline\tn_peaks\tn_peaks new\tpulseheights\tpulseheight new\tintegrals\tintegrals new\tleft cutoff \t right cutoff    |\n")
 fo.write("*" + 160 * "-" + "*\n")
 
+# Create empty dict
+dict = {}
+
 # Initiate progressbar
-pbar = progressbar.ProgressBar(maxval=61039.,
+pbar = progressbar.ProgressBar(maxval=61133.,
                                widgets=[progressbar.Percentage(),
                                         progressbar.Bar(),
                                         progressbar.ETA()])
 
+# Initialize counter
+counter = 0
+
 # Iterate over all events. Default is station 501 at Science Park
-for x, (t, b, p, h, i, ti) in pbar(enumerate(get_traces_baseline())): 
+for x, (t, b, p, h, i, ti) in pbar(enumerate(get_traces_baseline())):
+
+    if counter > 99:
+        break
         
     # Loop over individual trace
-    for trace, bsl, n_peaks, pulseheight, integral, timestamp in zip(t, b, p, h, i, ti):
+    for y,(trace, bsl, n_peaks, pulseheight, integral, timestamp) in enumerate(zip(t, b, p, h, i, ti)):
+        # Make sure we only get one trace per event
+        if y > 0:
+            continue
+            
         # Define array
         trace_array = (c_uint16 * len(trace))(*trace)
         
@@ -67,46 +82,25 @@ for x, (t, b, p, h, i, ti) in pbar(enumerate(get_traces_baseline())):
         # Run the DLL
         dll_return = trace_Variables(trace_array, 26, len(trace), 25, bsl, byref(blah))
         
-        mismatch = False
-        # Check for all possible mismatches and record them    
-        if n_peaks != blah.numberOfPeaks:
-            count_peaks += 1
-            mismatch = True
-        if pulseheight != blah.pulseHeight:
-            count_pulse += 1
-            mismatch = True
-        if integral != blah.pulseIntegral:
-            count_integral += 1
-            mismatch = True
-
-        if mismatch:
-            fo.write(str(timestamp) +"\t" + str(bsl) + "\t\t" + str(n_peaks) + "\t" + str(blah.numberOfPeaks) + "\t\t" + str(pulseheight) + "\t\t" + str(blah.pulseHeight) + "\t\t" + str(integral) + "\t\t" + str(blah.pulseIntegral) + "\t\t" + str(blah.leftCutOff) + "\t\t" + str(blah.rightCutOff) + "\n")
-        else:
-            count_matches += 1
+        # Check for all match and record 
+        if n_peaks == blah.numberOfPeaks and n_peaks > 0 and pulseheight == blah.pulseHeight and integral == blah.pulseIntegral:
+            counter += 1
+            # Set ext_timestamp as key
+            key = str(timestamp)
+            dict[key] = {}
+            dict[key]["n_peaks"] = n_peaks
+            dict[key]["pulseheights"] = pulseheight
+            dict[key]["integrals"] = integral 
+            dict[key]["baseline"] = bsl 
             
-        counter += 1
+            save_txt(timestamp, trace)
+            fo.write(str(timestamp) +"\t" + str(bsl) + "\t\t" + str(n_peaks) + "\t" + str(blah.numberOfPeaks) + "\t\t" + str(pulseheight) + "\t\t" + str(blah.pulseHeight) + "\t\t" + str(integral) + "\t\t" + str(blah.pulseIntegral) + "\t\t" + str(blah.leftCutOff) + "\t\t" + str(blah.rightCutOff) + "\n")
 
-# Calculate percentages
-n_perc = (count_peaks / counter) * 100
-p_perc = (count_pulse / counter) * 100
-i_perc = (count_integral / counter) * 100
-m_perc = (count_matches / counter) * 100
-
-# Write stats and close file
-fo.write("\n*-----------------------------------------*\n")        
-fo.write("|            stats          |\n")
-fo.write("*-----------------------------------------*\n")
-fo.write("Total peak errors: " + str(count_peaks) + "\n")
-fo.write("Total pulse errors: " + str(count_pulse) + "\n")
-fo.write("Total integral errors: " + str(count_integral) + "\n")
-fo.write("Total matches: " + str(count_matches) + "\n")
-fo.write("Total traces looked at: " + str(counter) + "\n")
-fo.write("Percentage of peak errors: " + str(n_perc) + "%\n")
-fo.write("Percentage of pulse errors: " + str(p_perc) + "%\n")
-fo.write("Percentage of integral errors: " + str(i_perc) + "%\n")
-fo.write("Percentage of matches: " + str(m_perc) + "%\n")
 fo.close()
 
+with open('data.json', mode='w') as f:
+    json.dump(unicode(dict), f, indent=2) 
+    
 exit()
         
         
