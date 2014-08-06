@@ -8,8 +8,8 @@
 *.sln.docstates
 
 # Build results
-[Dd]ebugPublic/
-[Rr]eleases/
+Debug/
+Release/
 x64/
 build/
 bld/
