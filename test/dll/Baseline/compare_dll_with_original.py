@@ -16,7 +16,7 @@ pBaseline = c_int16()
 pStdev = c_int16()
 
 # Make sure we can use the function from baseline.dll
-baseline_dll = CDLL("../../project/Baseline/Release/Baseline.dll")
+baseline_dll = CDLL("../../../project/Baseline/Release/Baseline.dll")
 findBaseline = baseline_dll.findBaseline
 
 # Initialise all counters

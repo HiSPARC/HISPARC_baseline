@@ -2,9 +2,9 @@ import zlib
 import tables
 import numpy as np
 
-DATAPATH = '../2014_7_22.h5'
+DATAPATH = '../2014_6_10.h5'
 
-def get_traces_baseline(station_group='/hisparc/cluster_amsterdam/station_502'):
+def get_traces_baseline(station_group='/hisparc/cluster_amsterdam/station_501'):
     with tables.open_file(DATAPATH, 'r') as data:
         station = data.get_node(station_group)
         events = station.events

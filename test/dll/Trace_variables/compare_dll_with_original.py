@@ -9,7 +9,7 @@ import progressbar
 from get_trace_and_baseline import get_traces_baseline
 
 # Set date of HDF5 file
-DATE = "31-05-2014"
+DATE = "10-06-2014"
 
 # Define the structure
 class TVARIABLES(Structure):
@@ -44,7 +44,7 @@ fo.write("| Timestamp\t\tbaseline\tn_peaks\tn_peaks new\tpulseheights\tpulseheig
 fo.write("*" + 160 * "-" + "*\n")
 
 # Initiate progressbar
-pbar = progressbar.ProgressBar(maxval=62484.,
+pbar = progressbar.ProgressBar(maxval=61039.,
                                widgets=[progressbar.Percentage(),
                                         progressbar.Bar(),
                                         progressbar.ETA()])
@@ -65,7 +65,7 @@ for x, (t, b, p, h, i, ti) in pbar(enumerate(get_traces_baseline())):
         blah = TVARIABLES()  
 
         # Run the DLL
-        dll_return = trace_Variables(trace_array, 52, len(trace), 25, bsl, byref(blah))
+        dll_return = trace_Variables(trace_array, 26, len(trace), 25, bsl, byref(blah))
         
         mismatch = False
         # Check for all possible mismatches and record them    
