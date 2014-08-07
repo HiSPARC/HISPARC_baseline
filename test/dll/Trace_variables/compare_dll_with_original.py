@@ -15,7 +15,10 @@ BASE = "C:\\Users\\SuperUser\\Documents\\HiSparc\\HISPARC_baseline\\test\\dll\\d
 # Save csv to file, folder should not start with slashes
 def save_txt(detail, trace):
     FILE = os.path.join(BASE, str(detail) + ".csv")
-    np.savetxt(FILE, trace, delimiter=",", fmt="%i")
+    
+    # Write trace to file
+    with open(FILE, mode='w') as file:
+        file.write(','.join(str(x) for x in trace))
     
 # Set date of HDF5 file
 DATE = "04-08-2014"
@@ -46,7 +49,7 @@ fo.write("| Timestamp\t\tbaseline\tn_peaks\tn_peaks new\tpulseheights\tpulseheig
 fo.write("*" + 160 * "-" + "*\n")
 
 # Create empty dict
-dict = {}
+properties = {}
 
 # Initiate progressbar
 pbar = progressbar.ProgressBar(maxval=61133.,
@@ -85,13 +88,13 @@ for x, (t, b, p, h, i, ti) in pbar(enumerate(get_traces_baseline())):
         # Check for all match and record 
         if n_peaks == blah.numberOfPeaks and n_peaks > 0 and pulseheight == blah.pulseHeight and integral == blah.pulseIntegral:
             counter += 1
-            # Set ext_timestamp as key
+            
+            # Set ext_timestamp as key and create nested dictionary
             key = str(timestamp)
-            dict[key] = {}
-            dict[key]["n_peaks"] = n_peaks
-            dict[key]["pulseheights"] = pulseheight
-            dict[key]["integrals"] = integral 
-            dict[key]["baseline"] = bsl 
+            properties[key] = {"n_peaks": int(n_peaks),
+                               "pulseheights": int(pulseheight),
+                               "integrals": int(integral),
+                               "baseline": int(bsl)}
             
             save_txt(timestamp, trace)
             fo.write(str(timestamp) +"\t" + str(bsl) + "\t\t" + str(n_peaks) + "\t" + str(blah.numberOfPeaks) + "\t\t" + str(pulseheight) + "\t\t" + str(blah.pulseHeight) + "\t\t" + str(integral) + "\t\t" + str(blah.pulseIntegral) + "\t\t" + str(blah.leftCutOff) + "\t\t" + str(blah.rightCutOff) + "\n")
@@ -99,7 +102,7 @@ for x, (t, b, p, h, i, ti) in pbar(enumerate(get_traces_baseline())):
 fo.close()
 
 with open('data.json', mode='w') as f:
-    json.dump(unicode(dict), f, indent=2) 
+    json.dump(properties, f, indent=2) 
     
 exit()
         
