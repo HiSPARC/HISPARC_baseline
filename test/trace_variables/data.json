@@ -1,0 +1,602 @@
+{
+  "1407110556215056159": {
+    "pulseheights": 268, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2931
+  }, 
+  "1407110429449203892": {
+    "pulseheights": 1257, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 16166
+  }, 
+  "1407110680053142955": {
+    "pulseheights": 245, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2163
+  }, 
+  "1407110495153382937": {
+    "pulseheights": 1779, 
+    "n_peaks": 3, 
+    "baseline": 195, 
+    "integrals": 25135
+  }, 
+  "1407110528947381398": {
+    "pulseheights": 515, 
+    "n_peaks": 1, 
+    "baseline": 196, 
+    "integrals": 7051
+  }, 
+  "1407110437543144880": {
+    "pulseheights": 309, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3418
+  }, 
+  "1407110522182632180": {
+    "pulseheights": 385, 
+    "n_peaks": 2, 
+    "baseline": 195, 
+    "integrals": 4105
+  }, 
+  "1407110507009887823": {
+    "pulseheights": 615, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 8278
+  }, 
+  "1407110445537843253": {
+    "pulseheights": 969, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 11807
+  }, 
+  "1407110677237406286": {
+    "pulseheights": 349, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3548
+  }, 
+  "1407110644032491403": {
+    "pulseheights": 411, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 5190
+  }, 
+  "1407110528471285502": {
+    "pulseheights": 214, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2369
+  }, 
+  "1407110614108830497": {
+    "pulseheights": 1030, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 12477
+  }, 
+  "1407110539601025615": {
+    "pulseheights": 352, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3173
+  }, 
+  "1407110500877595034": {
+    "pulseheights": 316, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3492
+  }, 
+  "1407110566320011630": {
+    "pulseheights": 268, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2756
+  }, 
+  "1407110664720751205": {
+    "pulseheights": 313, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2810
+  }, 
+  "1407110603074281963": {
+    "pulseheights": 133, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 1532
+  }, 
+  "1407110582494458918": {
+    "pulseheights": 211, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2301
+  }, 
+  "1407110551350637471": {
+    "pulseheights": 279, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3736
+  }, 
+  "1407110503047137446": {
+    "pulseheights": 239, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2641
+  }, 
+  "1407110416637955005": {
+    "pulseheights": 173, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 1865
+  }, 
+  "1407110498277884224": {
+    "pulseheights": 243, 
+    "n_peaks": 1, 
+    "baseline": 196, 
+    "integrals": 2192
+  }, 
+  "1407110621242661520": {
+    "pulseheights": 243, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2745
+  }, 
+  "1407110590898230884": {
+    "pulseheights": 330, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3451
+  }, 
+  "1407110444941857209": {
+    "pulseheights": 213, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2432
+  }, 
+  "1407110611385568162": {
+    "pulseheights": 288, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2870
+  }, 
+  "1407110478337268908": {
+    "pulseheights": 285, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3065
+  }, 
+  "1407110448059026776": {
+    "pulseheights": 1206, 
+    "n_peaks": 1, 
+    "baseline": 194, 
+    "integrals": 15465
+  }, 
+  "1407110569406679859": {
+    "pulseheights": 166, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 1394
+  }, 
+  "1407110532505436894": {
+    "pulseheights": 145, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 1453
+  }, 
+  "1407110529461308246": {
+    "pulseheights": 202, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2601
+  }, 
+  "1407110454585448329": {
+    "pulseheights": 237, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2432
+  }, 
+  "1407110465953462559": {
+    "pulseheights": 359, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 5073
+  }, 
+  "1407110458893671083": {
+    "pulseheights": 176, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2067
+  }, 
+  "1407110434017193636": {
+    "pulseheights": 370, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 4207
+  }, 
+  "1407110664628671219": {
+    "pulseheights": 846, 
+    "n_peaks": 1, 
+    "baseline": 196, 
+    "integrals": 14206
+  }, 
+  "1407110612504342125": {
+    "pulseheights": 260, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2346
+  }, 
+  "1407110625338216909": {
+    "pulseheights": 278, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2932
+  }, 
+  "1407110694586284287": {
+    "pulseheights": 223, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2443
+  }, 
+  "1407110462493883036": {
+    "pulseheights": 236, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3157
+  }, 
+  "1407110497179063442": {
+    "pulseheights": 2035, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 30832
+  }, 
+  "1407110604218411279": {
+    "pulseheights": 265, 
+    "n_peaks": 1, 
+    "baseline": 196, 
+    "integrals": 2815
+  }, 
+  "1407110572837774451": {
+    "pulseheights": 241, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2676
+  }, 
+  "1407110460625467210": {
+    "pulseheights": 1378, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 17903
+  }, 
+  "1407110495663873671": {
+    "pulseheights": 180, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2116
+  }, 
+  "1407110547061519822": {
+    "pulseheights": 393, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 4395
+  }, 
+  "1407110661077787803": {
+    "pulseheights": 2115, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 31139
+  }, 
+  "1407110430253890692": {
+    "pulseheights": 983, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 11577
+  }, 
+  "1407110505092250918": {
+    "pulseheights": 351, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 4239
+  }, 
+  "1407110653102728972": {
+    "pulseheights": 40, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 143
+  }, 
+  "1407110445350197594": {
+    "pulseheights": 234, 
+    "n_peaks": 1, 
+    "baseline": 194, 
+    "integrals": 1945
+  }, 
+  "1407110477066675085": {
+    "pulseheights": 518, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 6253
+  }, 
+  "1407110580531883524": {
+    "pulseheights": 277, 
+    "n_peaks": 2, 
+    "baseline": 195, 
+    "integrals": 2609
+  }, 
+  "1407110497747984661": {
+    "pulseheights": 195, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2689
+  }, 
+  "1407110689298351544": {
+    "pulseheights": 343, 
+    "n_peaks": 1, 
+    "baseline": 196, 
+    "integrals": 3631
+  }, 
+  "1407110453838036193": {
+    "pulseheights": 1363, 
+    "n_peaks": 3, 
+    "baseline": 195, 
+    "integrals": 25794
+  }, 
+  "1407110584082721859": {
+    "pulseheights": 226, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3122
+  }, 
+  "1407110420324853393": {
+    "pulseheights": 319, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3161
+  }, 
+  "1407110674953009583": {
+    "pulseheights": 225, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2627
+  }, 
+  "1407110593233851425": {
+    "pulseheights": 497, 
+    "n_peaks": 2, 
+    "baseline": 195, 
+    "integrals": 6252
+  }, 
+  "1407110601884142872": {
+    "pulseheights": 512, 
+    "n_peaks": 1, 
+    "baseline": 194, 
+    "integrals": 6703
+  }, 
+  "1407110652462911198": {
+    "pulseheights": 281, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2324
+  }, 
+  "1407110514291141625": {
+    "pulseheights": 195, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2226
+  }, 
+  "1407110586546339088": {
+    "pulseheights": 46, 
+    "n_peaks": 1, 
+    "baseline": 196, 
+    "integrals": 433
+  }, 
+  "1407110476943599268": {
+    "pulseheights": 385, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 4508
+  }, 
+  "1407110506241139144": {
+    "pulseheights": 376, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 4967
+  }, 
+  "1407110480371786699": {
+    "pulseheights": 275, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2634
+  }, 
+  "1407110700104838538": {
+    "pulseheights": 350, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3960
+  }, 
+  "1407110547494135748": {
+    "pulseheights": 248, 
+    "n_peaks": 1, 
+    "baseline": 196, 
+    "integrals": 2448
+  }, 
+  "1407110546227575892": {
+    "pulseheights": 680, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 8549
+  }, 
+  "1407110648651992602": {
+    "pulseheights": 371, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 4104
+  }, 
+  "1407110608058370655": {
+    "pulseheights": 246, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2857
+  }, 
+  "1407110550316125986": {
+    "pulseheights": 722, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 9220
+  }, 
+  "1407110433538793932": {
+    "pulseheights": 299, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2845
+  }, 
+  "1407110650059774856": {
+    "pulseheights": 261, 
+    "n_peaks": 3, 
+    "baseline": 195, 
+    "integrals": 5190
+  }, 
+  "1407110569203391640": {
+    "pulseheights": 343, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3236
+  }, 
+  "1407110629663687871": {
+    "pulseheights": 283, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3043
+  }, 
+  "1407110524658642004": {
+    "pulseheights": 206, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 1957
+  }, 
+  "1407110550314657733": {
+    "pulseheights": 366, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3448
+  }, 
+  "1407110420296100257": {
+    "pulseheights": 294, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3335
+  }, 
+  "1407110651556955679": {
+    "pulseheights": 412, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 5297
+  }, 
+  "1407110527150153689": {
+    "pulseheights": 224, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2577
+  }, 
+  "1407110533086282137": {
+    "pulseheights": 191, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 1827
+  }, 
+  "1407110626265634462": {
+    "pulseheights": 602, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 10150
+  }, 
+  "1407110553696880067": {
+    "pulseheights": 503, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 6077
+  }, 
+  "1407110416616262374": {
+    "pulseheights": 489, 
+    "n_peaks": 1, 
+    "baseline": 194, 
+    "integrals": 5589
+  }, 
+  "1407110656162144233": {
+    "pulseheights": 336, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3225
+  }, 
+  "1407110512859929750": {
+    "pulseheights": 621, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 6062
+  }, 
+  "1407110668423391766": {
+    "pulseheights": 306, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3698
+  }, 
+  "1407110581686510293": {
+    "pulseheights": 241, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2407
+  }, 
+  "1407110635907851351": {
+    "pulseheights": 152, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 1787
+  }, 
+  "1407110426813160786": {
+    "pulseheights": 392, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 4387
+  }, 
+  "1407110601738436698": {
+    "pulseheights": 320, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3517
+  }, 
+  "1407110650535275716": {
+    "pulseheights": 386, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3949
+  }, 
+  "1407110644662451995": {
+    "pulseheights": 246, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2551
+  }, 
+  "1407110517437399625": {
+    "pulseheights": 266, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2982
+  }, 
+  "1407110626761324762": {
+    "pulseheights": 389, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 3595
+  }, 
+  "1407110411264480031": {
+    "pulseheights": 270, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 2634
+  }, 
+  "1407110508045366237": {
+    "pulseheights": 563, 
+    "n_peaks": 1, 
+    "baseline": 195, 
+    "integrals": 5854
+  }
+}
