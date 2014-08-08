@@ -144,7 +144,10 @@ int32_t minimalInBaseline, int16_t *Baseline, int16_t *Stdev)
 
 	// If we have enough points to calculate the baseline set pointer to
 	// baseline value and return (-1) else return element where calculating
-	// failed.
+	// failed. We need this minimalInBaseline because the function findBaseline
+	// is recursive and hence the start and values can be updated dynamically
+	// so we are unable to use baselineLength otherwise the minimal points
+	// in the baseline will grow every new recursive call
 	if (((i - 1) - start) >= minimalInBaseline)
 	{
 		// Return -1 means everthing went ok and we've found a baseline 

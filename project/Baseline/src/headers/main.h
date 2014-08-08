@@ -41,7 +41,7 @@ struct traceProperties
  * Function to find the baseline, providing an array with a size. The initial
  * baseline is calculated from startInitBaseline to endInitBaseline, by using
  * the threshold to determine when an element is no longer part of the
- * baseline. If the calculation stops before minPointsInBaseline is reached,
+ * baseline. If the calculation stops before minimalInBaseline is reached,
  * the new startInitBaseline is determined using two sequences i.e. subarrays
  * of width: widthOFSequence. In the end the baseline and standard deviation
  * are returned.
