@@ -5,6 +5,7 @@ import time
 import os
 import numpy as np
 import progressbar
+import json
 
 from get_trace_and_baseline import get_traces_baseline
 
@@ -21,7 +22,7 @@ class TVARIABLES(Structure):
                 
 
 # Make sure we can use the function from baseline.dll
-baseline_dll = CDLL("../../../project/Baseline/Release/Baseline.dll")
+baseline_dll = CDLL("../../../VI/dll/Baseline.dll")
 trace_Variables = baseline_dll.traceVariables
 
 # Initialise all counters
@@ -42,14 +43,17 @@ fo.write("| Timestamp\t\tbaseline\tn_peaks\tn_peaks new\tpulseheights\tpulseheig
 fo.write("*" + 160 * "-" + "*\n\n")
 
 # Initiate progressbar
-pbar = progressbar.ProgressBar(maxval=62484.,
+pbar = progressbar.ProgressBar(maxval=21805.,
                                widgets=[progressbar.Percentage(),
                                         progressbar.Bar(),
                                         progressbar.ETA()])
 
+properties = {}
+
+count = 0
+     
 # Iterate over all events. Default is station 501 at Science Park
-for x, (t, b, p, h, i, ti) in pbar(enumerate(get_traces_baseline())): 
-    
+for x, (t, b, p, h, i, ti) in pbar(enumerate(get_traces_baseline())):    
     # Create empty lists to store all calculated left and right cutoffs
     left_list = []
     right_list = []
@@ -67,9 +71,9 @@ for x, (t, b, p, h, i, ti) in pbar(enumerate(get_traces_baseline())):
         blah = TVARIABLES()  
 
         # Run the DLL
-        dll_return = trace_Variables(trace_array, 52, len(trace), 25, bsl, byref(blah))
+        dll_return = trace_Variables(trace_array, 53, len(trace), 15, bsl, byref(blah))
         
-        # Add cutoffs  to respective list 
+        # Add cutoffs to respective list 
         left_list.append(blah.leftCutOff)
         right_list.append(blah.rightCutOff)
     
@@ -80,33 +84,16 @@ for x, (t, b, p, h, i, ti) in pbar(enumerate(get_traces_baseline())):
     # If the values do not match print all traces of the event to show whats
     # going on
     if not (data_length - 2 <= trace_length <= data_length + 2):
-        count_wrong_cutoff += 1
+        fo.write("trace length = " + str(trace_length) + "\t\tminimal left cutoff is = " + str(min(left_list)) + "\t\tmaximum right list = " + str(max(right_list)) + "\t\t" + str(timestamp) + "\n")
+        properties[str(timestamp)] = {"max right": int(max(right_list)),
+                                     "max left": int(min(left_list))}
+        count += 1
         
-        fo.write("*" + 160 * "-" + "*\n")
-        fo.write("trace length = " + str(trace_length) + ", minimal left cutoff is = " + str(min(left_list)) + ", maximum right list = " + str(max(right_list)) + "\n")
-        fo.write("*" + 160 * "-" + "*\n")
-        for left, right in zip(left_list, right_list):
-            fo.write(str(timestamp) +"\t" + str(bsl) + "\t\t" + str(n_peaks) + "\t" + str(blah.numberOfPeaks) + "\t\t" + str(pulseheight) + "\t\t" + str(blah.pulseHeight) + "\t\t" + str(integral) + "\t\t" + str(blah.pulseIntegral) + "\t\t" + str(left) + "\t\t" + str(right) + "\t\t" + str(trace_length) + "\n")
-    else:
-        count_matches += 1
-            
-    counter += 1
-        
-# Calculate percentages
-n_perc = (count_wrong_cutoff / counter) * 100
-m_perc = (count_matches / counter) * 100
-
-# Write stats and close file
-fo.write("\n*-----------------------------------------*\n")        
-fo.write("|            stats          |\n")
-fo.write("*-----------------------------------------*\n")
-fo.write("Total cutoff errors: " + str(count_wrong_cutoff) + "\n")
-fo.write("Total matches: " + str(count_matches) + "\n")
-fo.write("Total traces looked at: " + str(counter) + "\n")
-fo.write("Percentage of cutoff errors: " + str(n_perc) + "%\n")
-fo.write("Percentage of matches: " + str(m_perc) + "%\n")
 fo.close()
 
+with open('data2.json', mode='w') as f:
+    json.dump(properties, f, indent=2) 
+    
 exit()
         
         

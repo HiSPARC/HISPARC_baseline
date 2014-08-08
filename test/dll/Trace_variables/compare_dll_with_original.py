@@ -94,7 +94,9 @@ for x, (t, b, p, h, i, ti) in pbar(enumerate(get_traces_baseline())):
             properties[key] = {"n_peaks": int(n_peaks),
                                "pulseheights": int(pulseheight),
                                "integrals": int(integral),
-                               "baseline": int(bsl)}
+                               "baseline": int(bsl),
+                               "left_cutoff": int(blah.leftCutOff),
+                               "right_cutoff": int(blah.rightCutOff)}
             
             save_txt(timestamp, trace)
             fo.write(str(timestamp) +"\t" + str(bsl) + "\t\t" + str(n_peaks) + "\t" + str(blah.numberOfPeaks) + "\t\t" + str(pulseheight) + "\t\t" + str(blah.pulseHeight) + "\t\t" + str(integral) + "\t\t" + str(blah.pulseIntegral) + "\t\t" + str(blah.leftCutOff) + "\t\t" + str(blah.rightCutOff) + "\n")
