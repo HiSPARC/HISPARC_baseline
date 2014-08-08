@@ -4,8 +4,9 @@ from ctypes import *
 import json
 
 
-# The test data is from 04-08-2014, and the peak threshold was set to 26
+# The test data is from 04-08-2014 - station 501, and the peak threshold was set to 26
 PEAK_THRESHOLD = 26
+BASELINE_THRESHOLD = 25
 
 TEST_DIR_NAME = "test_data"
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), TEST_DIR_NAME)
@@ -53,13 +54,17 @@ class TraceVariablesTests(unittest.TestCase):
             n_peaks = self.verified[key]["n_peaks"]
             pulseheight = self.verified[key]["pulseheights"]
             integral = self.verified[key]["integrals"]
+            left_cutoff = self.verified[key]["left_cutoff"]
+            right_cutoff = self.verified[key]["right_cutoff"]
             
             # Run the DLL
-            dll_run = self.trace_variables(trace_array, PEAK_THRESHOLD, len(trace), 25, bsl, byref(calculated_variables))
+            dll_run = self.trace_variables(trace_array, PEAK_THRESHOLD, len(trace), BASELINE_THRESHOLD, bsl, byref(calculated_variables))
             
             self.assertEqual(calculated_variables.numberOfPeaks, n_peaks)
             self.assertEqual(calculated_variables.pulseHeight, pulseheight)
             self.assertEqual(calculated_variables.pulseIntegral, integral)
+            self.assertEqual(calculated_variables.leftCutOff, left_cutoff)
+            self.assertEqual(calculated_variables.rightCutOff, right_cutoff)
     
     def get_trace(self, ext_timestamp):
         filepath = os.path.join(TEST_DATA_DIR, ext_timestamp + ".csv")

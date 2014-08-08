@@ -1,602 +1,802 @@
 {
   "1407110556215056159": {
-    "pulseheights": 268, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2931
+    "left_cutoff": 376, 
+    "n_peaks": 1, 
+    "integrals": 2931, 
+    "pulseheights": 268, 
+    "right_cutoff": 449
   }, 
   "1407110429449203892": {
-    "pulseheights": 1257, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 16166
+    "left_cutoff": 506, 
+    "n_peaks": 1, 
+    "integrals": 16166, 
+    "pulseheights": 1257, 
+    "right_cutoff": 624
   }, 
   "1407110680053142955": {
-    "pulseheights": 245, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2163
+    "left_cutoff": 523, 
+    "n_peaks": 1, 
+    "integrals": 2163, 
+    "pulseheights": 245, 
+    "right_cutoff": 591
   }, 
   "1407110495153382937": {
-    "pulseheights": 1779, 
-    "n_peaks": 3, 
     "baseline": 195, 
-    "integrals": 25135
+    "left_cutoff": 375, 
+    "n_peaks": 3, 
+    "integrals": 25135, 
+    "pulseheights": 1779, 
+    "right_cutoff": 535
   }, 
   "1407110528947381398": {
-    "pulseheights": 515, 
-    "n_peaks": 1, 
     "baseline": 196, 
-    "integrals": 7051
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 7051, 
+    "pulseheights": 515, 
+    "right_cutoff": 453
   }, 
   "1407110437543144880": {
-    "pulseheights": 309, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3418
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 3418, 
+    "pulseheights": 309, 
+    "right_cutoff": 446
   }, 
   "1407110522182632180": {
-    "pulseheights": 385, 
-    "n_peaks": 2, 
     "baseline": 195, 
-    "integrals": 4105
+    "left_cutoff": 372, 
+    "n_peaks": 2, 
+    "integrals": 4105, 
+    "pulseheights": 385, 
+    "right_cutoff": 467
   }, 
   "1407110507009887823": {
-    "pulseheights": 615, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 8278
+    "left_cutoff": 366, 
+    "n_peaks": 1, 
+    "integrals": 8278, 
+    "pulseheights": 615, 
+    "right_cutoff": 545
   }, 
   "1407110445537843253": {
-    "pulseheights": 969, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 11807
+    "left_cutoff": 374, 
+    "n_peaks": 1, 
+    "integrals": 11807, 
+    "pulseheights": 969, 
+    "right_cutoff": 465
   }, 
   "1407110677237406286": {
-    "pulseheights": 349, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3548
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 3548, 
+    "pulseheights": 349, 
+    "right_cutoff": 455
   }, 
   "1407110644032491403": {
-    "pulseheights": 411, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 5190
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 5190, 
+    "pulseheights": 411, 
+    "right_cutoff": 467
   }, 
   "1407110528471285502": {
-    "pulseheights": 214, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2369
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 2369, 
+    "pulseheights": 214, 
+    "right_cutoff": 444
   }, 
   "1407110614108830497": {
-    "pulseheights": 1030, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 12477
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 12477, 
+    "pulseheights": 1030, 
+    "right_cutoff": 477
   }, 
   "1407110539601025615": {
-    "pulseheights": 352, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3173
+    "left_cutoff": 876, 
+    "n_peaks": 1, 
+    "integrals": 3173, 
+    "pulseheights": 352, 
+    "right_cutoff": 958
   }, 
   "1407110500877595034": {
-    "pulseheights": 316, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3492
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 3492, 
+    "pulseheights": 316, 
+    "right_cutoff": 444
   }, 
   "1407110566320011630": {
-    "pulseheights": 268, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2756
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 2756, 
+    "pulseheights": 268, 
+    "right_cutoff": 445
   }, 
   "1407110664720751205": {
-    "pulseheights": 313, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2810
+    "left_cutoff": 929, 
+    "n_peaks": 1, 
+    "integrals": 2810, 
+    "pulseheights": 313, 
+    "right_cutoff": 1009
   }, 
   "1407110603074281963": {
-    "pulseheights": 133, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 1532
+    "left_cutoff": 373, 
+    "n_peaks": 1, 
+    "integrals": 1532, 
+    "pulseheights": 133, 
+    "right_cutoff": 441
   }, 
   "1407110582494458918": {
-    "pulseheights": 211, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2301
+    "left_cutoff": 378, 
+    "n_peaks": 1, 
+    "integrals": 2301, 
+    "pulseheights": 211, 
+    "right_cutoff": 450
   }, 
   "1407110551350637471": {
-    "pulseheights": 279, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3736
+    "left_cutoff": 964, 
+    "n_peaks": 1, 
+    "integrals": 3736, 
+    "pulseheights": 279, 
+    "right_cutoff": 1039
   }, 
   "1407110503047137446": {
-    "pulseheights": 239, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2641
+    "left_cutoff": 373, 
+    "n_peaks": 1, 
+    "integrals": 2641, 
+    "pulseheights": 239, 
+    "right_cutoff": 446
   }, 
   "1407110416637955005": {
-    "pulseheights": 173, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 1865
+    "left_cutoff": 368, 
+    "n_peaks": 1, 
+    "integrals": 1865, 
+    "pulseheights": 173, 
+    "right_cutoff": 439
   }, 
   "1407110498277884224": {
-    "pulseheights": 243, 
-    "n_peaks": 1, 
     "baseline": 196, 
-    "integrals": 2192
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 2192, 
+    "pulseheights": 243, 
+    "right_cutoff": 441
   }, 
   "1407110621242661520": {
-    "pulseheights": 243, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2745
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 2745, 
+    "pulseheights": 243, 
+    "right_cutoff": 447
   }, 
   "1407110590898230884": {
-    "pulseheights": 330, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3451
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 3451, 
+    "pulseheights": 330, 
+    "right_cutoff": 444
   }, 
   "1407110444941857209": {
-    "pulseheights": 213, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2432
+    "left_cutoff": 718, 
+    "n_peaks": 1, 
+    "integrals": 2432, 
+    "pulseheights": 213, 
+    "right_cutoff": 790
   }, 
   "1407110611385568162": {
-    "pulseheights": 288, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2870
+    "left_cutoff": 388, 
+    "n_peaks": 1, 
+    "integrals": 2870, 
+    "pulseheights": 288, 
+    "right_cutoff": 459
   }, 
   "1407110478337268908": {
-    "pulseheights": 285, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3065
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 3065, 
+    "pulseheights": 285, 
+    "right_cutoff": 453
   }, 
   "1407110448059026776": {
-    "pulseheights": 1206, 
-    "n_peaks": 1, 
     "baseline": 194, 
-    "integrals": 15465
+    "left_cutoff": 373, 
+    "n_peaks": 1, 
+    "integrals": 15465, 
+    "pulseheights": 1206, 
+    "right_cutoff": 489
   }, 
   "1407110569406679859": {
-    "pulseheights": 166, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 1394
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 1394, 
+    "pulseheights": 166, 
+    "right_cutoff": 439
   }, 
   "1407110532505436894": {
-    "pulseheights": 145, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 1453
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 1453, 
+    "pulseheights": 145, 
+    "right_cutoff": 440
   }, 
   "1407110529461308246": {
-    "pulseheights": 202, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2601
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 2601, 
+    "pulseheights": 202, 
+    "right_cutoff": 447
   }, 
   "1407110454585448329": {
-    "pulseheights": 237, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2432
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 2432, 
+    "pulseheights": 237, 
+    "right_cutoff": 447
   }, 
   "1407110465953462559": {
-    "pulseheights": 359, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 5073
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 5073, 
+    "pulseheights": 359, 
+    "right_cutoff": 455
   }, 
   "1407110458893671083": {
-    "pulseheights": 176, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2067
+    "left_cutoff": 378, 
+    "n_peaks": 1, 
+    "integrals": 2067, 
+    "pulseheights": 176, 
+    "right_cutoff": 449
   }, 
   "1407110434017193636": {
-    "pulseheights": 370, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 4207
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 4207, 
+    "pulseheights": 370, 
+    "right_cutoff": 457
   }, 
   "1407110664628671219": {
-    "pulseheights": 846, 
-    "n_peaks": 1, 
     "baseline": 196, 
-    "integrals": 14206
+    "left_cutoff": 373, 
+    "n_peaks": 1, 
+    "integrals": 14206, 
+    "pulseheights": 846, 
+    "right_cutoff": 489
   }, 
   "1407110612504342125": {
-    "pulseheights": 260, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2346
+    "left_cutoff": 604, 
+    "n_peaks": 1, 
+    "integrals": 2346, 
+    "pulseheights": 260, 
+    "right_cutoff": 677
   }, 
   "1407110625338216909": {
-    "pulseheights": 278, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2932
+    "left_cutoff": 900, 
+    "n_peaks": 1, 
+    "integrals": 2932, 
+    "pulseheights": 278, 
+    "right_cutoff": 975
   }, 
   "1407110694586284287": {
-    "pulseheights": 223, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2443
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 2443, 
+    "pulseheights": 223, 
+    "right_cutoff": 444
   }, 
   "1407110462493883036": {
-    "pulseheights": 236, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3157
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 3157, 
+    "pulseheights": 236, 
+    "right_cutoff": 455
   }, 
   "1407110497179063442": {
-    "pulseheights": 2035, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 30832
+    "left_cutoff": 374, 
+    "n_peaks": 1, 
+    "integrals": 30832, 
+    "pulseheights": 2035, 
+    "right_cutoff": 535
   }, 
   "1407110604218411279": {
-    "pulseheights": 265, 
-    "n_peaks": 1, 
     "baseline": 196, 
-    "integrals": 2815
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 2815, 
+    "pulseheights": 265, 
+    "right_cutoff": 448
   }, 
   "1407110572837774451": {
-    "pulseheights": 241, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2676
+    "left_cutoff": 814, 
+    "n_peaks": 1, 
+    "integrals": 2676, 
+    "pulseheights": 241, 
+    "right_cutoff": 886
   }, 
   "1407110460625467210": {
-    "pulseheights": 1378, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 17903
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 17903, 
+    "pulseheights": 1378, 
+    "right_cutoff": 493
   }, 
   "1407110495663873671": {
-    "pulseheights": 180, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2116
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 2116, 
+    "pulseheights": 180, 
+    "right_cutoff": 445
   }, 
   "1407110547061519822": {
-    "pulseheights": 393, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 4395
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 4395, 
+    "pulseheights": 393, 
+    "right_cutoff": 447
   }, 
   "1407110661077787803": {
-    "pulseheights": 2115, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 31139
+    "left_cutoff": 374, 
+    "n_peaks": 1, 
+    "integrals": 31139, 
+    "pulseheights": 2115, 
+    "right_cutoff": 537
   }, 
   "1407110430253890692": {
-    "pulseheights": 983, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 11577
+    "left_cutoff": 383, 
+    "n_peaks": 1, 
+    "integrals": 11577, 
+    "pulseheights": 983, 
+    "right_cutoff": 485
   }, 
   "1407110505092250918": {
-    "pulseheights": 351, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 4239
+    "left_cutoff": 375, 
+    "n_peaks": 1, 
+    "integrals": 4239, 
+    "pulseheights": 351, 
+    "right_cutoff": 452
   }, 
   "1407110653102728972": {
-    "pulseheights": 40, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 143
+    "left_cutoff": 724, 
+    "n_peaks": 1, 
+    "integrals": 143, 
+    "pulseheights": 40, 
+    "right_cutoff": 778
   }, 
   "1407110445350197594": {
-    "pulseheights": 234, 
-    "n_peaks": 1, 
     "baseline": 194, 
-    "integrals": 1945
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 1945, 
+    "pulseheights": 234, 
+    "right_cutoff": 440
   }, 
   "1407110477066675085": {
-    "pulseheights": 518, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 6253
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 6253, 
+    "pulseheights": 518, 
+    "right_cutoff": 481
   }, 
   "1407110580531883524": {
-    "pulseheights": 277, 
-    "n_peaks": 2, 
     "baseline": 195, 
-    "integrals": 2609
+    "left_cutoff": 371, 
+    "n_peaks": 2, 
+    "integrals": 2609, 
+    "pulseheights": 277, 
+    "right_cutoff": 542
   }, 
   "1407110497747984661": {
-    "pulseheights": 195, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2689
+    "left_cutoff": 374, 
+    "n_peaks": 1, 
+    "integrals": 2689, 
+    "pulseheights": 195, 
+    "right_cutoff": 453
   }, 
   "1407110689298351544": {
-    "pulseheights": 343, 
-    "n_peaks": 1, 
     "baseline": 196, 
-    "integrals": 3631
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 3631, 
+    "pulseheights": 343, 
+    "right_cutoff": 461
   }, 
   "1407110453838036193": {
-    "pulseheights": 1363, 
-    "n_peaks": 3, 
     "baseline": 195, 
-    "integrals": 25794
+    "left_cutoff": 378, 
+    "n_peaks": 3, 
+    "integrals": 25794, 
+    "pulseheights": 1363, 
+    "right_cutoff": 539
   }, 
   "1407110584082721859": {
-    "pulseheights": 226, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3122
+    "left_cutoff": 373, 
+    "n_peaks": 1, 
+    "integrals": 3122, 
+    "pulseheights": 226, 
+    "right_cutoff": 445
   }, 
   "1407110420324853393": {
-    "pulseheights": 319, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3161
+    "left_cutoff": 374, 
+    "n_peaks": 1, 
+    "integrals": 3161, 
+    "pulseheights": 319, 
+    "right_cutoff": 447
   }, 
   "1407110674953009583": {
-    "pulseheights": 225, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2627
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 2627, 
+    "pulseheights": 225, 
+    "right_cutoff": 447
   }, 
   "1407110593233851425": {
-    "pulseheights": 497, 
-    "n_peaks": 2, 
     "baseline": 195, 
-    "integrals": 6252
+    "left_cutoff": 372, 
+    "n_peaks": 2, 
+    "integrals": 6252, 
+    "pulseheights": 497, 
+    "right_cutoff": 457
   }, 
   "1407110601884142872": {
-    "pulseheights": 512, 
-    "n_peaks": 1, 
     "baseline": 194, 
-    "integrals": 6703
+    "left_cutoff": 373, 
+    "n_peaks": 1, 
+    "integrals": 6703, 
+    "pulseheights": 512, 
+    "right_cutoff": 473
   }, 
   "1407110652462911198": {
-    "pulseheights": 281, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2324
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 2324, 
+    "pulseheights": 281, 
+    "right_cutoff": 447
   }, 
   "1407110514291141625": {
-    "pulseheights": 195, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2226
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 2226, 
+    "pulseheights": 195, 
+    "right_cutoff": 441
   }, 
   "1407110586546339088": {
-    "pulseheights": 46, 
-    "n_peaks": 1, 
     "baseline": 196, 
-    "integrals": 433
+    "left_cutoff": 375, 
+    "n_peaks": 1, 
+    "integrals": 433, 
+    "pulseheights": 46, 
+    "right_cutoff": 437
   }, 
   "1407110476943599268": {
-    "pulseheights": 385, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 4508
+    "left_cutoff": 375, 
+    "n_peaks": 1, 
+    "integrals": 4508, 
+    "pulseheights": 385, 
+    "right_cutoff": 449
   }, 
   "1407110506241139144": {
-    "pulseheights": 376, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 4967
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 4967, 
+    "pulseheights": 376, 
+    "right_cutoff": 469
   }, 
   "1407110480371786699": {
-    "pulseheights": 275, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2634
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 2634, 
+    "pulseheights": 275, 
+    "right_cutoff": 443
   }, 
   "1407110700104838538": {
-    "pulseheights": 350, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3960
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 3960, 
+    "pulseheights": 350, 
+    "right_cutoff": 452
   }, 
   "1407110547494135748": {
-    "pulseheights": 248, 
-    "n_peaks": 1, 
     "baseline": 196, 
-    "integrals": 2448
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 2448, 
+    "pulseheights": 248, 
+    "right_cutoff": 446
   }, 
   "1407110546227575892": {
-    "pulseheights": 680, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 8549
+    "left_cutoff": 375, 
+    "n_peaks": 1, 
+    "integrals": 8549, 
+    "pulseheights": 680, 
+    "right_cutoff": 469
   }, 
   "1407110648651992602": {
-    "pulseheights": 371, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 4104
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 4104, 
+    "pulseheights": 371, 
+    "right_cutoff": 451
   }, 
   "1407110608058370655": {
-    "pulseheights": 246, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2857
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 2857, 
+    "pulseheights": 246, 
+    "right_cutoff": 446
   }, 
   "1407110550316125986": {
-    "pulseheights": 722, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 9220
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 9220, 
+    "pulseheights": 722, 
+    "right_cutoff": 476
   }, 
   "1407110433538793932": {
-    "pulseheights": 299, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2845
+    "left_cutoff": 824, 
+    "n_peaks": 1, 
+    "integrals": 2845, 
+    "pulseheights": 299, 
+    "right_cutoff": 901
   }, 
   "1407110650059774856": {
-    "pulseheights": 261, 
-    "n_peaks": 3, 
     "baseline": 195, 
-    "integrals": 5190
+    "left_cutoff": 371, 
+    "n_peaks": 3, 
+    "integrals": 5190, 
+    "pulseheights": 261, 
+    "right_cutoff": 469
   }, 
   "1407110569203391640": {
-    "pulseheights": 343, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3236
+    "left_cutoff": 380, 
+    "n_peaks": 1, 
+    "integrals": 3236, 
+    "pulseheights": 343, 
+    "right_cutoff": 454
   }, 
   "1407110629663687871": {
-    "pulseheights": 283, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3043
+    "left_cutoff": 480, 
+    "n_peaks": 1, 
+    "integrals": 3043, 
+    "pulseheights": 283, 
+    "right_cutoff": 573
   }, 
   "1407110524658642004": {
-    "pulseheights": 206, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 1957
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 1957, 
+    "pulseheights": 206, 
+    "right_cutoff": 442
   }, 
   "1407110550314657733": {
-    "pulseheights": 366, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3448
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 3448, 
+    "pulseheights": 366, 
+    "right_cutoff": 443
   }, 
   "1407110420296100257": {
-    "pulseheights": 294, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3335
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 3335, 
+    "pulseheights": 294, 
+    "right_cutoff": 447
   }, 
   "1407110651556955679": {
-    "pulseheights": 412, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 5297
+    "left_cutoff": 970, 
+    "n_peaks": 1, 
+    "integrals": 5297, 
+    "pulseheights": 412, 
+    "right_cutoff": 1057
   }, 
   "1407110527150153689": {
-    "pulseheights": 224, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2577
+    "left_cutoff": 388, 
+    "n_peaks": 1, 
+    "integrals": 2577, 
+    "pulseheights": 224, 
+    "right_cutoff": 460
   }, 
   "1407110533086282137": {
-    "pulseheights": 191, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 1827
+    "left_cutoff": 375, 
+    "n_peaks": 1, 
+    "integrals": 1827, 
+    "pulseheights": 191, 
+    "right_cutoff": 449
   }, 
   "1407110626265634462": {
-    "pulseheights": 602, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 10150
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 10150, 
+    "pulseheights": 602, 
+    "right_cutoff": 478
   }, 
   "1407110553696880067": {
-    "pulseheights": 503, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 6077
+    "left_cutoff": 376, 
+    "n_peaks": 1, 
+    "integrals": 6077, 
+    "pulseheights": 503, 
+    "right_cutoff": 466
   }, 
   "1407110416616262374": {
-    "pulseheights": 489, 
-    "n_peaks": 1, 
     "baseline": 194, 
-    "integrals": 5589
+    "left_cutoff": 373, 
+    "n_peaks": 1, 
+    "integrals": 5589, 
+    "pulseheights": 489, 
+    "right_cutoff": 457
   }, 
   "1407110656162144233": {
-    "pulseheights": 336, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3225
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 3225, 
+    "pulseheights": 336, 
+    "right_cutoff": 445
   }, 
   "1407110512859929750": {
-    "pulseheights": 621, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 6062
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 6062, 
+    "pulseheights": 621, 
+    "right_cutoff": 453
   }, 
   "1407110668423391766": {
-    "pulseheights": 306, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3698
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 3698, 
+    "pulseheights": 306, 
+    "right_cutoff": 455
   }, 
   "1407110581686510293": {
-    "pulseheights": 241, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2407
+    "left_cutoff": 374, 
+    "n_peaks": 1, 
+    "integrals": 2407, 
+    "pulseheights": 241, 
+    "right_cutoff": 444
   }, 
   "1407110635907851351": {
-    "pulseheights": 152, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 1787
+    "left_cutoff": 417, 
+    "n_peaks": 1, 
+    "integrals": 1787, 
+    "pulseheights": 152, 
+    "right_cutoff": 491
   }, 
   "1407110426813160786": {
-    "pulseheights": 392, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 4387
+    "left_cutoff": 373, 
+    "n_peaks": 1, 
+    "integrals": 4387, 
+    "pulseheights": 392, 
+    "right_cutoff": 455
   }, 
   "1407110601738436698": {
-    "pulseheights": 320, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3517
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 3517, 
+    "pulseheights": 320, 
+    "right_cutoff": 445
   }, 
   "1407110650535275716": {
-    "pulseheights": 386, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3949
+    "left_cutoff": 807, 
+    "n_peaks": 1, 
+    "integrals": 3949, 
+    "pulseheights": 386, 
+    "right_cutoff": 887
   }, 
   "1407110644662451995": {
-    "pulseheights": 246, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2551
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 2551, 
+    "pulseheights": 246, 
+    "right_cutoff": 443
   }, 
   "1407110517437399625": {
-    "pulseheights": 266, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2982
+    "left_cutoff": 439, 
+    "n_peaks": 1, 
+    "integrals": 2982, 
+    "pulseheights": 266, 
+    "right_cutoff": 513
   }, 
   "1407110626761324762": {
-    "pulseheights": 389, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 3595
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 3595, 
+    "pulseheights": 389, 
+    "right_cutoff": 447
   }, 
   "1407110411264480031": {
-    "pulseheights": 270, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 2634
+    "left_cutoff": 371, 
+    "n_peaks": 1, 
+    "integrals": 2634, 
+    "pulseheights": 270, 
+    "right_cutoff": 444
   }, 
   "1407110508045366237": {
-    "pulseheights": 563, 
-    "n_peaks": 1, 
     "baseline": 195, 
-    "integrals": 5854
+    "left_cutoff": 372, 
+    "n_peaks": 1, 
+    "integrals": 5854, 
+    "pulseheights": 563, 
+    "right_cutoff": 455
   }
 }
