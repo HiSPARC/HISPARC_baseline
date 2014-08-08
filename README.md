@@ -27,6 +27,6 @@ The implementation
 	  yet).
 - [x] Create subVI from `library function node` to include documentation from within LABVIEW
 - [x] Create Trace Variables vi which calculates all trace variables
-- [ ] Build python test module to store all tests in one place and allow for easy testing
-- [ ] Remove src folder from this repo because src and Dll have diverged to much
+- [x] Build python test module to store all tests in one place and allow for easy testing
+- [x] Remove src folder from this repo because src and Dll have diverged to much
 - [ ] Create gh-pages documentation describing how the DLL works and how it is maintained
