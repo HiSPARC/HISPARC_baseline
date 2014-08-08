@@ -26,7 +26,8 @@ class TVARIABLES(Structure):
 class TraceVariablesTests(unittest.TestCase):
     def setUp(self):
         # Load verified data as JSON object
-        with open('data.json') as data:
+        json_file = os.path.join(os.path.dirname(__file__), 'data.json')
+        with open(json_file) as data:
             self.verified = json.load(data)
         
         # Import DLL and get traceVariables function
