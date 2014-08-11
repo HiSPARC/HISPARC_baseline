@@ -35,7 +35,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'HiSPARC DLL'
+project = u'HiSPARC Baseline DLL'
 copyright = u'2014, HiSPARC'
 
 # The version info for the project you're documenting, acts as replacement for
