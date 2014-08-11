@@ -1,0 +1,1 @@
+Search.setIndex({envversion:42,terms:{dit:0,hallo:0,text:0},objtypes:{},objnames:{},filenames:["index"],titles:["Baseline DAQ documentation!"],objects:{},titleterms:{document:0,daq:0,baselin:0}})
