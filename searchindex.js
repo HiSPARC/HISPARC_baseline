@@ -1,0 +1,1 @@
+Search.setIndex({envversion:42,terms:{all:0,code:0,from:0,trace:0,directli:0,hisparc:0,within:0,properti:0,written:0,labview:0,calcul:0,call:0,daq:0,contain:0,differ:0,where:0,librari:0},objtypes:{},objnames:{},filenames:["index"],titles:["Baseline DLL documentation"],objects:{},titleterms:{document:0,baselin:0,dll:0}})
