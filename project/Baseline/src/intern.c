@@ -151,11 +151,11 @@ int32_t minimalInBaseline, int16_t *Baseline, int16_t *Stdev)
 	if (((i - 1) - start) >= minimalInBaseline)
 	{
 		// Return -1 means everthing went ok and we've found a baseline 
-		*Baseline = (int16_t)round(average);
+		*Baseline = (int16_t)nearbyint(average);
 
 		// Make sure value of baseline not higher than around threshold + 
 		// baseline
-		if (*Baseline > 220)
+		if (*Baseline > MAXAVERAGE)
 		{
 			setErrorValues(Baseline, Stdev);
 			return (-5004);
@@ -164,7 +164,7 @@ int32_t minimalInBaseline, int16_t *Baseline, int16_t *Stdev)
 		// In order to comply with the old baseline filter return
 		// stdev times 1000
 		double miliStdev = stdev(start, (i - 1), array, average, size);
-		*Stdev = (int16_t)round(miliStdev * 1000);
+		*Stdev = (int16_t)nearbyint(miliStdev * 1000);
 
 		return (-1);
 	}

@@ -24,7 +24,7 @@
 #define _SEQUENCE_H
 
 #define STDEVLIMIT 4
-#define MAXAVERAGE 245
+#define MAXAVERAGE 220
 #define SEQUENCEWIDTH 100
 
 // Declare struct to hold sequence properties
